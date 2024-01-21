@@ -4,7 +4,7 @@ This module contains all the necessary logic for spreezy frontend application.
 
 ## Details
 
-- BitBucket - [Spreezy Frontend REPO](https://bitbucket.org/sarthak_tg/spreezy-frontend/src/develop/)
+- Github - [Spreezy Frontend REPO](https://github.com/spreezy-tech/spreezy-frontend/tree/develop/)
 - CI/CD - [Spreezy Build Pipeline]()
 
 ## Components Required
@@ -18,7 +18,7 @@ This module contains all the necessary logic for spreezy frontend application.
 - **XCode** : Yet to setup and test builds for iOS app.
 - **Git** : to commit and push changes to Bitbucket.
 - **Visual Studio Code** : for code development.
-- **Spreezy Docs** : Required documentation to update or resolve any issues. [[Spreezy Documentation]](https://www.notion.so/416a618e516b4380afe0962d06f336d5?v=333bb73c38a54d63a5eb31b8d391f4db)
+- **Spreezy Docs** : Required documentation to update or resolve any issues. [[Spreezy Documentation]]()
 
 ## How do I get set up?
 
@@ -30,7 +30,7 @@ This module contains all the necessary logic for spreezy frontend application.
   - Tailwind CSS Intellisense - to view tailwind css utility classes.
   - ESLint - for code linting and modifications.
 - Download and setup Angular (v16), NPM (latest), Node.js (v20).
-- Clone this repository using <br/>`git clone git@bitbucket.org:sarthak_tg/spreezy-frontend.git`
+- Clone this repository using <br/>`git clone -b develop https://github.com/spreezy-tech/spreezy-frontend.git`
 - Run `npm install` in root directory of project, which will download required dependencies from package.json file present inside it.
 
 ### **Configuration :-**
@@ -93,7 +93,7 @@ This module contains all the necessary logic for spreezy frontend application.
   - Test report needs to be attached to the PR.
 
 - Other guidelines
-  - Any new changes need to be appropriately documented within the README.md file or in [Spreezy Documentation](https://www.notion.so/416a618e516b4380afe0962d06f336d5?v=333bb73c38a54d63a5eb31b8d391f4db)
+  - Any new changes need to be appropriately documented within the README.md file or in [Spreezy Documentation]()
 
 ## Who do I talk to?
 
