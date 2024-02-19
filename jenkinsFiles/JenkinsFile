@@ -25,11 +25,7 @@ pipeline {
 
 
     stages {
-        stage('Generate APK'){
-            steps{
-                sh 'npx cap add android && npx cap add ios'
-            }
-        }
+
 
         stage('Clone Repository'){
             steps {
@@ -83,6 +79,11 @@ pipeline {
                 sh 'npm run build'
             }
         }
+        stage('Generate APK'){
+            steps{
+                sh 'npx cap add android'
+            }
+        }
     }
     
         post{
@@ -96,6 +97,6 @@ pipeline {
 
 
 
-    }
+
     
 
