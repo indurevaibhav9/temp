@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .vscode
 .angular
 .npmrc
@@ -7,3 +8,11 @@ android
 ios
 dist
 coverage
+=======
+/node_modules
+/.angular
+
+/android
+/ios
+/cypress
+>>>>>>> b4d8834 (Update .gitignore)
