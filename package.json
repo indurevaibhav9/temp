@@ -1,6 +1,9 @@
 {
-  "name": "Spreezy",
+  "name": "spreezy",
   "version": "0.0.0",
+  "files":[
+    "apk-releases"
+  ],
   "scripts": {
     "ng": "ng",
     "start": "ng serve --configuration development",
@@ -12,7 +15,9 @@
     "resources": "capacitor-resources -p android,ios && node resources.js",
     "apk-debug": "cd android && ./gradlew assembleDebug && cd .."
   },
-  "private": true,
+  "publishConfig":{
+    "registry":"https://nexus.spreezy.in/repository/npm-hosted/"
+  },
   "dependencies": {
     "@angular/animations": "^16.2.4",
     "@angular/cdk": "^16.2.3",
