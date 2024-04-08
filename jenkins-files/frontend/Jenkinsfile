@@ -1,9 +1,9 @@
-
 pipeline 
 { 
         agent {
         docker {
              image 'cypress/base:18.16.0'
+            // args '-v /var/run/docker.sock:/var/run/docker.sock'
         }
     }
 
@@ -33,12 +33,16 @@ pipeline
             }
         }
         
-        stage('Install All Dependencies'){
+
+        stage('Nexus Setup And Install All Dependencies'){
             steps{
-                sh 'npm install'
+                
+                withCredentials([file(credentialsId: 'nexus_npm_credentials', variable: 'npm_nexus_credentials')]) {
+                 sh "npm install --userconfig ${npm_nexus_credentials} --registry https://nexus.spreezy.in/repository/npm-group/ --loglevel verbose"
+                }
             }
         }
-
+        
         stage('Run Tests') {
             steps {
             sh 'npm start &'
@@ -54,6 +58,7 @@ pipeline
             }
         }
 
+
         stage('Build Project') {
             steps {
                 sh 'npm run build-prod'
@@ -68,7 +73,18 @@ pipeline
               sh 'npm run apk-debug'
             }
         }
+        
+        stage('Publish APK on Nexus Repo  '){
+            steps{
+                sh 'mkdir apk-releases'
+                sh 'cp -r  ./android/app/build/outputs/apk/* ./apk-releases/'
+                withCredentials([file(credentialsId: 'nexus_npm_credentials', variable: 'npm_nexus_credentials')]) {
+                 sh "npm publish --userconfig ${npm_nexus_credentials} --loglevel verbose"
+                }
 
+            }
+        }
+        
         stage('Notify  Build Success '){
             steps{
                 echo "Build completed successfully"
@@ -88,12 +104,17 @@ pipeline
             }
         }
 
+        
+
+
     }
-    post{
+     
+  post{
         always{
             slackSend channel: 'devops-jenkins-updates', message: "Please find status of pipeline here Status - ${currentBuild.currentResult}  ${env.JOB_NAME}   Build Number ${env.BUILD_NUMBER}  URL ${env.BUILD_URL}"   
             //clean workspace after every build
             cleanWs()
         }
     }
+
 }
