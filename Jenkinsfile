@@ -53,7 +53,7 @@ pipeline
 
             // Run Cypress tests
             sh 'NO_COLOR=1 npm run test'
-            sh 'npm run test:coverage'
+            sh 'NO_COLOR=1 npm run test:coverage'
 
 
             sh 'pkill -f "npm start"'
@@ -115,9 +115,15 @@ pipeline
      
   post{
         always{
+<<<<<<< HEAD
             // publishHTML(target: [allowMissing: false, alwaysLinkToLastBuild: false, keepAll: true, reportDir: 'coverage/lcov-report', reportFiles: 'index.html', reportName: 'Code Coverage Report'])
 
             // slackSend channel: 'devops-jenkins-updates', message: "Please find status of pipeline here Status - ${currentBuild.currentResult}  ${env.JOB_NAME}   Build Number ${env.BUILD_NUMBER}  URL ${env.BUILD_URL}"   
+=======
+            publishHTML(target: [allowMissing: false, alwaysLinkToLastBuild: false, keepAll: true, reportDir: 'coverage/lcov-report', reportFiles: 'index.html', reportName: 'Code Coverage Report'])
+
+            slackSend channel: 'devops-jenkins-updates', message: "Please find status of pipeline here Status - ${currentBuild.currentResult}  ${env.JOB_NAME}   Build Number ${env.BUILD_NUMBER}  URL ${env.BUILD_URL}"   
+>>>>>>> 0448897 (Update Jenkinsfile)
             //clean workspace after every build
             cleanWs()
         }
