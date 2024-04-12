@@ -12,8 +12,8 @@
     "build-prod": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "jest",
-    "test:coverage":"jest --coverage",
-    "test:watch":"jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:watch": "jest --watch",
     "resources": "capacitor-resources -p android,ios && node resources.js",
     "apk-debug": "cd android && ./gradlew assembleDebug && cd .."
   },
@@ -58,20 +58,19 @@
     "typescript": "~4.9.4"
   },
   "jest": {
-
     "preset": "jest-preset-angular",
     "setupFilesAfterEnv": [
-    "<rootDir>/src/setup.jest.ts"
+      "<rootDir>/src/setup.jest.ts"
     ],
     "testPathIgnorePatterns": [
-    "<rootDir>/node_modules/",
-    "<rootDir>/dist/"
+      "<rootDir>/node_modules/",
+      "<rootDir>/dist/"
     ],
     "globals": {
-    "ts-jest": {
-    "tsConfig": "<rootDir>/tsconfig.spec.json",
-    "stringifyContentPathRegex": "\\.html$"
-    }
+      "ts-jest": {
+        "tsConfig": "<rootDir>/tsconfig.spec.json",
+        "stringifyContentPathRegex": "\\.html$"
+      }
     }
   }
 }

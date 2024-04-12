@@ -4,3 +4,6 @@ node_modules
 android
 ios
 dist
+coverage
+package-lock.json
+.npmrc
