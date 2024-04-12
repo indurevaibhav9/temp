@@ -7,3 +7,8 @@ android
 ios
 dist
 coverage
+<<<<<<< HEAD
+=======
+package-lock.json
+.npmrc
+>>>>>>> ccc859f (Basic Changes Regarding Format  Done)
