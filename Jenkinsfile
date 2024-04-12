@@ -3,7 +3,6 @@ pipeline
         agent {
         docker {
              image 'cypress/base:18.16.0'
-            // args '-v /var/run/docker.sock:/var/run/docker.sock'
         }
     }
 
@@ -43,7 +42,9 @@ pipeline
             }
         }
         
-        stage('Run Tests') {
+
+        
+        stage('Run Tests'){
             steps {
             sh 'npm start &'
 
@@ -51,7 +52,9 @@ pipeline
             sh 'npx wait-on http://localhost:4200'
 
             // Run Cypress tests
-            sh 'NO_COLOR=1 npx cypress run'
+            sh 'npm run test'
+            sh 'npm run test:coverage'
+
 
             sh 'pkill -f "npm start"'
 
@@ -79,7 +82,8 @@ pipeline
                 sh 'mkdir apk-releases'
                 sh 'cp -r  ./android/app/build/outputs/apk/* ./apk-releases/'
                 withCredentials([file(credentialsId: 'nexus_npm_credentials', variable: 'npm_nexus_credentials')]) {
-                 sh "npm publish --userconfig ${npm_nexus_credentials} --loglevel verbose"
+                 sh "npm publish --userconfig ${npm_nexus_credentials} --registry https://nexus.spreezy.in/repository/npm-hosted/ --loglevel verbose"
+
                 }
 
             }
@@ -111,6 +115,8 @@ pipeline
      
   post{
         always{
+            publishHTML(target: [allowMissing: false, alwaysLinkToLastBuild: false, keepAll: true, reportDir: 'coverage/lcov-report', reportFiles: 'index.html', reportName: 'Code Coverage Report'])
+
             slackSend channel: 'devops-jenkins-updates', message: "Please find status of pipeline here Status - ${currentBuild.currentResult}  ${env.JOB_NAME}   Build Number ${env.BUILD_NUMBER}  URL ${env.BUILD_URL}"   
             //clean workspace after every build
             cleanWs()
