@@ -19,13 +19,7 @@ const routes: Routes = [
     loadChildren: () =>
       import("./screens/home/home.module").then((module) => module.HomeModule),
   },
-  {
-    path: "register",
-    loadChildren: () =>
-      import("./screens/register/register.module").then(
-        (module) => module.RegisterModule
-      ),
-  },
+  
 ];
 
 @NgModule({

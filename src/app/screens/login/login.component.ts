@@ -21,10 +21,10 @@ export class LoginComponent {
 
   form: FormGroup = new FormGroup({
     email: new FormControl("", [Validators.required, Validators.email]),
-    password: new FormControl("", [
+    phonenumber: new FormControl("", [
       Validators.required,
-      Validators.minLength(6),
-      Validators.maxLength(20),
+      Validators.minLength(10),
+      Validators.maxLength(10),
     ]),
   });
   submitted = false;
@@ -45,8 +45,8 @@ export class LoginComponent {
       return;
     }
 
-    this.credentials.email = this.form.value.email;
-    this.credentials.password = this.form.value.password;
+    
+    
     this.authService.login(this.credentials);
   }
 
@@ -54,10 +54,7 @@ export class LoginComponent {
     this.authService.signInWithGoogle();
   }
 
-  viewPassword() {
-    this.showPassword = !this.showPassword;
-    this.toggleIcon();
-  }
+  
 
   toggleIcon() {
     this.icon === "ionEyeOff"

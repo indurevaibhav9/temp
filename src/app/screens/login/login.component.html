@@ -1,3 +1,11 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Page Title</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
 <div class="bg-white">
   <div class="flex justify-center">
     <div class="logo mt-5 w-40 h-40">
@@ -16,86 +24,50 @@
     <div class="login-form w-80">
       <div class="form-group email">
         <label
-          class="form-label font-secondary text-primary-0"
-          for="email-input"
-          >Email address :</label
+        class="form-label text-black font-regular text-3xl font-roboto"
+          
+          >Sign in </label
         >
-        <input
-          id="email-input"
-          class="form-control input input-primary max-w-full"
-          placeholder="Enter your email address"
-          type="email"
-          formControlName="email"
-        />
-        <span
-          class="font-secondary text-primary-0 text-sm ml-3"
-          *ngIf="form.controls['email'].hasError('required') && submitted"
-        >
-          Email is required.
-        </span>
-        <span
-          class="font-secondary text-primary-0 text-sm ml-3"
-          *ngIf="form.controls['email'].hasError('email') && submitted"
-        >
-          Please provide a valid email.
-        </span>
       </div>
-      <div class="form-group password relative mt-5">
+      <div class="form-group phonenumber relative mt-5">
         <label
-          class="form-label font-secondary text-primary-0"
-          for="password-input"
-          >Password :</label
+          class="form-label font-roboto color-black"
+         
+          >Enter your Registered Mobile number </label
         >
         <input
-          id="password-input"
-          type="{{ showPassword === false ? 'password' : 'text' }}"
+          id="phonenumber-input"
+         
           class="form-control input input-primary max-w-full"
-          placeholder="Enter your password"
-          formControlName="password"
+          placeholder="+91 Enter number"
+          formControlName="phonenumber"
         />
         <span
-          class="font-secondary text-primary-0 text-sm ml-3"
-          *ngIf="form.controls['password'].hasError('required') && submitted"
-          >Password is required.</span
+          class="font-roboto text-primary-0 text-sm ml-3"
+          *ngIf="form.controls['phonenumber'].hasError('required') && submitted"
+          >Number is required.</span
         >
         <span
-          class="font-secondary text-primary-0 text-sm ml-3"
-          *ngIf="form.controls['password'].hasError('minlength') && submitted"
-          >Password too short.</span
+          class="font-roboto text-primary-0 text-sm ml-3"
+          *ngIf="form.controls['phonenumber'].hasError('minlength') && submitted"
+          >Enter a valid number.</span
         >
         <span
-          class="font-secondary text-primary-0 text-sm ml-3"
-          *ngIf="form.controls['password'].hasError('maxlength') && submitted"
-          >Password too long.</span
+          class="font-roboto text-primary-0 text-sm ml-3"
+          *ngIf="form.controls['phonenumber'].hasError('maxlength') && submitted"
+          >Enter a valid number.</span
         >
-        <div class="absolute right-5 top-11">
-          <ng-icon name="{{ icon }}" (click)="viewPassword()"></ng-icon>
-        </div>
+        
       </div>
-      <div class="forget-password mt-2">
-        <a
-          routerLink="/forgetPassword"
-          routerLinkActive="active"
-          class="text-sm flex justify-end font-secondary text-primary-0"
-          >Forgot Password?</a
-        >
-      </div>
+     
       <div class="buttons flex justify-center mt-5">
         <button
           type=""
-          class="btn btn-primary btn-md font-secondary w-40 mr-10"
+          class="btn btn-primary btn-md font-roboto w-80 "
         >
-          Login
+          SIGN IN
         </button>
-        <button
-          type=""
-          class="btn btn-primary btn-md font-secondary w-40"
-          routerLink="/register"
-          routerLinkActive="active"
-          a
-        >
-          Sign Up
-        </button>
+        
       </div>
 
       <div class="divider divider-horizontal">OR</div>
@@ -103,7 +75,7 @@
       <div class="sso-login flex justify-center mt-5">
         <button
           type="button"
-          class="btn gap-2 bg-blue-50 w-72"
+          class="btn gap-2 bg-white w-80 border border-orange-600"
           (click)="signInWithGoogle()"
         >
           <svg
@@ -134,7 +106,13 @@
                 c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"
             ></path>
           </svg>
-          <span class="text-gray-500">Sign up with Google</span>
+          <span class="text-orange-600">Sign in with Google</span>
+        </button>
+      </div>
+      <div class="flex justify-center mt-5">
+        <span class="text-gray-500 font-semibold ">New to Spreezy? </span>
+        <button type="button" class="btn btn-primary w-40 ml-4">
+          Sign up
         </button>
       </div>
     </div>
@@ -142,3 +120,5 @@
 </div>
 
 <app-alert-popup></app-alert-popup>
+</body>
+</html>
