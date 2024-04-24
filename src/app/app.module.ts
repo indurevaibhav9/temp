@@ -8,7 +8,7 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { LoginModule } from "./screens/login/login.module";
 import { GlobalErrorHandlerService } from "./services/global-error-handler.service";
-import { OtpComponent } from './otp/otp.component';
+import { ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,6 +18,7 @@ import { OtpComponent } from './otp/otp.component';
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),
     LoginModule,
+    ReactiveFormsModule
     
   ],
   providers: [
