@@ -19,6 +19,15 @@ const routes: Routes = [
     loadChildren: () =>
       import("./screens/home/home.module").then((module) => module.HomeModule),
   },
+  {
+    path: "otpscreen",
+    loadChildren: () =>
+      import("./screens/otpscreen/otpscreen.module").then(
+        (module) => module.OtpscreenModule
+      ),
+  } 
+
+  
   
 ];
 

@@ -11,13 +11,14 @@ import { GlobalErrorHandlerService } from "./services/global-error-handler.servi
 import { OtpComponent } from './otp/otp.component';
 
 @NgModule({
-  declarations: [AppComponent, OtpComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),
     LoginModule,
+    
   ],
   providers: [
     {
