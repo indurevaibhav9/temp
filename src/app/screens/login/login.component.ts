@@ -1,11 +1,5 @@
 import { Component } from "@angular/core";
-import {
-  AbstractControl,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Credentials } from "src/app/models/credentials";
 import { AuthService } from "src/app/services/auth.service";
 
@@ -18,35 +12,33 @@ export class LoginComponent {
   credentials: Credentials = new Credentials();
   icon: string = "ionEyeOff";
   showPassword: boolean = false;
-
-  form: FormGroup = new FormGroup({
-    email: new FormControl("", [Validators.required, Validators.email]),
-    phonenumber: new FormControl("", [
-      Validators.required,
-      Validators.minLength(10),
-      Validators.maxLength(10),
-    ]),
-  });
-  submitted = false;
+  form: FormGroup;
+  submitted: boolean = false;
 
   constructor(
     private authService: AuthService,
     private formBuilder: FormBuilder
-  ) {}
+  ) {
+    this.form = this.formBuilder.group({
+      email: ["", [Validators.required, Validators.email]],
+      phonenumber: ["", [
+        Validators.required,
+        Validators.minLength(10),
+        Validators.maxLength(10),
+        this.validatePhoneNumber.bind(this) // Bind the function to the current instance
+      ]],
+    });
+  }
 
-  get formControls(): { [key: string]: AbstractControl } {
+  get formControls() {
     return this.form.controls;
   }
 
   onSubmit(): void {
     this.submitted = true;
-
     if (this.form.invalid) {
       return;
     }
-
-    
-    
     this.authService.login(this.credentials);
   }
 
@@ -54,11 +46,15 @@ export class LoginComponent {
     this.authService.signInWithGoogle();
   }
 
-  
-
   toggleIcon() {
     this.icon === "ionEyeOff"
       ? (this.icon = "ionEye")
       : (this.icon = "ionEyeOff");
+  }
+
+  validatePhoneNumber(control: { value: string }): { invalidPhoneNumber: boolean } | null {
+    const phoneNumberRegex = /^[0-9]{10}$/;
+    const isValid = phoneNumberRegex.test(control.value);
+    return isValid ? null : { invalidPhoneNumber: true };
   }
 }
