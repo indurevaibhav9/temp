@@ -3,6 +3,7 @@ pipeline
         agent {
         docker {
              image 'cypress/base:18.16.0'
+            // args '-v /var/run/docker.sock:/var/run/docker.sock'
         }
     }
 
@@ -52,8 +53,8 @@ pipeline
             sh 'npx wait-on http://localhost:4200'
 
             // Run Cypress tests
-            sh 'NO_COLOR=1 npm run test'
-            sh 'npm run test:coverage'
+            sh ' npm run test'
+            sh ' npm run test:coverage'
 
 
             sh 'pkill -f "npm start"'
@@ -82,8 +83,7 @@ pipeline
                 sh 'mkdir apk-releases'
                 sh 'cp -r  ./android/app/build/outputs/apk/* ./apk-releases/'
                 withCredentials([file(credentialsId: 'nexus_npm_credentials', variable: 'npm_nexus_credentials')]) {
-                 sh "npm publish --userconfig ${npm_nexus_credentials} --registry https://nexus.spreezy.in/repository/npm-hosted/ --loglevel verbose"
-
+                 sh "npm publish --userconfig ${npm_nexus_credentials} --loglevel verbose"
                 }
 
             }
@@ -124,3 +124,4 @@ pipeline
     }
 
 }
+
