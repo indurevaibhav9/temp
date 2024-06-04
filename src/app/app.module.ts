@@ -9,9 +9,11 @@ import { AppComponent } from "./app.component";
 import { LoginModule } from "./screens/login/login.module";
 import { GlobalErrorHandlerService } from "./services/global-error-handler.service";
 import { ReactiveFormsModule } from "@angular/forms";
+import { OtpscreenComponent } from "./screens/otpscreen/otpscreen.component";
+
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, OtpscreenComponent], 
   imports: [
     BrowserModule,
     AppRoutingModule,
