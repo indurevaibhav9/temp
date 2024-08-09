@@ -69,7 +69,7 @@ This module contains all the necessary logic for spreezy frontend application.
   
 ### **Java Setup [Prerequisite]:-**
 
-- We need Java JDK 17 for this project. Using the terminal do the following: <pre><code>sudo apt update</code> and <code>sudo apt install openjdk-17-jdk</code></pre>
+- We need Java JDK 17 for this project. Using the terminal do the following: <pre><code>sudo apt update</code></pre> and <pre><code>sudo apt install openjdk-17-jdk</code></pre>
 - Update the config file so the default JDK is set to 17 (if any other Java versions present) <pre><code>sudo update-alternatives --config java</code></pre>
   - Reference:
   - ![Screenshot from 2024-08-09 10-50-39](https://github.com/user-attachments/assets/3c0578c7-3e86-4a1c-b9bc-dbb042dd656b)
