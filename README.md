@@ -66,12 +66,28 @@ This module contains all the necessary logic for spreezy frontend application.
 - To execute test cases, from root directory use the below commands :-
   - **CMD Line** : npx cypress run
   - **Interative mode** : npx cypress open
+  
+### **Java Setup [Prerequisite]:-**
+
+- We need Java JDK 17 for this project. Using the terminal do the following: <pre><code>sudo apt update</code> and <code>sudo apt install openjdk-17-jdk</code></pre>
+- Update the config file so the default JDK is set to 17 (if any other Java versions present) <pre><code>sudo update-alternatives --config java</code></pre>
+  - Reference:
+  - ![Screenshot from 2024-08-09 10-50-39](https://github.com/user-attachments/assets/3c0578c7-3e86-4a1c-b9bc-dbb042dd656b)
+    
+	- In this case we input **1** as selection number (since Java 17 is required)
+	- Do the same for Java Compiler <pre><code>sudo update-alternatives --config javac</code></pre>
+- It should now show ver.17 <pre><code>java --version</code></pre>
+- In terminal, put <pre><code>nano ~/.bashrc</code></pre> 
+	**At the end of the file**, put the below arguments to set the environment variables, Save and Exit:<br>
+	<pre>export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64</pre>
+	<pre>export PATH=$JAVA_HOME/bin:$PATH</pre>
+- Do this in terminal to set the variables correctly <pre><code>source ~/.bashrc</code></pre>
 
 ### **Build & Deployment instructions :-**
 
 - To build the application use : (production, development)<pre><code>ng build --configuration `<environment>`</code></pre>
 - Check in your root folder if android and ios folders are present. If not present, use - <pre><code>npx cap add android && npx cap add ios</code></pre>
-- Create a a file under newly created android/local.properties. Add path to your android CLI SDK <pre>sdk.dir=`<path-to-your-android-cli-directory>`/Android</pre>
+- Create a a file under newly created android/local.properties. Add this <pre>java.home=/usr/lib/jvm/java-17-openjdk-amd64</pre> and the path to your android CLI SDK <pre>sdk.dir=`<path-to-your-android-cli-directory>`/Android</pre> (inside Android folder, all the tools like build-tools, platform-tools, cmdline-tools, emulator, should be present)<br><br>	
 - Once the build is complete, need to sync the android and ios binaries using capacitor. use - <pre><code>npx cap sync</code></pre>
 - After syncing the android binaries, from root directory execute mentioned cmd to create the APK - <pre><code>cd android && ./gradlew assembleDebug && cd ..</code></pre>
 
