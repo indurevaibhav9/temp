@@ -72,7 +72,7 @@ This module contains all the necessary logic for spreezy frontend application.
 - We need Java JDK 17 for this project. Using the terminal do the following: <pre><code>sudo apt update</code></pre> and <pre><code>sudo apt install openjdk-17-jdk</code></pre>
 - Update the config file so the default JDK is set to 17 (if any other Java versions present) <pre><code>sudo update-alternatives --config java</code></pre>
   - Reference:
-  - ![Screenshot from 2024-08-09 10-50-39](https://github.com/user-attachments/assets/3c0578c7-3e86-4a1c-b9bc-dbb042dd656b)
+![Screenshot from 2024-08-09 10-50-39](https://github.com/user-attachments/assets/3c0578c7-3e86-4a1c-b9bc-dbb042dd656b)
     
 	- In this case we input **1** as selection number (since Java 17 is required)
 	- Do the same for Java Compiler <pre><code>sudo update-alternatives --config javac</code></pre>
@@ -83,6 +83,32 @@ This module contains all the necessary logic for spreezy frontend application.
 	<pre>export PATH=$JAVA_HOME/bin:$PATH</pre>
 - Do this in terminal to set the variables correctly <pre><code>source ~/.bashrc</code></pre>
 
+### **Android SDK Setup [Prerequisite]:-**
+
+- Download Latest **Command-line tools** from Android Studio Website **(usually listed at the bottom of the page)** - https://developer.android.com/studio#downloads
+
+- ![Screenshot from 2024-08-11 19-18-48](https://github.com/user-attachments/assets/105e1d5b-8d88-489f-8436-ad9b62bb49f1)
+
+- Go to the Downloads folder and rename the downloaded zip to 'cli.zip'
+- Open terminal in the Downloads folder and run the following commands:
+	<pre><code>mkdir -p ~/Android/cmdline-tools</code></pre>
+	<pre><code>unzip cli.zip -d ~/Android/cmdline-tools</code></pre>
+- Android CLI requires cmdline-tools to be renamed to 'latest' so we run the following command:
+	<pre><code>mv ~/Android/cmdline-tools/cmdline-tools ~/Android/cmdline-tools/latest</code></pre>
+- Open Bashrc:
+	<pre><code>nano ~/.bashrc</code></pre>
+- Add the following lines at the end of the file, save and exit:
+	<pre>export ANDROID_HOME=$HOME/Android</pre>
+	<pre>export PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$PATH</pre>
+	<pre>export PATH=$ANDROID_HOME/platform-tools:$PATH</pre>
+- Reload the bashrc using terminal:
+	<pre><code>source ~/.bashrc</code></pre>
+- We need to install these tools through sdkmanager. Now in terminal, run the following commands:
+	<pre><code>sdkmanager "build-tools;34.0.0" "emulator" "platform-tools" "platforms;android-35"</code></pre>
+- After installing the above tools, do:
+	<pre><code>sdkmanager --licenses</code></pre>
+	and accept all the licenses.
+
 ### **Build & Deployment instructions :-**
 
 - To build the application use : (production, development)<pre><code>ng build --configuration `<environment>`</code></pre>
@@ -90,6 +116,7 @@ This module contains all the necessary logic for spreezy frontend application.
 - Create a a file under newly created android/local.properties. Add this <pre>java.home=/usr/lib/jvm/java-17-openjdk-amd64</pre> and the path to your android CLI SDK <pre>sdk.dir=`<path-to-your-android-cli-directory>`/Android</pre> (inside Android folder, all the tools like build-tools, platform-tools, cmdline-tools, emulator, should be present)<br><br>	
 - Once the build is complete, need to sync the android and ios binaries using capacitor. use - <pre><code>npx cap sync</code></pre>
 - After syncing the android binaries, from root directory execute mentioned cmd to create the APK - <pre><code>cd android && ./gradlew assembleDebug && cd ..</code></pre>
+- The app should be present in the android/app/build/outputs/apk/debug/app-debug.apk
 
 ## Contribution guidelines
 
