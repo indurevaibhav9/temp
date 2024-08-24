@@ -28,6 +28,13 @@
             "name": "Debug with Chrome",
             "url": "http://localhost:4200/",
             "webRoot": "${workspaceFolder}"
+        },
+        {
+            "type": "firefox",
+            "request": "launch",
+            "name": "Debug with Firefox",
+            "url": "http://localhost:4200",
+            "webRoot": "${workspaceFolder}"
         }
     ]
 }

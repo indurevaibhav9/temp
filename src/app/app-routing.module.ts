@@ -4,7 +4,7 @@ import { RouterModule, Routes } from "@angular/router";
 const routes: Routes = [
   {
     path: "",
-    redirectTo: "login",
+    redirectTo: "feedback-screen",
     pathMatch: "full",
   },
   {
@@ -24,6 +24,13 @@ const routes: Routes = [
     loadChildren: () =>
       import("./screens/register/register.module").then(
         (module) => module.RegisterModule
+      ),
+  },
+  {
+    path: "feedback-screen",
+    loadChildren: () =>
+      import("./screens/feedback-screen/feedback-screen.module").then(
+        (module) => module.FeedbackScreenModule
       ),
   },
 ];
