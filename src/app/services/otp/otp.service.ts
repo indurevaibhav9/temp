@@ -2,15 +2,15 @@ import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, throwError } from "rxjs";
 import { catchError, map, tap } from "rxjs/operators";
-import { OtpResponse } from "../models/otpResponse";
-import { VerifyOtpResponse } from "../models/verifyOtpResponse";
+import { OtpResponse } from "../../models/otpResponse";
+import { VerifyOtpResponse } from "../../models/verifyOtpResponse";
 
 @Injectable({
   providedIn: "root",
 })
 export class OtpService {
   private apiUrl =
-    "https://b5f6-2409-40c2-1041-30e2-2c85-2772-3041-ebee.ngrok-free.app/";
+    "https://dd02-2409-40c2-3e-e599-f900-2b15-56fa-b30b.ngrok-free.app/";
 
   constructor(private http: HttpClient) {}
   isOtpSentToMobile = false;
@@ -45,11 +45,8 @@ export class OtpService {
       )
       .pipe(
         map((response: string) => {
-          if (response.includes("Otp Send Successfully")) {
-            return { success: true, message: response };
-          } else {
-            return { success: false, message: response };
-          }
+          console.log(response);
+          return {success: true, message: response}
         }),
         catchError((error: HttpErrorResponse) => {
           console.log("Error in HTTP response:", error);
