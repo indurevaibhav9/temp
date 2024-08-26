@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { FeedbackRequest } from "../models/feedbackrequest";
 import { Observable } from "rxjs";
-import { FeedbackResponse } from "../models/feedback-response.model";
+import { FeedbackResponse } from "../models/feedback-response";
 
 @Injectable({
   providedIn: "root",
@@ -16,12 +16,11 @@ export class FeedbackService {
     });
 
     return this.http.post<FeedbackResponse>(
-      'https://5eb5-2402-e280-3e4b-37f-364f-9cd4-2613-d1ef.ngrok-free.app/feedback/saveFeedback',
+      'https://7700-2409-4081-ae49-7c31-fbd4-7cc7-1fae-3fe2.ngrok-free.app/feedback/saveFeedback',
       feedbackrequest,
       { headers }
     );
   }
 
 }
-
 
