@@ -27,38 +27,10 @@ const routes: Routes = [
       ),
   },
   {
-    path: "offer-description",
+    path: "ad-feed",
     loadChildren: () =>
-      import("./screens/offer-description/offer-description.module").then(
-        (module) => module.OfferDescriptionModule
-      ),
-  },
-  {
-    path: "post-event",
-    loadChildren: () =>
-      import("./screens/post-event/post-event.module").then(
-        (module) => module.PostEventModule
-      ),
-  },
-  {
-    path: "post-with-image",
-    loadChildren: () =>
-      import("./screens/post-with-image/post-with-image.module").then(
-        (module) => module.PostWithImageModule
-      ),
-  },
-  {
-    path: "post-with-image-coupon",
-    loadChildren: () =>
-      import("./screens/post-with-image-coupon/post-with-image-coupon.module").then(
-        (module) => module.PostWithImageCouponModule
-      ),
-  },
-  {
-    path: "post-without-image-coupon",
-    loadChildren: () =>
-      import("./screens/post-without-image-coupon/post-without-image-coupon.module").then(
-        (module) => module.PostWithoutImageCouponModule
+      import("./screens/ad-feed/ad-feed.module").then(
+        (module) => module.AdFeedModule
       ),
   },
   // Add a wildcard route for a 404 page if needed
