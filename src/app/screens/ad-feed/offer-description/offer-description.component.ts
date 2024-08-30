@@ -1,35 +1,21 @@
-import { Component } from '@angular/core';
-import { faBars, faUserGroup } from '@fortawesome/free-solid-svg-icons';
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import { faThumbsUp } from '@fortawesome/free-regular-svg-icons';
-import { faThumbsDown } from '@fortawesome/free-regular-svg-icons';
-import { faLocationArrow } from '@fortawesome/free-solid-svg-icons';
-import { faBookmark } from '@fortawesome/free-solid-svg-icons';
-import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
-import { faLocationDot, faHeart, faBell } from '@fortawesome/free-solid-svg-icons';
-import { faCircleUser } from '@fortawesome/free-regular-svg-icons';
+import { Component, OnInit } from '@angular/core';
+import { OfferDescriptionService } from 'src/app/services/offer-description.service';
+import { OfferDescriptionDTO } from 'src/app/models/offerdescriptionGet';
+import { faBars, faUserGroup, faMagnifyingGlass, faThumbsUp, faThumbsDown, faLocationArrow, faBookmark, faEllipsisVertical, faLocationDot, faHeart, faBell, faCircleUser } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-offer-description',
   templateUrl: './offer-description.component.html',
-  styles: [
-  ]
+  styles: []
 })
-export class OfferDescriptionComponent {
+export class OfferDescriptionComponent implements OnInit {
+  offerData: OfferDescriptionDTO;
   dropdowns: { [key: string]: boolean } = {
     howToAvail: false,
     termsConditions: false
   };
 
-  viewOnWebsite(): void {
-    window.location.href = 'https://www.example.com'; // Replace with your desired URL
-  }
-
-  toggleDropdown(key: string): void {
-    this.dropdowns[key] = !this.dropdowns[key];
-  }
-
-  
+  // FontAwesome icons
   faBars = faBars;
   faUserGroup = faUserGroup;
   faMagnifyingGlass = faMagnifyingGlass;
@@ -42,4 +28,20 @@ export class OfferDescriptionComponent {
   faHeart = faHeart;
   faBell = faBell;
   faCircleUser = faCircleUser;
+
+  constructor(private offerDescriptionService: OfferDescriptionService) {}
+
+  ngOnInit(): void {
+    this.offerDescriptionService.getOfferDescription().subscribe((data: OfferDescriptionDTO) => {
+      this.offerData = data;
+    });
+  }
+
+  viewOnWebsite(): void {
+    window.location.href = 'https://www.example.com'; // Replace with your desired URL
+  }
+
+  toggleDropdown(key: string): void {
+    this.dropdowns[key] = !this.dropdowns[key];
+  }
 }
