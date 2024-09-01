@@ -1,7 +1,7 @@
 .vscode
 .angular
 .npmrc
-/package-lock.json
+package-lock.json
 node_modules
 android
 ios
