@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { FeedbackRequest } from "../models/feedbackrequest";
-import { Observable } from "rxjs";
 import { FeedbackResponse } from "../models/feedback-response";
 
 @Injectable({
@@ -10,17 +9,24 @@ import { FeedbackResponse } from "../models/feedback-response";
 export class FeedbackService {
   constructor(private http: HttpClient) {}
 
-  feedback(feedbackrequest: FeedbackRequest): Observable<FeedbackResponse> {
+  feedback(feedbackrequest: FeedbackRequest, 
+           onSuccess: (response: FeedbackResponse) => void, 
+           onError: (error: any) => void) {
     const headers = new HttpHeaders({
       'ngrok-skip-browser-warning': 'true'
     });
 
-    return this.http.post<FeedbackResponse>(
-      'https://7700-2409-4081-ae49-7c31-fbd4-7cc7-1fae-3fe2.ngrok-free.app/feedback/saveFeedback',
+    this.http.post<FeedbackResponse>(
+      'http://localhost:8081/feedback/saveFeedback',
       feedbackrequest,
       { headers }
-    );
+    ).subscribe({
+      next: (response: FeedbackResponse) => {
+        onSuccess(response);
+      },
+      error: (error) => {
+        onError(error);
+      }
+    });
   }
-
 }
-
