@@ -31,7 +31,7 @@ const routes: Routes = [
       import("./screens/otpscreen/otpscreen.module").then(
         (module) => module.OtpscreenModule
       ),
-    canActivate: [otpScreenGuard],
+    // canActivate: [otpScreenGuard],
   },
   {
     path: "homeBusiness",

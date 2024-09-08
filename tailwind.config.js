@@ -1,13 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 /** @type {import('rippleui').Config} */
 module.exports = {
-  darkMode: 'class',
   rippleui: {
     themes: [
       {
         themeName: "light",
         colorScheme: "light",
-        
         colors: {
           primary: "#ED6A5A",
           backgroundPrimary: "#FFFFFF",
