@@ -1,6 +1,5 @@
 import { ErrorHandler, NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
-
 import { HttpClientModule } from "@angular/common/http";
 import { AngularFireModule } from "@angular/fire/compat";
 import { environment } from "src/environments/environment.development";
@@ -13,10 +12,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FeedbackScreenComponent } from "./screens/feedback-screen/feedback-screen.component";
 import { PopUpComponent } from "./components/pop-up/pop-up.component";
 
-
-
 @NgModule({
-  declarations: [AppComponent, FeedbackScreenComponent, PopUpComponent],
+  declarations: [AppComponent ,FeedbackScreenComponent ,PopUpComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

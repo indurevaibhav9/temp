@@ -3,9 +3,7 @@ import { faStar } from '@fortawesome/free-solid-svg-icons/faStar';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FeedbackService } from 'src/app/services/feedback.service';
 import { FeedbackRequest } from 'src/app/models/feedbackrequest';
-import { Router } from '@angular/router';
 import { FeedbackResponse } from 'src/app/models/feedback-response';
-import { PopUpComponent } from 'src/app/components/pop-up/pop-up.component';
 
 @Component({
   selector: 'app-feedback-screen',
@@ -47,19 +45,20 @@ export class FeedbackScreenComponent {
 
   feedbackmethod() {
     this.submitted = true;
-    
+
     if (this.feedbackForm.valid && this.rating > 0) {
       this.feedbackrequest.rating = this.ratingTexts[this.rating];
       this.feedbackrequest.feedbackDescription = this.feedbackForm.get('feedback')?.value;
       this.feedbackrequest.featureRequestDescription = this.feedbackForm.get('featureRequest')?.value;
 
-      this.feedbackservice.feedback(this.feedbackrequest).subscribe({
-        next: (response: FeedbackResponse) => {
-          this.popUpTitle = 'Thank You!';
-          this.popUpBody = 'Your feedback has been submitted successfully.';
+      this.feedbackservice.feedback(
+        this.feedbackrequest,
+        (response: FeedbackResponse) => {
+          this.popUpTitle = 'Thank You for Your Feedback!!';
+          this.popUpBody = 'We appreciate your input and will use it to improve our services.';
           this.showPopUp = true;
         },
-        error: (error) => {
+        (error) => {
           if (error.error && error.error.ErrorCode && error.error.ErrorDescription) {
             this.popUpTitle = `Error ${error.error.ErrorCode}`;
             this.popUpBody = error.error.ErrorDescription;
@@ -69,14 +68,14 @@ export class FeedbackScreenComponent {
           }
           this.showPopUp = true;
         }
-      });
+      );
     } else {
-      this.popUpTitle = ' Error SPX-4-001';
+      this.popUpTitle = 'Error SPX-4-001';
       this.popUpBody = 'Please ensure all fields are correctly filled out.';
       this.showPopUp = true;
     }
   }
-  
+
   atLeastOneStar(control: FormControl): { [key: string]: boolean } | null {
     const rating = control.value;
     return rating === null || rating === 0 ? { 'noStars': true } : null;
