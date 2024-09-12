@@ -1,0 +1,64 @@
+<div class="profile-container">
+    <!-- Business Profile Header -->
+    <div class="header bg-orange-500 p-4 flex items-center">
+      <img src="{{ business.logo }}" alt="Business Logo" class="rounded-full w-16 h-16">
+      <div class="ml-4">
+        <h2 class="text-white font-bold">{{ business.businessName }}</h2>
+        <p class="text-white">{{ business.username }}</p>
+      </div>
+    </div>
+  
+    <!-- Stats Section -->
+    <div class="stats bg-white flex justify-between p-4 text-center">
+      <div>
+        <p class="font-bold">{{ business.posts }}</p>
+        <p>Posts</p>
+      </div>
+      <div>
+        <p class="font-bold">{{ business.followers | number }}</p>
+        <p>Followers</p>
+      </div>
+      <div>
+        <p class="font-bold">{{ business.following }}</p>
+        <p>Following</p>
+      </div>
+    </div>
+  
+    <!-- Social Links Section -->
+    <div class="social-links flex justify-around mt-2">
+      <a [href]="business.socialLinks.email" target="_blank">
+        <i class="ri-mail-line text-xl"></i>
+      </a>
+      <a [href]="business.socialLinks.instagram" target="_blank">
+        <i class="ri-instagram-line text-xl"></i>
+      </a>
+      <a [href]="business.socialLinks.facebook" target="_blank">
+        <i class="ri-facebook-line text-xl"></i>
+      </a>
+    </div>
+  
+    <!-- Tab Menu -->
+    <div class="tab-menu mt-4 flex justify-center">
+      <button (click)="switchTab('posts')" [class.active-tab]="selectedTab === 'posts'" class="mr-4">
+        Posts
+      </button>
+      <button (click)="switchTab('saved')" [class.active-tab]="selectedTab === 'saved'">
+        Saved
+      </button>
+    </div>
+  
+    <!-- Posts Section -->
+    <div class="post-section grid grid-cols-2 gap-4 p-4" *ngIf="selectedTab === 'posts'">
+      <div *ngFor="let image of business.postedImages">
+        <img [src]="image" alt="Post" class="w-full">
+      </div>
+    </div>
+  
+    <!-- Saved Section -->
+    <div class="saved-section grid grid-cols-2 gap-4 p-4" *ngIf="selectedTab === 'saved'">
+      <div *ngFor="let image of business.savedPosts">
+        <img [src]="image" alt="Saved Post" class="w-full">
+      </div>
+    </div>
+  </div>
+  

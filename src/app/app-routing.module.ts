@@ -17,7 +17,9 @@ const routes: Routes = [
   {
     path: "home",
     loadChildren: () =>
-      import("./screens/home/home.module").then((module) => module.HomeModule),
+      import("./screens/home/home.module").then(
+        (module) => module.HomeModule
+      ),
   },
   {
     path: "register",
@@ -26,6 +28,13 @@ const routes: Routes = [
         (module) => module.RegisterModule
       ),
   },
+  {
+    path: 'business-profile',
+    loadChildren: () =>
+      import('./screens/business-profile/business-profile.module').then(
+        (module) => module.BusinessProfileModule
+      )
+  }
 ];
 
 @NgModule({
