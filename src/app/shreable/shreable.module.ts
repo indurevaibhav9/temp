@@ -1,23 +1,32 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+// import { AlertPopupComponent } from '../components/alert-popup/alert-popup.component';
+import { BusinessTopNavbarComponent } from '../components/business-top-navbar/business-top-navbar.component';
+import { BusinessBottomNavbarComponent } from '../components/business-bottom-navbar/business-bottom-navbar.component';
+import { ConsumerTopNavbarComponent } from '../components/consumer-top-navbar/consumer-top-navbar.component';
+import { ConsumerBottomNavbarComponent } from '../components/consumer-bottom-navbar/consumer-bottom-navbar.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { AlertPopupComponent } from '../screens/alert-popup/alert-popup.component';
-import { BusinessHomeModule } from '../screens/business-home/business-home.module';
-import { ConsumerHomeModule } from '../screens/consumer-home/consumer-home.module';
+
+
 
 @NgModule({
   declarations: [
-    AlertPopupComponent
+    // AlertPopupComponent,
+    BusinessTopNavbarComponent,
+    BusinessBottomNavbarComponent,
+    ConsumerTopNavbarComponent,
+    ConsumerBottomNavbarComponent
   ],
   imports: [
     CommonModule,
-    FontAwesomeModule,
-    BusinessHomeModule,
-    ConsumerHomeModule
+    FontAwesomeModule
   ],
   exports: [
-    BusinessHomeModule,
-    ConsumerHomeModule
+    // AlertPopupComponent,
+    BusinessTopNavbarComponent,
+    BusinessBottomNavbarComponent,
+    ConsumerTopNavbarComponent,
+    ConsumerBottomNavbarComponent
   ]
 })
 export class ShreableModule { }

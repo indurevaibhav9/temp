@@ -20,23 +20,32 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   declarations: [
     AppComponent
   ],
+  declarations: [
+    AppComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),
     LoginModule,
-    SharedModuleModule,
+<<<<<<< HEAD
     SharedModuleModule,
     ReactiveFormsModule,
-    RegisterModule
+    RegisterModule,
+],
+=======
+    FontAwesomeModule
   ],
+>>>>>>> 4c6615d (Added stashed changes)
   providers: [
     {
       provide: ErrorHandler,
       useClass: GlobalErrorHandlerService,
     },
+    
   ],
   bootstrap: [AppComponent],
+  
 })
 export class AppModule {}
