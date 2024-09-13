@@ -7,14 +7,19 @@ import { ionEye, ionEyeOff } from "@ng-icons/ionicons";
 import { AlertPopupComponent } from "src/app/components/alert-popup/alert-popup.component";
 import { LoginRoutingModule } from "./login-routing.module";
 import { LoginComponent } from "./login.component";
+// import { ComponentsModule } from "src/app/components/components.module";
+import { BusinessModuleModule } from "src/app/business-module/business-module.module";
+ 
+
 
 @NgModule({
-  declarations: [LoginComponent, AlertPopupComponent],
+  declarations: [LoginComponent],
   imports: [
     CommonModule,
     LoginRoutingModule,
     ReactiveFormsModule,
     NgIconsModule.withIcons({ ionEye, ionEyeOff }),
+    BusinessModuleModule
   ],
   schemas: [NO_ERRORS_SCHEMA],
 })

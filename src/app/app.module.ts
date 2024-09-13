@@ -11,20 +11,25 @@ import { GlobalErrorHandlerService } from "./services/global-error-handler.servi
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),
     LoginModule,
+    FontAwesomeModule
   ],
   providers: [
     {
       provide: ErrorHandler,
       useClass: GlobalErrorHandlerService,
     },
+    
   ],
   bootstrap: [AppComponent],
+  
 })
 export class AppModule {}

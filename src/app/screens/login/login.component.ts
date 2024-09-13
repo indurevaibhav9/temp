@@ -12,7 +12,7 @@ import { AuthService } from "src/app/services/auth.service";
 @Component({
   selector: "app-login",
   templateUrl: "./login.component.html",
-  styles: [],
+  styles: []
 })
 export class LoginComponent {
   credentials: Credentials = new Credentials();
