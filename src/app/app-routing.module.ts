@@ -7,7 +7,7 @@ import { loginGuard } from "./authGuards/login/login.guard";
 const routes: Routes = [
   {
     path: "",
-    redirectTo: "settings",
+    redirectTo: "businessnavbar",
     pathMatch: "full",
   },
   {
@@ -32,7 +32,6 @@ const routes: Routes = [
       import("./screens/home/home.module").then(
         (module) => module.HomeModule
       ),
-    canActivate: [businessGuard],
   },
   {
     path: "feedback-screen",
@@ -42,10 +41,45 @@ const routes: Routes = [
       ),
   },
   {
-    path:"settings",
+    path: "businessinsights",
     loadChildren: () =>
-      import("./screens/settings/settings.module").then(
-        (module) => module.SettingsModule
+      import("./screens/business-insights/business-insights.module").then(
+        (module) => module.BusinessInsightsModule
+      ),
+  },
+  {
+    path: "addpost",
+    loadChildren: () =>
+      import("./screens/add-post/add-post.module").then(
+        (module) => module.AddPostModule
+      ),
+  },
+  {
+    path: "notification",
+    loadChildren: () =>
+      import("./screens/notification-screen/notification-screen.module").then(
+        (module) => module.NotificationScreenModule
+      ),
+  },
+  {
+    path: "profile",
+    loadChildren: () =>
+      import("./screens/profile-screen/profile-screen.module").then(
+        (module) => module.ProfileScreenModule
+      ),
+  },
+  {
+    path: "businessnavbar",
+    loadChildren: () =>
+      import("./screens/business-navbar/business-navbar.module").then(
+        (module) => module.BusinessNavbarModule
+      ),
+  },
+  {
+    path: "consumernavbar",
+    loadChildren: () =>
+      import("./screens/consumer-navbar/consumer-navbar.module").then(
+        (module) => module.ConsumerNavbarModule
       ),
   }
 ];
