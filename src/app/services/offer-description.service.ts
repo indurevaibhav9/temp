@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { OfferDescriptionDTO } from '../models/offerdescriptionGet';
 
@@ -7,11 +7,17 @@ import { OfferDescriptionDTO } from '../models/offerdescriptionGet';
   providedIn: 'root'
 })
 export class OfferDescriptionService {
-  private apiUrl = 'your-backend-api-url-here'; // Replace with your actual API URL
+  
+  
 
   constructor(private http: HttpClient) {}
 
   getOfferDescription(): Observable<OfferDescriptionDTO> {
-    return this.http.get<OfferDescriptionDTO>(`${this.apiUrl}/offer-description`);
+    return this.http.get<OfferDescriptionDTO>('https://af74-2401-4900-1c45-dbf8-eb96-cacf-9b8e-babd.ngrok-free.app/feed/consumer/post', {
+      responseType: 'json',
+      headers: new HttpHeaders({
+        'ngrok-skip-browser-warning': 'true',
+      }),
+    });
   }
 }
