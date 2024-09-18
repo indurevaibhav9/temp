@@ -29,10 +29,10 @@ const routes: Routes = [
       ),
   },
   {
-    path: 'business-profile',
+    path: 'profile',
     loadChildren: () =>
-      import('./screens/business-profile/business-profile.module').then(
-        (module) => module.BusinessProfileModule
+      import('./screens/profile/profile.module').then(
+        (module) => module.ProfileModule
       )
   }
 ];
