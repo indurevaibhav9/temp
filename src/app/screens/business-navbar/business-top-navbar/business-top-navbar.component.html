@@ -1,19 +1,18 @@
-<div>
+<div class="relative">
   <div class="flex box-border h-auto fixed top-0 w-full z-30">
     <div class="navbar py-1 bg-primarycolor-0 shadow-none">
       <div class="navbar-start">
-        <input type="checkbox" id="drawer-left" class="drawer-toggle" />
+        <input type="checkbox" id="drawer-left" class="drawer-toggle hidden" />
         <label for="drawer-left" class="btn w-9 bg-primarycolor-0" style="height:7.3%">
           <fa-icon class="text-white text-2xl" [icon]="faBars"></fa-icon>
         </label>
 
         <label class="overlay bg-white dark:bg-white h-full" for="drawer-left"></label>
-        <div class="drawer w-4/5 h-full border-r-2 z-40 bg-white dark:bg-white" style="margin-top: 56px;">
+        <div class="drawer fixed top-0 left-0 w-4/5 h-full border-r-2 z-40 bg-white dark:bg-white" style="margin-top: 56px;">
           <div class="drawer-content pt-2 px-2 mt-1 overflow-x-hidden overflow-y-auto bg-white dark:bg-white" style="height: 87%;">
             <aside class="sidebar h-full flex flex-col bg-white dark:bg-white">
               <section class="sidebar-title p-2">
                 <div class="flex flex-col w-full">
-                  <!-- Profile photo section -->
                   <div class="grow h-16 text-center justify-center mx-auto mb-2 pb-3 w-16 z-40">
                     <div class="avatar h-14 w-14">
                       <img src="https://i.pravatar.cc/150?u=a042581f4e29026024d" alt="avatar" />
