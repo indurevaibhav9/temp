@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { AddPostRoutingModule } from './add-post-routing.module';
 import { AddPostComponent } from './add-post.component';
-import { ComponentsModule } from 'src/app/components/components.module';
-import { BusinessModuleModule } from "src/app/business-module/business-module.module";
+import { ConsumerNavbarModule } from '../consumer-navbar/consumer-navbar.module';
+import { BusinessNavbarModule } from '../business-navbar/business-navbar.module';
 
 >>>>>>> 525abd9 (Added stashed changes)
 
@@ -15,13 +15,8 @@ import { BusinessModuleModule } from "src/app/business-module/business-module.mo
   imports: [
     CommonModule,
     AddPostRoutingModule,
-<<<<<<< HEAD
-    BusinessHomeModule,
-    RouterModule.forChild(routes)
-  ],
-  exports: [AddPostComponent]
-=======
-    BusinessModuleModule
+    BusinessNavbarModule,
+    ConsumerNavbarModule
   ]
 >>>>>>> 525abd9 (Added stashed changes)
 })
