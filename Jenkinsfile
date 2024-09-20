@@ -83,8 +83,7 @@ pipeline
                 sh 'mkdir apk-releases'
                 sh 'cp -r  ./android/app/build/outputs/apk/* ./apk-releases/'
                 withCredentials([file(credentialsId: 'nexus_npm_credentials', variable: 'npm_nexus_credentials')]) {
-                 sh "npm publish --userconfig ${npm_nexus_credentials} --loglevel verbose"
-                }
+                 sh "npm publish --userconfig ${npm_nexus_credentials} --registry https://nexus.spreezy.in/repository/npm-hosted/ --loglevel verbose"                }
 
             }
         }
