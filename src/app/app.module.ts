@@ -9,11 +9,10 @@ import { LoginModule } from "./screens/login/login.module";
 import { GlobalErrorHandlerService } from "./services/global-error-handler.service";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ReactiveFormsModule } from '@angular/forms';
-import { FeedbackScreenComponent } from "./screens/feedback-screen/feedback-screen.component";
-import { PopUpComponent } from "./components/pop-up/pop-up.component";
+
 
 @NgModule({
-  declarations: [AppComponent ,FeedbackScreenComponent ,PopUpComponent],
+  declarations: [AppComponent ],
   imports: [
     BrowserModule,
     AppRoutingModule,
