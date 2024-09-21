@@ -1,12 +1,15 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { ConsumerBottomNavbarComponent } from "./screens/consumer-navbar/consumer-bottom-navbar/consumer-bottom-navbar.component";
-import { ConsumerTopNavbarComponent } from "./screens/consumer-navbar/consumer-top-navbar/consumer-top-navbar.component";
+import { HomeScreenComponent} from "./screens/home-screen/home-screen.component";
+import { BusinessInsightsComponent } from "./screens/insights/insights.component";
+import { NotificationScreenComponent } from "./screens/notification-screen/notification-screen.component";
+import { AddPostComponent } from "./screens/add-post/add-post.component";
+import { ProfileScreenComponent } from "./screens/profile-screen/profile-screen.component";
 
 const routes: Routes = [
   {
     path: "",
-    redirectTo: "businessnavbar",
+    redirectTo: "business-home",
     pathMatch: "full",
   },
   {
@@ -19,7 +22,7 @@ const routes: Routes = [
   {
     path: "home",
     loadChildren: () =>
-      import("./screens/home/home.module").then(
+      import("./screens/home-screen/home-screen.module").then(
         (module) => module.HomeModule
       ),
   },
@@ -33,7 +36,7 @@ const routes: Routes = [
   {
     path: "businessinsights",
     loadChildren: () =>
-      import("./screens/business-insights/business-insights.module").then(
+      import("./screens/insights/insights.module").then(
         (module) => module.BusinessInsightsModule
       ),
   },
@@ -59,18 +62,39 @@ const routes: Routes = [
       ),
   },
   {
-    path: "businessnavbar",
+    path: "business-home",
     loadChildren: () =>
-      import("./screens/business-navbar/business-navbar.module").then(
-        (module) => module.BusinessNavbarModule
+      import("./screens/business-home/business-home.module").then(
+        (module) => module.BusinessHomeModule
       ),
   },
   {
-    path: "consumernavbar",
+    path: "consumer-home",
     loadChildren: () =>
-      import("./screens/consumer-navbar/consumer-navbar.module").then(
-        (module) => module.ConsumerNavbarModule
+      import("./screens/consumer-home/consumer-home.module").then(
+        (module) => module.ConsumerHomeModule
       ),
+  },
+  { path: 'logout', loadChildren: () => import('./screens/logout/logout.module').then(m => m.LogoutModule) },
+  {
+    path: 'home',
+    component: HomeScreenComponent 
+  },
+  { 
+    path: 'insights',
+    component: BusinessInsightsComponent
+  },
+  {
+    path: 'addpost',
+    component: AddPostComponent
+  },
+  {
+    path: 'notification',
+    component: NotificationScreenComponent
+  },
+  {
+    path: 'profile',
+    component: ProfileScreenComponent
   }
 ];
 
