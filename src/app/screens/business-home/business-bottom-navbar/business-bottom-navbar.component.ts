@@ -1,107 +1,51 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { faAdd, faBell, faChartColumn, faChartLine, faCirclePlus, faCircleUser, faHome, faUser } from '@fortawesome/free-solid-svg-icons';
-import { BusinessNavigationService } from 'src/app/services/business-navigation.service';
+import { faAdd, faBell, faChartColumn, faCirclePlus, faCircleUser, faHome, faUser } from '@fortawesome/free-solid-svg-icons';
+import { mdiChartBoxOutline } from '@mdi/js';
+import { BusinessNavigationServiceService } from 'src/app/services/business-navigation-service.service';
+import { HomeModule } from '../../home-screen/home-screen.module';
+import { AddPostModule } from '../../add-post/add-post.module';
+import { ProfileScreenModule } from '../../profile-screen/profile-screen.module';
+import { BusinessInsightsModule } from '../../insights/insights.module';
 
 @Component({
   selector: 'app-business-bottom-navbar',
-<<<<<<< HEAD
   templateUrl: './business-bottom-navbar.component.html'
-=======
-  templateUrl: './business-bottom-navbar.component.html',
-<<<<<<< HEAD
-  styles: [`
-    .nav-icon {
-      color: #FFFFFF; 
-      font-size: 24px;
-      transition: color 0.3s ease, transform 0.3s ease;
-    }
-    .nav-icon:hover, .active-icon {
-      color: #007BFF; 
-      transform: scale(1.2); 
-    }
-
-    .nav-icon-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 10px;
-      transition: background-color 0.3s ease;
-    }
-    .nav-icon-container:hover {
-      background-color: rgba(0, 123, 255, 0.1); 
-      border-radius: 50%; 
-    }
-  `]
->>>>>>> bc8790b (Corrected Routes for consumer-home and business-home)
 })
-<<<<<<< HEAD
 export class BusinessBottomNavbarComponent {
   constructor(private router: Router, private _navigation: BusinessNavigationServiceService) {}
+
   Home_screen_active: boolean = this._navigation.Is_Home;
   Insights_screen_active: boolean = this._navigation.Is_Insights;
   Post_screen_active: boolean = this._navigation.Is_Post;
   Notification_screen_active: boolean = this._navigation.Is_Notification;
   Profile_screen_active: boolean = this._navigation.Is_Profile;
 
-
   Home() {
-<<<<<<< HEAD
     this.router.navigate(['/businessnavbar/home']);
     this.updateActiveState('Home');
-=======
-    this.router.navigate(['business-home/businessnavbar']);
-    this.updateActiveState('home');
->>>>>>> bc8790b (Corrected Routes for consumer-home and business-home)
-=======
-=======
-  styles: []
-})
-
->>>>>>> 79946b6 (business-home working with docker integration)
-export class BusinessBottomNavbarComponent implements OnInit {
-
-  faHome = faHome; 
-  faAdd = faAdd;
-  faBell = faBell;
-  faUser = faUser;
-  faChartLine = faChartLine;
-  faCirclePlus = faCirclePlus;
-  faChartColumn = faChartColumn;
-  faCircleUser = faCircleUser;
-
-  adFeedScreenActive = false;  
-  insightsScreenActive = false;
-  postScreenActive = false;
-  notificationScreenActive = false;
-  profileScreenActive = false;
-
-  constructor(private router: Router, private navigation: BusinessNavigationService) {}
-
-  ngOnInit(): void {
-    this.updateActiveStates();
-    this.router.events.subscribe(() => {
-      this.updateActiveStates();
-    });
   }
 
-  navigateTo(screen: string) {
-    this.router.navigate([`/business-home/${screen.toLowerCase()}`]);
-    this.updateActiveState(screen);
->>>>>>> f604037 (Addressed Review comments)
+  Insights() {
+    this.router.navigate(['/businessinsights']);
+    this.updateActiveState('Insights');
   }
 
-  private updateActiveStates() {
-    const currentRoute = this.router.url.split('/').pop(); 
-    this.resetActiveStates();
-
-    if (currentRoute) {
-      this.updateActiveState(currentRoute.charAt(0).toUpperCase() + currentRoute.slice(1));
-    }
+  Add_Post() {
+    this.router.navigate(['/addpost']);
+    this.updateActiveState('Post');
   }
 
-<<<<<<< HEAD
+  Notification() {
+    this.router.navigate(['/notification']);
+    this.updateActiveState('Notification');
+  }
+
+  Profile() {
+    this.router.navigate(['/profile']);
+    this.updateActiveState('Profile');
+  }
+
   faHome = faHome;
   faAdd = faAdd;
   faBell = faBell;
@@ -133,63 +77,6 @@ export class BusinessBottomNavbarComponent implements OnInit {
       case 'Notification': return this.Notification_screen_active;
       case 'Profile': return this.Profile_screen_active;
       default: return false;
-=======
-  private resetActiveStates() {
-    this.adFeedScreenActive = false;  
-    this.insightsScreenActive = false;
-    this.postScreenActive = false;
-    this.notificationScreenActive = false;
-    this.profileScreenActive = false;
-
-    this.navigation.is_AdFeed = false;  
-    this.navigation.is_Insights = false;
-    this.navigation.is_Post = false;
-    this.navigation.is_Notification = false;
-    this.navigation.is_Profile = false;
-  }
-
-  private updateActiveState(screen: string) {
-    this.resetActiveStates(); 
-
-    switch (screen.toLowerCase()) {
-      case 'adfeed': 
-        this.adFeedScreenActive = true;
-        this.navigation.is_AdFeed = true;  
-        break;
-      case 'insights':
-        this.insightsScreenActive = true;
-        this.navigation.is_Insights = true;
-        break;
-      case 'addpost':
-        this.postScreenActive = true;
-        this.navigation.is_Post = true;
-        break;
-      case 'notification':
-        this.notificationScreenActive = true;
-        this.navigation.is_Notification = true;
-        break;
-      case 'profile':
-        this.profileScreenActive = true;
-        this.navigation.is_Profile = true;
-        break;
-    }
-  }
-
-  isActive(screen: string): boolean {
-    switch (screen.toLowerCase()) {
-      case 'adfeed': 
-        return this.adFeedScreenActive;  
-      case 'insights':
-        return this.insightsScreenActive;
-      case 'addpost':
-        return this.postScreenActive;
-      case 'notification':
-        return this.notificationScreenActive;
-      case 'profile':
-        return this.profileScreenActive;
-      default:
-        return false;
->>>>>>> bc8790b (Corrected Routes for consumer-home and business-home)
     }
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { faSearch, faBell, faHome, faUser, faCircleUser } from '@fortawesome/free-solid-svg-icons';
 import { ConsumerNavigationService } from 'src/app/services/consumer-navigation.service';
@@ -8,66 +8,49 @@ import { ConsumerNavigationService } from 'src/app/services/consumer-navigation.
   templateUrl: './consumer-bottom-navbar.component.html',
   styles: []
 })
-<<<<<<< HEAD
-<<<<<<< HEAD
 export class ConsumerBottomNavbarComponent {
-  
   constructor(private router: Router, private _navigation: ConsumerNavigationService) {}
+
   Home_screen_active: boolean = this._navigation.Is_Home;
   Search_screen_active: boolean = this._navigation.Is_Search;
   Notification_screen_active: boolean = this._navigation.Is_Notification;
   Profile_screen_active: boolean = this._navigation.Is_Profile;
 
   Home() {
-    this.router.navigate(['/consumernavbar']);
+    this.router.navigate(['/consumernavbar/home']);
     this.updateActiveState('Home');
-=======
-=======
-
->>>>>>> 79946b6 (business-home working with docker integration)
-export class ConsumerBottomNavbarComponent implements OnInit {
-
-  faHome = faHome;
-  faSearch = faSearch;
-  faBell = faBell;
-  faCircleUser = faCircleUser;
-
-  AdFeed_screen_active = false;
-  Search_screen_active = false;
-  Notification_screen_active = false;
-  Profile_screen_active = false;
-
-  constructor(private router: Router, private _navigation: ConsumerNavigationService) {}
-
-  ngOnInit(): void {
-    this.updateActiveStates();
-    this.router.events.subscribe(() => {
-      this.updateActiveStates();
-    });
->>>>>>> bc8790b (Corrected Routes for consumer-home and business-home)
   }
 
-  navigateTo(screen: string) {
-    this.router.navigate([`/consumer-home/${screen.toLowerCase()}`]);
-    this.updateActiveState(screen); 
+  Search() {
+    this.router.navigate(['/consumersearch']);
+    this.updateActiveState('Search');
   }
 
-  private updateActiveStates() {
-    const currentRoute = this.router.url.split('/').pop(); 
-    this.resetActiveStates();
-
-    if (currentRoute) {
-      this.updateActiveState(currentRoute.charAt(0).toUpperCase() + currentRoute.slice(1));
-    }
+  Notification() {
+    this.router.navigate(['/consumernotification']);
+    this.updateActiveState('Notification');
   }
 
-<<<<<<< HEAD
+  Profile() {
+    this.router.navigate(['/consumerprofile']);
+    this.updateActiveState('Profile');
+  }
+
+  // FontAwesome icons
   faHome = faHome;
   faSearch = faSearch;
   faBell = faBell;
   faUser = faUser;
   faCircleUser = faCircleUser;
 
+  // This function could be used for applying filters (like color changes) if needed
+  getFilter(): string {
+    return this.Search_screen_active
+      ? 'invert(31%) sepia(60%) saturate(4275%) hue-rotate(328deg) brightness(95%) contrast(97%)'
+      : 'invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%)';
+  }
+
+  // Updates active state based on the current screen
   private updateActiveState(screen: string) {
     this._navigation.Is_Home = screen === 'Home';
     this._navigation.Is_Search = screen === 'Search';
@@ -75,6 +58,7 @@ export class ConsumerBottomNavbarComponent implements OnInit {
     this._navigation.Is_Profile = screen === 'Profile';
   }
 
+  // Helper method to check if a specific screen is active
   isActive(screen: string): boolean {
     switch (screen) {
       case 'Home': return this.Home_screen_active;
@@ -82,57 +66,6 @@ export class ConsumerBottomNavbarComponent implements OnInit {
       case 'Notification': return this.Notification_screen_active;
       case 'Profile': return this.Profile_screen_active;
       default: return false;
-=======
-  private resetActiveStates() {
-    this.AdFeed_screen_active = false;
-    this.Search_screen_active = false;
-    this.Notification_screen_active = false;
-    this.Profile_screen_active = false;
-
-    this._navigation.is_AdFeed = false;
-    this._navigation.is_Search = false;
-    this._navigation.is_Notification = false;
-    this._navigation.is_Profile = false;
-  }
-
-  private updateActiveState(screen: string) {
-    this.resetActiveStates(); 
-
-    switch (screen.toLowerCase()) {
-      case 'adfeed':
-        this.AdFeed_screen_active = true;
-        this._navigation.is_AdFeed = true;
-        break;
-      case 'search':
-        this.Search_screen_active = true;
-        this._navigation.is_Search = true;
-        break;
-      case 'notification':
-        this.Notification_screen_active = true;
-        this._navigation.is_Notification = true;
-        break;
-      case 'profile':
-        this.Profile_screen_active = true;
-        this._navigation.is_Profile = true;
-        break;
-      default:
-        break;
-    }
-  }
-
-  isActive(screen: string): boolean {
-    switch (screen.toLowerCase()) {
-      case 'adfeed':
-        return this.AdFeed_screen_active;
-      case 'search':
-        return this.Search_screen_active;
-      case 'notification':
-        return this.Notification_screen_active;
-      case 'profile':
-        return this.Profile_screen_active;
-      default:
-        return false;
->>>>>>> bc8790b (Corrected Routes for consumer-home and business-home)
     }
   }
 }

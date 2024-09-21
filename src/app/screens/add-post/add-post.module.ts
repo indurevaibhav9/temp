@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { AddPostRoutingModule } from './add-post-routing.module';
 import { AddPostComponent } from './add-post.component';
-import { ConsumerNavbarModule } from '../consumer-navbar/consumer-navbar.module';
-import { BusinessNavbarModule } from '../business-navbar/business-navbar.module';
+import { ConsumerHomeModule } from '../consumer-home/consumer-home.module';
+import { BusinessHomeModule } from '../business-home/business-home.module';
 
 >>>>>>> 525abd9 (Added stashed changes)
 
@@ -14,10 +14,8 @@ import { BusinessNavbarModule } from '../business-navbar/business-navbar.module'
   ],
   imports: [
     CommonModule,
-    AddPostRoutingModule,
-    BusinessNavbarModule,
-    ConsumerNavbarModule
-  ]
->>>>>>> 525abd9 (Added stashed changes)
+    AddPostRoutingModule
+  ],
+  exports: [AddPostComponent]
 })
 export class AddPostModule { }
