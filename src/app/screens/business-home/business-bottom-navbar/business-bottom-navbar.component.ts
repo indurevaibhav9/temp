@@ -4,8 +4,6 @@ import { faAdd, faBell, faChartColumn, faCirclePlus, faCircleUser, faHome, faUse
 import { mdiChartBoxOutline } from '@mdi/js';
 import { BusinessNavigationServiceService } from 'src/app/services/business-navigation-service.service';
 import { HomeModule } from '../../home-screen/home-screen.module';
-import { AddPostModule } from '../../add-post/add-post.module';
-import { ProfileScreenModule } from '../../profile-screen/profile-screen.module';
 import { BusinessInsightsModule } from '../../insights/insights.module';
 
 @Component({
