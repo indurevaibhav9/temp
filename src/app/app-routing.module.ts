@@ -7,7 +7,7 @@ import { loginGuard } from "./authGuards/login/login.guard";
 const routes: Routes = [
   {
     path: "",
-    redirectTo: "businessnavbar",
+    redirectTo: "business-home",
     pathMatch: "full",
   },
   {
@@ -29,7 +29,7 @@ const routes: Routes = [
   {
     path: "homeBusiness",
     loadChildren: () =>
-      import("./screens/home/home.module").then(
+      import("./screens/home-screen/home-screen.module").then(
         (module) => module.HomeModule
       ),
   },
@@ -43,7 +43,7 @@ const routes: Routes = [
   {
     path: "businessinsights",
     loadChildren: () =>
-      import("./screens/business-insights/business-insights.module").then(
+      import("./screens/insights/insights.module").then(
         (module) => module.BusinessInsightsModule
       ),
   },
@@ -69,18 +69,39 @@ const routes: Routes = [
       ),
   },
   {
-    path: "businessnavbar",
+    path: "business-home",
     loadChildren: () =>
-      import("./screens/business-navbar/business-navbar.module").then(
-        (module) => module.BusinessNavbarModule
+      import("./screens/business-home/business-home.module").then(
+        (module) => module.BusinessHomeModule
       ),
   },
   {
-    path: "consumernavbar",
+    path: "consumer-home",
     loadChildren: () =>
-      import("./screens/consumer-navbar/consumer-navbar.module").then(
-        (module) => module.ConsumerNavbarModule
+      import("./screens/consumer-home/consumer-home.module").then(
+        (module) => module.ConsumerHomeModule
       ),
+  },
+  { path: 'logout', loadChildren: () => import('./screens/logout/logout.module').then(m => m.LogoutModule) },
+  {
+    path: 'home',
+    component: HomeScreenComponent 
+  },
+  { 
+    path: 'insights',
+    component: BusinessInsightsComponent
+  },
+  {
+    path: 'addpost',
+    component: AddPostComponent
+  },
+  {
+    path: 'notification',
+    component: NotificationScreenComponent
+  },
+  {
+    path: 'profile',
+    component: ProfileScreenComponent
   }
 ];
 
@@ -89,4 +110,3 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule {}
-
