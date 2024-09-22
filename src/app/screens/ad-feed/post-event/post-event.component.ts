@@ -1,28 +1,19 @@
-import { Component } from '@angular/core';
-import { faBars, faUserGroup } from '@fortawesome/free-solid-svg-icons';
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import { faThumbsUp } from '@fortawesome/free-regular-svg-icons';
-import { faThumbsDown } from '@fortawesome/free-regular-svg-icons';
-import { faLocationArrow } from '@fortawesome/free-solid-svg-icons';
-import { faBookmark } from '@fortawesome/free-solid-svg-icons';
-import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
-import { faLocationDot, faHeart, faBell } from '@fortawesome/free-solid-svg-icons';
-import { faCircleUser } from '@fortawesome/free-regular-svg-icons';
-
-
+// src/app/components/post-event/post-event.component.ts
+import { Component, OnInit } from '@angular/core';
+import { faBars, faUserGroup, faMagnifyingGlass, faThumbsUp, faThumbsDown, faLocationArrow, faBookmark, faEllipsisVertical, faLocationDot, faHeart, faBell, faCircleUser } from '@fortawesome/free-solid-svg-icons';
+import { PostEventDTO } from 'src/app/models/posteventGet'; // Adjust the path as needed
+import { OfferDescriptionService } from 'src/app/services/offer-description.service'; // Adjust the path as needed
+import { OfferDescriptionDTO } from 'src/app/models/offerdescriptionGet';
 @Component({
   selector: 'app-post-event',
   templateUrl: './post-event.component.html',
-  styles: [
-  ]
+  styleUrls: [] // Add if you have a CSS file
 })
-export class PostEventComponent {
+export class PostEventComponent implements OnInit {
+  postEventResponse: PostEventDTO;
+  
 
-  bookNow() {
-    // Replace the URL with the website you want to redirect to
-    window.location.href = 'https://www.example.com';
-  }
-
+  // FontAwesome icons
   faBars = faBars;
   faUserGroup = faUserGroup;
   faMagnifyingGlass = faMagnifyingGlass;
@@ -35,4 +26,19 @@ export class PostEventComponent {
   faHeart = faHeart;
   faBell = faBell;
   faCircleUser = faCircleUser;
+
+  constructor(private offerDescriptionService: OfferDescriptionService) {}
+
+  ngOnInit(): void {
+    this.offerDescriptionService.getPostEvent().subscribe((data: PostEventDTO) => {
+      this.postEventResponse = data;
+    
+     
+    });
+  }
+
+  bookNow(): void {
+    // Replace the URL with the website you want to redirect to
+    window.location.href = 'https://www.example.com';
+  }
 }

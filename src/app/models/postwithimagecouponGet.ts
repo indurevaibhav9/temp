@@ -1,5 +1,4 @@
 export interface OfferDescriptionDTO {
-    
     profileImageUrl: string;
     username: string;
     offerExpiry: string;
@@ -12,5 +11,14 @@ export interface OfferDescriptionDTO {
     descriptionContent: string;
     howToAvailSteps: string[];
     termsConditions: string[];
+  }
+  
+  export interface PostWithImageCouponDTO extends Pick<OfferDescriptionDTO, 
+    'profileImageUrl' | 'username' | 'offerExpiry' | 'offerTitle' > {
+    // Additional properties for PostEventDTO, if any, can go here
+    likes: number;
+    dislikes: number;
+    couponCode:string;
+    imageUrl:string;
   }
   

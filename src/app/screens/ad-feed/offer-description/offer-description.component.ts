@@ -29,6 +29,7 @@ export class OfferDescriptionComponent implements OnInit {
   faBell = faBell;
   faCircleUser = faCircleUser;
 
+
   constructor(private offerDescriptionService: OfferDescriptionService) {}
 
   ngOnInit(): void {
@@ -36,6 +37,8 @@ export class OfferDescriptionComponent implements OnInit {
       this.offerData = data;
     });
   }
+
+
 
   viewOnWebsite(): void {
     window.location.href = 'https://www.example.com'; // Replace with your desired URL
