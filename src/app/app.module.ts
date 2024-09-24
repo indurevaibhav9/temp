@@ -10,15 +10,13 @@ import { LoginModule } from "./screens/login/login.module";
 import { GlobalErrorHandlerService } from "./services/global-error-handler.service";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ThankYouPopupService } from "./services/thank-you-popup.service";
-import { ThankyouPopupComponent } from "./components/thankyou-popup/thankyou-popup.component";
 import { FeedbackScreenComponent } from "./screens/feedback-screen/feedback-screen.component";
-import { PopUpComponent } from './screens/pop-up/pop-up.component';
+import { PopUpComponent } from "./components/pop-up/pop-up.component";
 
 
 
 @NgModule({
-  declarations: [AppComponent, ThankyouPopupComponent, FeedbackScreenComponent, PopUpComponent],
+  declarations: [AppComponent, FeedbackScreenComponent, PopUpComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

@@ -3,7 +3,9 @@ import { faStar } from '@fortawesome/free-solid-svg-icons/faStar';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FeedbackService } from 'src/app/services/feedback.service';
 import { FeedbackRequest } from 'src/app/models/feedbackrequest';
-import { FeedbackResponse } from 'src/app/models/feedback-response.model';
+import { Router } from '@angular/router';
+import { FeedbackResponse } from 'src/app/models/feedback-response';
+import { PopUpComponent } from 'src/app/components/pop-up/pop-up.component';
 
 @Component({
   selector: 'app-feedback-screen',
@@ -84,4 +86,3 @@ export class FeedbackScreenComponent {
     this.showPopUp = false;
   }
 }
-
