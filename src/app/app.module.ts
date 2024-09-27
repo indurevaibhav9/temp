@@ -10,8 +10,18 @@ import { LogoutModule } from "./screens/logout/logout.module";
 import { GlobalErrorHandlerService } from "./services/global-error-handler.service";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { LoginComponent } from "./screens/login/login.component";
-// import { ConsumerHomeModule } from "./screens/consumer-home/consumer-home.module";
 import { BusinessHomeModule } from "./screens/business-home/business-home.module";
+<<<<<<< HEAD
+=======
+import { AddPostModule } from "./screens/add-post/add-post.module";
+import { BusinessInsightsModule } from "./screens/insights/insights.module";
+import { NotificationScreenModule } from "./screens/notification-screen/notification-screen.module";
+import { ProfileScreenModule } from "./screens/profile-screen/profile-screen.module";
+import { HomeModule } from "./screens/home-screen/home-screen.module";
+import { ConsumerHomeModule } from "./screens/consumer-home/consumer-home.module";
+import { SearchModule } from "./screens/search/search.module";
+
+>>>>>>> ff840b8 (Business and consumer navigation bar working)
 
 @NgModule({
   declarations: [
@@ -33,8 +43,18 @@ import { BusinessHomeModule } from "./screens/business-home/business-home.module
     FontAwesomeModule
 =======
     FontAwesomeModule,
+<<<<<<< HEAD
     // ConsumerHomeModule,
     // BusinessHomeModule
+=======
+    AddPostModule,
+    BusinessInsightsModule,
+    HomeModule,
+    NotificationScreenModule,
+    ProfileScreenModule,
+    SearchModule,
+    ConsumerHomeModule
+>>>>>>> ff840b8 (Business and consumer navigation bar working)
   ],
   exports: [
     LoginComponent 

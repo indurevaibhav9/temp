@@ -10,7 +10,6 @@ import { RouterModule, Routes } from '@angular/router';
 @NgModule({
   declarations: [
     HomeScreenComponent,
-
   ],
   imports: [
     CommonModule,

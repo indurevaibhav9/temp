@@ -16,17 +16,4 @@ export class ConsumerTopNavbarComponent {
   faCircleQuestion = faCircleQuestion;
   faFileLines = faFileLines;
   faArrowRightFromBracket = faArrowRightFromBracket;
-
-  toggleSidebar() {
-    const consumerTopNavbar = document.querySelector('.consumer-top-navbar') as HTMLElement;
-    const bottomNavbar = document.querySelector('#bottom-navbar') as HTMLElement;
-
-    if (consumerTopNavbar) {
-      consumerTopNavbar.classList.toggle('drawer-open'); // Change this to the appropriate class for showing/hiding the top navbar
-    }
-
-    if (bottomNavbar) {
-      bottomNavbar.classList.toggle('bottom-navbar-shifted');
-    }
-  }
 }
