@@ -10,7 +10,8 @@ import { BusinessHomeModule } from '../business-home/business-home.module';
   ],
   imports: [
     CommonModule,
-    ProfileScreenRoutingModule
+    ProfileScreenRoutingModule,
+    BusinessHomeModule
   ],
   exports: [ProfileScreenComponent]
 })

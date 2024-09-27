@@ -13,7 +13,8 @@ import { BusinessHomeModule } from '../business-home/business-home.module';
   ],
   imports: [
     CommonModule,
-    AddPostRoutingModule
+    AddPostRoutingModule,
+    BusinessHomeModule
   ],
   exports: [AddPostComponent]
 })

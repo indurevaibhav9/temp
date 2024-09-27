@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { HomeScreenComponent} from "./screens/home-screen/home-screen.component";
+import { HomeScreenComponent } from "./screens/home-screen/home-screen.component";
 import { BusinessInsightsComponent } from "./screens/insights/insights.component";
 import { NotificationScreenComponent } from "./screens/notification-screen/notification-screen.component";
 import { AddPostComponent } from "./screens/add-post/add-post.component";
@@ -75,27 +75,16 @@ const routes: Routes = [
         (module) => module.ConsumerHomeModule
       ),
   },
-  { path: 'logout', loadChildren: () => import('./screens/logout/logout.module').then(m => m.LogoutModule) },
   {
-    path: 'home',
-    component: HomeScreenComponent 
+    path: "logout",
+    loadChildren: () => import('./screens/logout/logout.module').then(m => m.LogoutModule)
   },
-  { 
-    path: 'insights',
-    component: BusinessInsightsComponent
-  },
-  {
-    path: 'addpost',
-    component: AddPostComponent
-  },
-  {
-    path: 'notification',
-    component: NotificationScreenComponent
-  },
-  {
-    path: 'profile',
-    component: ProfileScreenComponent
-  }
+  { path: 'add-post', component: AddPostComponent },
+  { path: 'insights', component: BusinessInsightsComponent },
+  { path: 'notification', component: NotificationScreenComponent },
+  { path: 'profile', component: ProfileScreenComponent },
+  { path: '', redirectTo: 'business-home', pathMatch: 'full' }, 
+  { path: '**', redirectTo: 'business-home/home' } 
 ];
 
 @NgModule({

@@ -23,6 +23,9 @@ pipeline
         EMAIL_TO = 'spreezyindia@gmail.com'
         EMAIL_SUBJECT = 'Spreezy Frontend Project  Build -  '
         EMAIL_BODY = 'Spreezy Frontend Project Build Number  '
+        SONAR_HOST_URL='http://103.105.111.78:6842'
+        SONAR_TOKEN=credentials('sonarqube')
+         SONAR_HOME = tool 'sonar-scanner'  
     }
     
      stages{
@@ -62,6 +65,25 @@ pipeline
             }
         }
 
+         stage('sonarQube-analysis') {
+    steps {
+        withSonarQubeEnv('sonar-scanner') { // Ensure 'sonar-scanner' matches the name configured in Jenkins
+            script {
+                sh """
+                    /var/jenkins_home/tools/hudson.plugins.sonar.SonarRunnerInstallation/sonar-scanner/bin/sonar-scanner \
+                    -Dsonar.projectKey=frontend-project \
+                    -Dsonar.projectName="Frontend Project" \
+                    -Dsonar.sources=. \
+                    -Dsonar.host.url=${SONAR_HOST_URL} \
+                    -Dsonar.login=${SONAR_TOKEN} \
+                    -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info \
+                    -Dsonar.exclusions=node_modules/**,dist/**,**/*.spec.ts \
+                    -Dsonar.sourceEncoding=UTF-8
+                """
+            }
+        }
+    }
+}
 
         stage('Build Project') {
             steps {
@@ -83,8 +105,7 @@ pipeline
                 sh 'mkdir apk-releases'
                 sh 'cp -r  ./android/app/build/outputs/apk/* ./apk-releases/'
                 withCredentials([file(credentialsId: 'nexus_npm_credentials', variable: 'npm_nexus_credentials')]) {
-                 sh "npm publish --userconfig ${npm_nexus_credentials} --loglevel verbose"
-                }
+                 sh "npm publish --userconfig ${npm_nexus_credentials} --registry https://nexus.spreezy.in/repository/npm-hosted/ --loglevel verbose"                }
 
             }
         }

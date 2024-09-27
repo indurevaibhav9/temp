@@ -30,12 +30,12 @@ const routes: Routes = [
   declarations: [
     BusinessBottomNavbarComponent,
     BusinessTopNavbarComponent,
-    BusinessHomeComponent // Declare the components used in this module
+    BusinessHomeComponent 
   ],
   imports: [
     CommonModule,
     FontAwesomeModule,
-    RouterModule.forChild(routes) // Register the routes for the business-home module
+    RouterModule.forChild(routes) 
   ],
   exports: [
     BusinessBottomNavbarComponent,
