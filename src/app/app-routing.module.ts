@@ -5,11 +5,12 @@ import { BusinessInsightsComponent } from "./screens/insights/insights.component
 import { NotificationScreenComponent } from "./screens/notification-screen/notification-screen.component";
 import { AddPostComponent } from "./screens/add-post/add-post.component";
 import { ProfileScreenComponent } from "./screens/profile-screen/profile-screen.component";
+import { SearchComponent } from "./screens/search/search.component";
 
 const routes: Routes = [
   {
     path: "",
-    redirectTo: "business-home",
+    redirectTo: "consumer-home/home",
     pathMatch: "full",
   },
   {
@@ -69,6 +70,13 @@ const routes: Routes = [
       ),
   },
   {
+    path: "search",
+    loadChildren: () =>
+      import("./screens/search/search.module").then(
+        (module) => module.SearchModule
+      )
+  },
+  {
     path: "consumer-home",
     loadChildren: () =>
       import("./screens/consumer-home/consumer-home.module").then(
@@ -81,10 +89,12 @@ const routes: Routes = [
   },
   { path: 'add-post', component: AddPostComponent },
   { path: 'insights', component: BusinessInsightsComponent },
-  { path: 'notification', component: NotificationScreenComponent },
-  { path: 'profile', component: ProfileScreenComponent },
-  { path: '', redirectTo: 'business-home', pathMatch: 'full' }, 
-  { path: '**', redirectTo: 'business-home/home' } 
+  { path: 'search', component: SearchComponent},
+  { path: 'home', component: HomeScreenComponent},
+  { path: 'notification', component: NotificationScreenComponent},
+  { path: 'profile', component: ProfileScreenComponent},
+  { path: '', redirectTo: 'consumer-home', pathMatch: 'full'},
+  { path: '**', redirectTo: 'consumer-home/home' } 
 ];
 
 @NgModule({

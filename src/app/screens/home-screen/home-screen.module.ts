@@ -4,16 +4,17 @@ import { HomeRoutingModule } from './home-screen-routing.module';
 import { HomeScreenComponent } from './home-screen.component';
 import { RouterModule, Routes } from '@angular/router';
 import { BusinessHomeModule } from '../business-home/business-home.module';
+import { ConsumerHomeModule } from '../consumer-home/consumer-home.module';
 
 @NgModule({
   declarations: [
     HomeScreenComponent,
-
   ],
   imports: [
     CommonModule,
     HomeRoutingModule,
-    BusinessHomeModule
+    BusinessHomeModule,
+    ConsumerHomeModule
   ],
   exports: [
     HomeScreenComponent,

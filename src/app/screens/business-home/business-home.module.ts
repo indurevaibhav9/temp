@@ -11,11 +11,10 @@ import { AddPostComponent } from '../add-post/add-post.component';
 import { ProfileScreenComponent } from '../profile-screen/profile-screen.component';
 import { BusinessHomeComponent } from './business-home.component';
 
-// Define routes
 const routes: Routes = [
   {
     path: '',
-    component: BusinessHomeComponent, // Main wrapper for business home
+    component: BusinessHomeComponent, 
     children: [
       { path: 'home', component: HomeScreenComponent },
       { path: 'insights', component: BusinessInsightsComponent },

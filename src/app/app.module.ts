@@ -9,13 +9,15 @@ import { LoginModule } from "./screens/login/login.module";
 import { GlobalErrorHandlerService } from "./services/global-error-handler.service";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { LoginComponent } from "./screens/login/login.component";
-// import { ConsumerHomeModule } from "./screens/consumer-home/consumer-home.module";
 import { BusinessHomeModule } from "./screens/business-home/business-home.module";
 import { AddPostModule } from "./screens/add-post/add-post.module";
 import { BusinessInsightsModule } from "./screens/insights/insights.module";
 import { NotificationScreenModule } from "./screens/notification-screen/notification-screen.module";
 import { ProfileScreenModule } from "./screens/profile-screen/profile-screen.module";
 import { HomeModule } from "./screens/home-screen/home-screen.module";
+import { ConsumerHomeModule } from "./screens/consumer-home/consumer-home.module";
+import { SearchModule } from "./screens/search/search.module";
+
 
 @NgModule({
   declarations: [
@@ -32,8 +34,9 @@ import { HomeModule } from "./screens/home-screen/home-screen.module";
     BusinessInsightsModule,
     HomeModule,
     NotificationScreenModule,
-    ProfileScreenModule
-    
+    ProfileScreenModule,
+    SearchModule,
+    ConsumerHomeModule
   ],
   exports: [
     LoginComponent 

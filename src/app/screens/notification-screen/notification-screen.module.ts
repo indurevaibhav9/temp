@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NotificationScreenRoutingModule } from './notification-screen-routing.module';
 import { NotificationScreenComponent } from './notification-screen.component';
 import { BusinessHomeModule } from '../business-home/business-home.module';
+import { ConsumerHomeModule } from '../consumer-home/consumer-home.module';
 
 
 @NgModule({
@@ -12,7 +13,8 @@ import { BusinessHomeModule } from '../business-home/business-home.module';
   imports: [
     CommonModule,
     NotificationScreenRoutingModule,
-    BusinessHomeModule
+    BusinessHomeModule,
+    ConsumerHomeModule
   ],
   exports: [ 
     NotificationScreenComponent
