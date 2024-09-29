@@ -8,7 +8,7 @@ import { loginGuard } from "./authGuards/login/login.guard";
 const routes: Routes = [
   {
     path: "",
-    redirectTo: "login",
+    redirectTo: "feedback-screen",
     pathMatch: "full",
   },
   {
@@ -40,6 +40,13 @@ const routes: Routes = [
         (module) => module.HomeModule
       ),
     canActivate: [businessGuard],
+  },
+  {
+    path: "feedback-screen",
+    loadChildren: () =>
+      import("./screens/feedback-screen/feedback-screen.module").then(
+        (module) => module.FeedbackScreenModule
+      ),
   },
 ];
 

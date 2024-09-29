@@ -1,0 +1,31 @@
+
+.star {
+  color: white;
+  stroke: #969696;
+  stroke-width: 7px;
+  font-size: 35px;
+}
+
+.star-clicked {
+  color: gold;
+  stroke: #B5993A;
+  stroke-width: 5px;
+  font-size: 35px
+}
+
+ .form-label {
+    font-family: 'Roboto', sans-serif;
+    color: black;
+    font-size: 18px;
+  }
+  
+  #feedback-input {
+    height: 95px;
+    width: 325px;
+  }
+  
+  #feature-request-input {
+    height: 95px;
+    width: 325px;
+  }
+  

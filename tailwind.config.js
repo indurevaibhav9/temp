@@ -41,7 +41,7 @@ module.exports = {
       },
       fontFamily: {
         'primary': ["sansita-one", "sans-serif"],
-        'secondary': ["merriweather", "sans-serif"]
+        'secondary': ["Roboto", "sans-serif"],
       }
     },
   },
