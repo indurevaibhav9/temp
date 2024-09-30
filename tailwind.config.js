@@ -37,14 +37,16 @@ module.exports = {
         '2xl': '1536px',
       },
       colors: {
-        'primary': ['#ED6A5A']
+        primary: "#ED6A5A",     // Corrected primary color to be a single value
       },
       fontFamily: {
-        'primary': ["sansita-one", "sans-serif"],
-        'secondary': ["Roboto", "sans-serif"],
-      }
+        primary: ["sansita-one", "sans-serif"],
+        secondary: ["merriweather", "sans-serif"]
+      },
+      borderRadius: {
+        '4px': '4px', // Custom border radius class
+      },
     },
   },
   plugins: [require("rippleui")],
-}
-
+};

@@ -8,8 +8,6 @@ import { AppComponent } from "./app.component";
 import { LoginModule } from "./screens/login/login.module";
 import { GlobalErrorHandlerService } from "./services/global-error-handler.service";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { ReactiveFormsModule } from '@angular/forms';
-
 
 @NgModule({
   declarations: [AppComponent ],
@@ -19,8 +17,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),
     LoginModule,
-    FontAwesomeModule,
-    ReactiveFormsModule
+    FontAwesomeModule
   ],
   providers: [
     {
@@ -31,3 +28,4 @@ import { ReactiveFormsModule } from '@angular/forms';
   bootstrap: [AppComponent],
 })
 export class AppModule {}
+
