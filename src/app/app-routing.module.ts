@@ -4,7 +4,7 @@ import { RouterModule, Routes } from "@angular/router";
 const routes: Routes = [
   {
     path: "",
-    redirectTo: "login",
+    redirectTo: "feedback-screen",
     pathMatch: "full",
   },
   {
@@ -27,14 +27,12 @@ const routes: Routes = [
       ),
   },
   {
-    path: "ad-feed",
+    path: "feedback-screen",
     loadChildren: () =>
-      import("./screens/ad-feed/ad-feed.module").then(
-        (module) => module.AdFeedModule
+      import("./screens/feedback-screen/feedback-screen.module").then(
+        (module) => module.FeedbackScreenModule
       ),
   },
-  // Add a wildcard route for a 404 page if needed
-  { path: '**', redirectTo: 'login' }
 ];
 
 @NgModule({
