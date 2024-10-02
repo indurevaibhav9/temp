@@ -36,8 +36,9 @@ import { SearchModule } from "./screens/search/search.module";
     NotificationScreenModule,
     ProfileScreenModule,
     SearchModule,
-    ConsumerHomeModule
-  ],
+    ConsumerHomeModule,
+    BusinessHomeModule
+],
   exports: [
     LoginComponent 
   ],

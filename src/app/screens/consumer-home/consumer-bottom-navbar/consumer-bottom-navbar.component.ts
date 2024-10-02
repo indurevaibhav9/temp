@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { faSearch, faBell, faHome, faUser, faCircleUser } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faBell, faHome, faCircleUser } from '@fortawesome/free-solid-svg-icons';
 import { ConsumerNavigationService } from 'src/app/services/consumer-navigation.service';
 
 @Component({
@@ -9,13 +9,24 @@ import { ConsumerNavigationService } from 'src/app/services/consumer-navigation.
   styles: []
 })
 export class ConsumerBottomNavbarComponent {
-  
-  constructor(private router: Router, private _navigation: ConsumerNavigationService) {}
-  Home_screen_active: boolean = this._navigation.Is_Home;
-  Search_screen_active: boolean = this._navigation.Is_Search;
-  Notification_screen_active: boolean = this._navigation.Is_Notification;
-  Profile_screen_active: boolean = this._navigation.Is_Profile;
 
+  faHome = faHome;
+  faSearch = faSearch;
+  faBell = faBell;
+  faCircleUser = faCircleUser;
+
+  Home_screen_active = false;
+  Search_screen_active = false;
+  Notification_screen_active = false;
+  Profile_screen_active = false;
+
+  constructor(private router: Router, private _navigation: ConsumerNavigationService) {
+    this.Home_screen_active = this._navigation.Is_Home;
+    this.Search_screen_active = this._navigation.Is_Search;
+    this.Notification_screen_active = this._navigation.Is_Notification;
+    this.Profile_screen_active = this._navigation.Is_Profile;
+  }
+  
   Home() {
     this.router.navigate(['/consumernavbar']);
     this.updateActiveState('Home');
@@ -36,26 +47,48 @@ export class ConsumerBottomNavbarComponent {
     this.updateActiveState('Profile');
   }
 
-  faHome = faHome;
-  faSearch = faSearch;
-  faBell = faBell;
-  faUser = faUser;
-  faCircleUser = faCircleUser;
+  private resetActiveStates() {
+    this.Home_screen_active = false;
+    this.Search_screen_active = false;
+    this.Notification_screen_active = false;
+    this.Profile_screen_active = false;
+  }
 
   private updateActiveState(screen: string) {
-    this._navigation.Is_Home = screen === 'Home';
-    this._navigation.Is_Search = screen === 'Search';
-    this._navigation.Is_Notification = screen === 'Notification';
-    this._navigation.Is_Profile = screen === 'Profile';
+    this.resetActiveStates(); 
+
+    switch (screen) {
+      case 'Home':
+        this.Home_screen_active = true;
+        this._navigation.Is_Home = true;
+        break;
+      case 'Search':
+        this.Search_screen_active = true;
+        this._navigation.Is_Search = true;
+        break;
+      case 'Notification':
+        this.Notification_screen_active = true;
+        this._navigation.Is_Notification = true;
+        break;
+      case 'Profile':
+        this.Profile_screen_active = true;
+        this._navigation.Is_Profile = true;
+        break;
+    }
   }
 
   isActive(screen: string): boolean {
     switch (screen) {
-      case 'Home': return this.Home_screen_active;
-      case 'Search': return this.Search_screen_active;
-      case 'Notification': return this.Notification_screen_active;
-      case 'Profile': return this.Profile_screen_active;
-      default: return false;
+      case 'Home':
+        return this.Home_screen_active;
+      case 'Search':
+        return this.Search_screen_active;
+      case 'Notification':
+        return this.Notification_screen_active;
+      case 'Profile':
+        return this.Profile_screen_active;
+      default:
+        return false;
     }
   }
 }
