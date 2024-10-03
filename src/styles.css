@@ -1,6 +1,9 @@
+@import "~remixicon/fonts/remixicon.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
 
 @font-face {
   font-family: 'sansita-one';
