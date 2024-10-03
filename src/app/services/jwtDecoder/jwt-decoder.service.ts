@@ -10,8 +10,6 @@ export class JwtDecoderService {
   constructor() { }
 
   decodeInfoFromToken(token: string) : DecodedToken{
-
     return jwtDecode<DecodedToken>(token);
-
   }
 }

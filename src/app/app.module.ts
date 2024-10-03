@@ -12,17 +12,16 @@ import { OtpscreenComponent } from "./screens/otpscreen/otpscreen.component";
 import { LoaderComponent } from './components/loader/loader.component';
 import { RegisterModule } from "./screens/register/register.module";
 @NgModule({
-  declarations: [AppComponent, OtpscreenComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),
     LoginModule,
-    ReactiveFormsModule ,
-    LoaderComponent,
-    RegisterModule
-  ],
+    ReactiveFormsModule,
+    RegisterModule,
+],
   providers: [
     {
       provide: ErrorHandler,
