@@ -28,8 +28,20 @@ const routes: Routes = [
     loadChildren: () => import("./screens/consumer-home/consumer-home.module").then(m => m.ConsumerHomeModule),
     // canActivate: [customerGuard]
   },
-
-  { path: "**", redirectTo: "login" }
+  {
+    path: "feedback-screen",
+    loadChildren: () =>
+      import("./screens/feedback-screen/feedback-screen.module").then(
+        (module) => module.FeedbackScreenModule
+      ),
+  },
+  {
+    path:"settings",
+    loadChildren: () =>
+      import("./screens/settings/settings.module").then(
+        (module) => module.SettingsModule
+      ),
+  }
 ];
 
 @NgModule({
