@@ -27,6 +27,13 @@ const routes: Routes = [
       ),
   },
   {
+    path: "ad-feed",
+    loadChildren: () =>
+      import("./screens/ad-feed/ad-feed.module").then(
+        (module) => module.AdFeedModule
+      ),
+  },
+  {
     path: "feedback-screen",
     loadChildren: () =>
       import("./screens/feedback-screen/feedback-screen.module").then(
