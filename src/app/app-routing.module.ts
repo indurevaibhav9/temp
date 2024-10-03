@@ -29,21 +29,19 @@ const routes: Routes = [
     // canActivate: [customerGuard]
   },
   {
-    path: "ad-feed",
-    loadChildren: () =>
-      import("./screens/ad-feed/ad-feed.module").then(
-        (module) => module.AdFeedModule
-      ),
-  },
-  {
     path: "feedback-screen",
     loadChildren: () =>
       import("./screens/feedback-screen/feedback-screen.module").then(
         (module) => module.FeedbackScreenModule
       ),
   },
-  // Add a wildcard route for a 404 page if needed
-  { path: '**', redirectTo: 'login' }
+  {
+    path:"settings",
+    loadChildren: () =>
+      import("./screens/settings/settings.module").then(
+        (module) => module.SettingsModule
+      ),
+  }
 ];
 
 @NgModule({
