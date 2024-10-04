@@ -6,6 +6,7 @@ import { ProfileInformationComponent } from './components/profile-information/pr
 import { PasswordManagementComponent } from './components/password-management/password-management.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { SharedModuleModule } from 'src/app/shared/shared-module/shared-module.module';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     SettingsRoutingModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    SharedModuleModule
   ]
 })
 export class SettingsModule { }
