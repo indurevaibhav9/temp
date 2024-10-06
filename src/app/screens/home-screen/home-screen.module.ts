@@ -4,7 +4,6 @@ import { HomeRoutingModule } from './home-screen-routing.module';
 import { HomeScreenComponent } from './home-screen.component';
 import { BusinessHomeModule } from '../business-home/business-home.module';
 import { ConsumerHomeModule } from '../consumer-home/consumer-home.module';
-import { RouterModule, Routes } from '@angular/router';
 
 
 
