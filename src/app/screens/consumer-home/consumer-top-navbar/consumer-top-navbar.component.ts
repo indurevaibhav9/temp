@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { faArrowRightFromBracket, faBars, faCircleQuestion, faDiceD20, faFileLines, faFilePen, faGear, faMessage, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRightFromBracket, faBars, faCircleQuestion, faFileLines, faFilePen, faGear, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { JwtDecoderService } from 'src/app/services/jwtDecoder/jwt-decoder.service';
+import { DecodedToken } from 'src/app/models/decodedToken';
 
 @Component({
   selector: 'app-consumer-top-navbar',
@@ -7,13 +9,20 @@ import { faArrowRightFromBracket, faBars, faCircleQuestion, faDiceD20, faFileLin
   styleUrls: ['./consumer-top-navbar.component.css']
 })
 export class ConsumerTopNavbarComponent {
-  faBars = faBars;
-  faSearch = faSearch;
-  faMessage = faMessage;
-  faGear = faGear;
-  faFilePen = faFilePen;
-  faDiceD20 = faDiceD20;
-  faCircleQuestion = faCircleQuestion;
-  faFileLines = faFileLines;
-  faArrowRightFromBracket = faArrowRightFromBracket;
+  faIcons = {
+    bars: faBars,
+    search: faSearch,
+    gear: faGear,
+    filePen: faFilePen,
+    fileLines: faFileLines,
+    circleQuestion: faCircleQuestion,
+    arrowRightFromBracket: faArrowRightFromBracket,
+  };
+
+  constructor(private jwtDecoder: JwtDecoderService) {}
+  isUserPresentInDatabase(idTokenKey: string | null) {
+    const token = localStorage.getItem('token')!;
+    const decodedInfoFromToken: DecodedToken = this.jwtDecoder.decodeInfoFromToken(token);
+    console.log(decodedInfoFromToken);
+  }
 }

@@ -1,11 +1,5 @@
-import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
-import { HomeScreenComponent } from "./screens/home-screen/home-screen.component";
-import { BusinessInsightsComponent } from "./screens/insights/insights.component";
-import { NotificationScreenComponent } from "./screens/notification-screen/notification-screen.component";
-import { AddPostComponent } from "./screens/add-post/add-post.component";
-import { ProfileScreenComponent } from "./screens/profile-screen/profile-screen.component";
-import { SearchComponent } from "./screens/search/search.component";
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
@@ -73,37 +67,14 @@ const routes: Routes = [
   },
   {
     path: "business-home",
-    loadChildren: () =>
-      import("./screens/business-home/business-home.module").then(
-        (module) => module.BusinessHomeModule
-      ),
-  },
-  {
-    path: "search",
-    loadChildren: () =>
-      import("./screens/search/search.module").then(
-        (module) => module.SearchModule
-      )
+    loadChildren: () => import("./screens/business-home/business-home.module").then(m => m.BusinessHomeModule),
   },
   {
     path: "consumer-home",
-    loadChildren: () =>
-      import("./screens/consumer-home/consumer-home.module").then(
-        (module) => module.ConsumerHomeModule
-      ),
+    loadChildren: () => import("./screens/consumer-home/consumer-home.module").then(m => m.ConsumerHomeModule),
   },
-  {
-    path: "logout",
-    loadChildren: () => import('./screens/logout/logout.module').then(m => m.LogoutModule)
-  },
-  { path: 'add-post', component: AddPostComponent },
-  { path: 'insights', component: BusinessInsightsComponent },
-  { path: 'search', component: SearchComponent},
-  { path: 'home', component: HomeScreenComponent},
-  { path: 'notification', component: NotificationScreenComponent},
-  { path: 'profile', component: ProfileScreenComponent},
-  { path: '', redirectTo: 'consumer-home', pathMatch: 'full'},
-  { path: '**', redirectTo: 'consumer-home/home' } 
+
+  { path: "**", redirectTo: "consumer-home/home" }
 ];
 
 @NgModule({
