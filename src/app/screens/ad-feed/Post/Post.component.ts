@@ -1,25 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { OfferDescriptionService } from 'src/app/services/advertisementTypes.service';
-import { OfferDescriptionDTO } from 'src/app/models/offerdescriptionGet';
 import { faBars, faUserGroup, faMagnifyingGlass, faThumbsUp, faThumbsDown, faLocationArrow, faBookmark, faEllipsisVertical, faLocationDot, faHeart, faBell, faCircleUser } from '@fortawesome/free-solid-svg-icons';
+import { PostDTO } from 'src/app/models/PostGet';
+import { OfferDescriptionService } from 'src/app/services/advertisementTypes.service'; // Adjust the path as needed
 import { Router } from '@angular/router';
+
 @Component({
-  selector: 'app-offer-description',
-  templateUrl: './offer-description.component.html',
+  selector: 'app-Post',
+  templateUrl: './Post.component.html',
   styles: []
 })
-export class OfferDescriptionComponent implements OnInit {
-  offerData: OfferDescriptionDTO;
+export class PostWithImageComponent implements OnInit {
+  postWithImage: PostDTO;
   remainingDays: number;
   isExpired: boolean = false;
   reportVisible: boolean = false; // Property to control visibility of report modal
-  showReportButton: boolean = false;
-  dropdowns: { [key: string]: boolean } = {
-    howToAvail: false,
-    termsConditions: false
-  };
-
-  // FontAwesome icons
+  showReportComponent: boolean = false;
+  // Font Awesome icons
   faBars = faBars;
   faUserGroup = faUserGroup;
   faMagnifyingGlass = faMagnifyingGlass;
@@ -33,15 +29,14 @@ export class OfferDescriptionComponent implements OnInit {
   faBell = faBell;
   faCircleUser = faCircleUser;
 
-
-  constructor(private offerDescriptionService: OfferDescriptionService,private router: Router) {}
+  constructor(private offerDescriptionService: OfferDescriptionService, private router: Router) {}
 
   ngOnInit(): void {
-    this.offerDescriptionService.getOfferDescription().subscribe((data: OfferDescriptionDTO) => {
-      this.offerData = data;
+    this.offerDescriptionService.getPost().subscribe((data: PostDTO) => {
+      this.postWithImage = data;
 
       // Calculate remaining days
-      const expiryDate = new Date(this.offerData.offerExpiry);
+      const expiryDate = new Date(this.postWithImage.offerExpiry);
       const currentDate = new Date();
       const timeDiff = expiryDate.getTime() - currentDate.getTime();
       this.remainingDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); // Convert time difference to days
@@ -53,30 +48,13 @@ export class OfferDescriptionComponent implements OnInit {
     });
   }
 
-
-
-  viewOnWebsite(): void {
-    window.location.href = 'https://www.example.com'; // Replace with your desired URL
-  }
-
-  toggleDropdown(key: string): void {
-    this.dropdowns[key] = !this.dropdowns[key];
-  }
   showDetails() {
     this.router.navigate(['/ad-feed/offer-description']); // Now using injected router
   }
-
   showReport() {
-    this.showReportButton = true; // Show the report button
+    this.reportVisible = true; // Trigger to show the report button
   }
-
-  confirmReport() {
-    this.reportVisible = true; // Show the confirmation message
-    this.showReportButton = false; // Hide the report button
-  }
-
-  done() {
-    this.reportVisible = false; // Hide the confirmation message
-    this.showReportButton = false; // Hide the report button
+  toggleReport(): void {
+    this.showReportComponent = !this.showReportComponent;
   }
 }

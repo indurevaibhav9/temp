@@ -5,10 +5,10 @@ import { AdFeedRoutingModule } from './ad-feed-routing.module';
 import { AdFeedComponent } from './ad-feed.component';
 
 import { OfferDescriptionComponent } from './offer-description/offer-description.component';
-import { PostEventComponent } from './post-event/post-event.component';
-import { PostWithImageComponent } from './post-with-image/post-with-image.component';
-import { PostWithImageCouponComponent } from './post-with-image-coupon/post-with-image-coupon.component';
-import { PostWithoutImageCouponComponent } from './post-without-image-coupon/post-without-image-coupon.component';
+import { PostEventComponent } from './Event/Event.component';
+import { PostWithImageComponent } from './Post/Post.component';
+import { PostWithImageCouponComponent } from './Coupon/Coupon.component';
+import { ReportPostComponent } from 'src/app/components/report-post/report-post.component';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
@@ -19,7 +19,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     PostEventComponent,
     PostWithImageComponent,
     PostWithImageCouponComponent,
-    PostWithoutImageCouponComponent
+    ReportPostComponent
+  
+   
   ],
   imports: [
     CommonModule,

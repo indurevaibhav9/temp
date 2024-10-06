@@ -1,3 +1,6 @@
+<div class="flex items-center justify-center h-screen">
+    
+
 <div class="border border-gray-300 bg-gray-200 max-w-sm font-sansita-one shadow-lg flex flex-col overflow-hidden">
   <header class="flex items-center justify-between bg-primary text-white p-2 h-14">
       <button class="menu-icon mr-4 ml-4">
@@ -15,12 +18,19 @@
   </header>
 
   <div class="flex justify-center p-0">
-      <div class="border border-gray-300 bg-white w-full max-w-md shadow-lg rounded-md mt-2 mb-2 ml-2 mr-2">
+      <div class="border border-gray-300 bg-white w-full max-w-md shadow-lg  mt-1 mb-1">
           <div class="flex items-center justify-between p-2">
               <img [src]="offerData.profileImageUrl" alt="Profile" class="w-12 h-12 rounded-full mt-2 ml-1">
               <div class="flex-grow ml-2 text-left">
                   <div class="font-bold text-lg mt-2 text-black">{{ offerData.username }}</div>
-                  <div class="text-sm text-gray-500">Expiring in {{ offerData.offerExpiry }}</div>
+                  <div class="text-sm text-gray-500">
+                    <ng-container *ngIf="isExpired; else notExpired">
+                      Expired
+                    </ng-container>
+                    <ng-template #notExpired>
+                      Expires in {{ remainingDays }} days
+                    </ng-template>
+                  </div>
               </div>
               <button class="bg-primary text-white font-medium font-system-ui border-none px-3 py-1 rounded mt-2 mr-1 cursor-pointer">
                   FOLLOW
@@ -56,12 +66,18 @@
                   <button class="bg-none border-none flex items-center cursor-pointer">
                       <fa-icon [icon]="faBookmark" class="fa-xl" [ngStyle]="{'color': '#ffb43f'}"></fa-icon>
                   </button>
-              
-                  <button class="bg-none border-none flex items-center cursor-pointer">
-                      <fa-icon [icon]="faEllipsisVertical" class="fa-xl" [ngStyle]="{'color': '#000000'}"></fa-icon>
-                  </button>
-              </div>
-          </div>
+                  <button class="bg-none border-none flex items-center cursor-pointer" (click)="showReport()" aria-label="Report">
+                    <fa-icon [icon]="faEllipsisVertical" class="fa-xl" [ngStyle]="{'color': '#000000'}"></fa-icon>
+                </button>
+
+                <!-- Report Button -->
+                <div *ngIf="showReportButton" class="absolute top-3/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                    <button class="bg-white text-black border border-gray-300 px-3 py-1 rounded hover:bg-gray-100 transition duration-150 mt-2" (click)="confirmReport()">
+                        Report
+                    </button>
+                </div>
+            </div>
+        </div>
           
           <div class="button-container text-center mt-5">
               <button class="view-on-website-btn w-10/12 py-2 bg-primary text-white border-none rounded-full cursor-pointer text-lg" (click)="viewOnWebsite()">View on Website</button>
@@ -110,4 +126,21 @@
     <fa-icon [icon]="faBell" class="fa-2xl" [ngStyle]="{'color': '#ffffff'}"></fa-icon>
     <fa-icon [icon]="faCircleUser" class="fa-2xl" [ngStyle]="{'color': '#ffffff'}"></fa-icon>
 </footer>
+<!-- Report Button -->
+<div *ngIf="showReportButton" class="absolute top-3/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+      
+    <button class="bg-white text-black border border-gray-300 px-3 py-1 rounded hover:bg-gray-100 transition duration-150 mt-2" (click)="confirmReport()">
+      Report
+    </button>
+    
+  </div>
+
+  <!-- Report Confirmation Message -->
+  <div *ngIf="reportVisible" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white border border-gray-300 rounded-lg p-6 shadow-lg z-50">
+    <h2 class="text-primary font-bold">Post Reported Successfully</h2>
+    <button class="bg-primary text-white font-bold px-4 py-2 rounded mt-4 hover:bg-opacity-90" (click)="done()">
+      Done
+    </button>
+  </div>
+</div>
 </div>

@@ -13,12 +13,14 @@ export interface OfferDescriptionDTO {
     termsConditions: string[];
   }
   
-  export interface PostWithImageCouponDTO extends Pick<OfferDescriptionDTO, 
+  export interface CouponCodeDTO extends Pick<OfferDescriptionDTO, 
     'profileImageUrl' | 'username' | 'offerExpiry' | 'offerTitle' > {
     // Additional properties for PostEventDTO, if any, can go here
     likes: number;
     dislikes: number;
     couponCode:string;
     imageUrl:string;
+    description: string;
+    offerImageUrl: string;
   }
   

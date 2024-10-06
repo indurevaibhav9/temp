@@ -9,6 +9,7 @@ import { LoginModule } from "./screens/login/login.module";
 import { GlobalErrorHandlerService } from "./services/global-error-handler.service";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
+
 @NgModule({
   declarations: [AppComponent ],
   imports: [

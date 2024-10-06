@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { OfferDescriptionDTO } from '../models/offerdescriptionGet';
-import { PostEventDTO } from '../models/posteventGet';  // Import your PostEventDTO model
-import {PostWithImageDTO} from '../models/postwithimageGet'
-import { PostWithImageCouponDTO } from '../models/postwithimagecouponGet';
+import { EventDTO } from '../models/EventGet';  // Import your PostEventDTO model
+import {PostDTO} from '../models/PostGet'
+import { CouponCodeDTO } from '../models/CouponCodeGet';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class OfferDescriptionService {
   constructor(private http: HttpClient) {}
 
   getOfferDescription(): Observable<OfferDescriptionDTO> {
-    return this.http.get<OfferDescriptionDTO>('http://192.168.1.35:8082/feed/consumer/advertisement/offer-description', {
+    return this.http.get<OfferDescriptionDTO>('https://72f9-2401-4900-1c45-6dcb-9999-414a-c5aa-94a8.ngrok-free.app/feed/advertisement/post', {
       responseType: 'json',
       headers: new HttpHeaders({
         'ngrok-skip-browser-warning': 'true',
@@ -23,8 +23,8 @@ export class OfferDescriptionService {
     });
   }
 
-  getPostEvent(): Observable<PostEventDTO> {
-    return this.http.get<PostEventDTO>('http://192.168.1.35:8082/feed/consumer/advertisement/post-event', {
+  getEvent(): Observable<EventDTO> {
+    return this.http.get<EventDTO>('https://72f9-2401-4900-1c45-6dcb-9999-414a-c5aa-94a8.ngrok-free.app/feed/advertisement/event', {
       responseType: 'json',
       headers: new HttpHeaders({
         'ngrok-skip-browser-warning': 'true',
@@ -32,8 +32,8 @@ export class OfferDescriptionService {
     });
   }
 
-  getPostWithImage(): Observable<PostWithImageDTO> {
-    return this.http.get<PostWithImageDTO>('http://192.168.1.35:8082/feed/consumer/advertisement/post-with-image', {
+  getPost(): Observable<PostDTO> {
+    return this.http.get<PostDTO>('https://72f9-2401-4900-1c45-6dcb-9999-414a-c5aa-94a8.ngrok-free.app/feed/advertisement/post', {
       responseType: 'json',
       headers: new HttpHeaders({
         'ngrok-skip-browser-warning': 'true',
@@ -41,8 +41,8 @@ export class OfferDescriptionService {
     });
   }
 
-  getPostWithImageCoupon(): Observable<PostWithImageCouponDTO> {
-    return this.http.get<PostWithImageCouponDTO>('http://192.168.1.35:8082/feed/consumer/advertisement/post-with-image-coupon', {
+  getCoupon(): Observable<CouponCodeDTO> {
+    return this.http.get<CouponCodeDTO>('https://72f9-2401-4900-1c45-6dcb-9999-414a-c5aa-94a8.ngrok-free.app/feed/advertisement/coupon', {
       responseType: 'json',
       headers: new HttpHeaders({
         'ngrok-skip-browser-warning': 'true',
