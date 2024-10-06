@@ -5,7 +5,6 @@ import { NotificationScreenComponent } from './notification-screen.component';
 import { BusinessHomeModule } from '../business-home/business-home.module';
 import { ConsumerHomeModule } from '../consumer-home/consumer-home.module';
 
-
 @NgModule({
   declarations: [
     NotificationScreenComponent
@@ -14,7 +13,8 @@ import { ConsumerHomeModule } from '../consumer-home/consumer-home.module';
     CommonModule,
     NotificationScreenRoutingModule,
     BusinessHomeModule,
-    ConsumerHomeModule
+    ConsumerHomeModule,
+    
   ],
   exports: [ 
     NotificationScreenComponent

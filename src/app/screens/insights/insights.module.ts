@@ -3,6 +3,11 @@ import { CommonModule } from '@angular/common';
 import { BusinessInsightsRoutingModule } from './insights-routing.module';
 import { BusinessInsightsComponent } from './insights.component';
 import { BusinessHomeModule } from '../business-home/business-home.module';
+import { RouterModule, Routes } from '@angular/router';
+
+const routes: Routes = [
+  { path: '', component: BusinessInsightsComponent }
+];
 
 @NgModule({
   declarations: [
@@ -11,7 +16,8 @@ import { BusinessHomeModule } from '../business-home/business-home.module';
   imports: [
     CommonModule,
     BusinessInsightsRoutingModule,
-    BusinessHomeModule
+    BusinessHomeModule,
+    RouterModule.forChild(routes)
   ],
   exports: [
     BusinessInsightsComponent

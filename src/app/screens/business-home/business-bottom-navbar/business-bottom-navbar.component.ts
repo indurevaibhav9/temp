@@ -6,7 +6,30 @@ import { BusinessNavigationServiceService } from 'src/app/services/business-navi
 @Component({
   selector: 'app-business-bottom-navbar',
   templateUrl: './business-bottom-navbar.component.html',
-  styles: []
+  styles: [`
+    .nav-icon {
+      color: #FFFFFF; 
+      font-size: 24px;
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+    .nav-icon:hover, .active-icon {
+      color: #007BFF; 
+      transform: scale(1.2); 
+    }
+
+    .nav-icon-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      transition: background-color 0.3s ease;
+    }
+    .nav-icon-container:hover {
+      background-color: rgba(0, 123, 255, 0.1); 
+      border-radius: 50%; 
+    }
+  `]
 })
 export class BusinessBottomNavbarComponent {
 
@@ -33,29 +56,57 @@ export class BusinessBottomNavbarComponent {
     this.Profile_screen_active = this._navigation.Is_Profile;
   }
 
+
   Home() {
-    this.router.navigate(['/businessnavbar']);
-    this.updateActiveState('Home');
+    this.router.navigate(['business-home/businessnavbar']);
+    this.updateActiveState('home');
   }
 
   Insights() {
-    this.router.navigate(['/businessinsights']);
-    this.updateActiveState('Insights');
+    this.router.navigate(['business-home/insights']);
+    this.updateActiveState('insights');
   }
 
   Add_Post() {
-    this.router.navigate(['/addpost']);
-    this.updateActiveState('Post');
+    this.router.navigate(['business-home/addpost']);
+    this.updateActiveState('addpost');
   }
 
   Notification() {
-    this.router.navigate(['/notification']);
-    this.updateActiveState('Notification');
+    this.router.navigate(['business-home/notification']);
+    this.updateActiveState('notification');
   }
 
   Profile() {
-    this.router.navigate(['/profile']);
-    this.updateActiveState('Profile');
+    this.router.navigate(['business-home/profile']);
+    this.updateActiveState('profile');
+  }
+
+  private updateActiveState(screen: string) {
+    this.resetActiveStates();
+
+    switch (screen) {
+      case 'home':
+        this.Home_screen_active = true;
+        this._navigation.Is_Home = true;
+        break;
+      case 'insights':
+        this.Insights_screen_active = true;
+        this._navigation.Is_Insights = true;
+        break;
+      case 'addpost':
+        this.Post_screen_active = true;
+        this._navigation.Is_Post = true;
+        break;
+      case 'notification':
+        this.Notification_screen_active = true;
+        this._navigation.Is_Notification = true;
+        break;
+      case 'profile':
+        this.Profile_screen_active = true;
+        this._navigation.Is_Profile = true;
+        break;
+    }
   }
 
   private resetActiveStates() {
@@ -64,46 +115,25 @@ export class BusinessBottomNavbarComponent {
     this.Post_screen_active = false;
     this.Notification_screen_active = false;
     this.Profile_screen_active = false;
-  }
 
-  private updateActiveState(screen: string) {
-    this.resetActiveStates(); 
-
-    switch (screen) {
-      case 'Home':
-        this.Home_screen_active = true;
-        this._navigation.Is_Home = true;
-        break;
-      case 'Insights':
-        this.Insights_screen_active = true;
-        this._navigation.Is_Insights = true;
-        break;
-      case 'Post':
-        this.Post_screen_active = true;
-        this._navigation.Is_Post = true;
-        break;
-      case 'Notification':
-        this.Notification_screen_active = true;
-        this._navigation.Is_Notification = true;
-        break;
-      case 'Profile':
-        this.Profile_screen_active = true;
-        this._navigation.Is_Profile = true;
-        break;
-    }
+    this._navigation.Is_Home = false;
+    this._navigation.Is_Insights = false;
+    this._navigation.Is_Post = false;
+    this._navigation.Is_Notification = false;
+    this._navigation.Is_Profile = false;
   }
 
   isActive(screen: string): boolean {
     switch (screen) {
-      case 'Home':
+      case 'home':
         return this.Home_screen_active;
-      case 'Insights':
+      case 'insights':
         return this.Insights_screen_active;
-      case 'Post':
+      case 'addpost':
         return this.Post_screen_active;
-      case 'Notification':
+      case 'notification':
         return this.Notification_screen_active;
-      case 'Profile':
+      case 'profile':
         return this.Profile_screen_active;
       default:
         return false;

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { faSearch, faBell, faHome, faCircleUser } from '@fortawesome/free-solid-svg-icons';
 import { ConsumerNavigationService } from 'src/app/services/consumer-navigation.service';
@@ -8,7 +8,7 @@ import { ConsumerNavigationService } from 'src/app/services/consumer-navigation.
   templateUrl: './consumer-bottom-navbar.component.html',
   styles: []
 })
-export class ConsumerBottomNavbarComponent {
+export class ConsumerBottomNavbarComponent implements OnInit {
 
   faHome = faHome;
   faSearch = faSearch;
@@ -20,31 +20,27 @@ export class ConsumerBottomNavbarComponent {
   Notification_screen_active = false;
   Profile_screen_active = false;
 
-  constructor(private router: Router, private _navigation: ConsumerNavigationService) {
-    this.Home_screen_active = this._navigation.Is_Home;
-    this.Search_screen_active = this._navigation.Is_Search;
-    this.Notification_screen_active = this._navigation.Is_Notification;
-    this.Profile_screen_active = this._navigation.Is_Profile;
-  }
-  
-  Home() {
-    this.router.navigate(['/consumernavbar']);
-    this.updateActiveState('Home');
+  constructor(private router: Router, private _navigation: ConsumerNavigationService) {}
+
+  ngOnInit(): void {
+    this.updateActiveStates();
+    this.router.events.subscribe(() => {
+      this.updateActiveStates();
+    });
   }
 
-  Search() {
-    this.router.navigate(['/search']);
-    this.updateActiveState('Search');
+  navigateTo(screen: string) {
+    this.router.navigate([`/consumer-home/${screen.toLowerCase()}`]);
+    this.updateActiveState(screen); 
   }
 
-  Notification() {
-    this.router.navigate(['/notification']);
-    this.updateActiveState('Notification');
-  }
+  private updateActiveStates() {
+    const currentRoute = this.router.url.split('/').pop(); 
+    this.resetActiveStates();
 
-  Profile() {
-    this.router.navigate(['/profile']);
-    this.updateActiveState('Profile');
+    if (currentRoute) {
+      this.updateActiveState(currentRoute.charAt(0).toUpperCase() + currentRoute.slice(1));
+    }
   }
 
   private resetActiveStates() {
@@ -52,40 +48,47 @@ export class ConsumerBottomNavbarComponent {
     this.Search_screen_active = false;
     this.Notification_screen_active = false;
     this.Profile_screen_active = false;
+
+    this._navigation.Is_Home = false;
+    this._navigation.Is_Search = false;
+    this._navigation.Is_Notification = false;
+    this._navigation.Is_Profile = false;
   }
 
   private updateActiveState(screen: string) {
     this.resetActiveStates(); 
 
-    switch (screen) {
-      case 'Home':
+    switch (screen.toLowerCase()) {
+      case 'home':
         this.Home_screen_active = true;
         this._navigation.Is_Home = true;
         break;
-      case 'Search':
+      case 'search':
         this.Search_screen_active = true;
         this._navigation.Is_Search = true;
         break;
-      case 'Notification':
+      case 'notification':
         this.Notification_screen_active = true;
         this._navigation.Is_Notification = true;
         break;
-      case 'Profile':
+      case 'profile':
         this.Profile_screen_active = true;
         this._navigation.Is_Profile = true;
+        break;
+      default:
         break;
     }
   }
 
   isActive(screen: string): boolean {
-    switch (screen) {
-      case 'Home':
+    switch (screen.toLowerCase()) {
+      case 'home':
         return this.Home_screen_active;
-      case 'Search':
+      case 'search':
         return this.Search_screen_active;
-      case 'Notification':
+      case 'notification':
         return this.Notification_screen_active;
-      case 'Profile':
+      case 'profile':
         return this.Profile_screen_active;
       default:
         return false;
