@@ -1,7 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { customerGuard } from "./authGuards/customer/customer.guard";
-import { otpScreenGuard } from "./authGuards/otpScreen/otp-screen.guard";
 import { businessGuard } from "./authGuards/business/business.guard";
 import { loginGuard } from "./authGuards/login/login.guard";
 
@@ -31,7 +30,6 @@ const routes: Routes = [
       import("./screens/otpscreen/otpscreen.module").then(
         (module) => module.OtpscreenModule
       ),
-    // canActivate: [otpScreenGuard],
   },
   {
     path: "homeBusiness",
@@ -39,7 +37,7 @@ const routes: Routes = [
       import("./screens/home/home.module").then(   // replace the path of business
         (module) => module.HomeModule
       ),
-    canActivate: [businessGuard],
+    canActivate: [loginGuard],
   },
   {
     path: "feedback-screen",
