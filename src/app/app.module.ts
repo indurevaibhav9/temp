@@ -7,7 +7,6 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { LoginModule } from "./screens/login/login.module";
 import { GlobalErrorHandlerService } from "./services/global-error-handler.service";
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BusinessHomeModule } from "./screens/business-home/business-home.module";
 import { ConsumerHomeModule } from "./screens/consumer-home/consumer-home.module";
 
@@ -21,7 +20,6 @@ import { ConsumerHomeModule } from "./screens/consumer-home/consumer-home.module
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),
     LoginModule,
-    FontAwesomeModule,
     BusinessHomeModule,
     ConsumerHomeModule
 ],

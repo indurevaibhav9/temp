@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { faAdd, faBell, faChartColumn, faChartLine, faCirclePlus, faCircleUser, faHome, faUser } from '@fortawesome/free-solid-svg-icons';
 import { BusinessNavigationServiceService } from 'src/app/services/business-navigation-service.service';
@@ -31,7 +31,7 @@ import { BusinessNavigationServiceService } from 'src/app/services/business-navi
     }
   `]
 })
-export class BusinessBottomNavbarComponent {
+export class BusinessBottomNavbarComponent implements OnInit {
 
   faHome = faHome;
   faAdd = faAdd;
@@ -42,99 +42,88 @@ export class BusinessBottomNavbarComponent {
   faChartColumn = faChartColumn;
   faCircleUser = faCircleUser;
 
-  Home_screen_active = false;
-  Insights_screen_active = false;
-  Post_screen_active = false;
-  Notification_screen_active = false;
-  Profile_screen_active = false;
+  homeScreenActive = false;
+  insightsScreenActive = false;
+  postScreenActive = false;
+  notificationScreenActive = false;
+  profileScreenActive = false;
 
-  constructor(private router: Router, private _navigation: BusinessNavigationServiceService) {
-    this.Home_screen_active = this._navigation.Is_Home;
-    this.Insights_screen_active = this._navigation.Is_Insights;
-    this.Post_screen_active = this._navigation.Is_Post;
-    this.Notification_screen_active = this._navigation.Is_Notification;
-    this.Profile_screen_active = this._navigation.Is_Profile;
+  constructor(private router: Router, private navigation: BusinessNavigationServiceService) {}
+
+  ngOnInit(): void {
+    this.updateActiveStates();
+    this.router.events.subscribe(() => {
+      this.updateActiveStates();
+    });
   }
 
-
-  Home() {
-    this.router.navigate(['business-home/businessnavbar']);
-    this.updateActiveState('home');
+  navigateTo(screen: string) {
+    this.router.navigate([`/business-home/${screen.toLowerCase()}`]);
+    this.updateActiveState(screen);
   }
 
-  Insights() {
-    this.router.navigate(['business-home/insights']);
-    this.updateActiveState('insights');
-  }
-
-  Add_Post() {
-    this.router.navigate(['business-home/addpost']);
-    this.updateActiveState('addpost');
-  }
-
-  Notification() {
-    this.router.navigate(['business-home/notification']);
-    this.updateActiveState('notification');
-  }
-
-  Profile() {
-    this.router.navigate(['business-home/profile']);
-    this.updateActiveState('profile');
-  }
-
-  private updateActiveState(screen: string) {
+  private updateActiveStates() {
+    const currentRoute = this.router.url.split('/').pop(); 
     this.resetActiveStates();
 
-    switch (screen) {
-      case 'home':
-        this.Home_screen_active = true;
-        this._navigation.Is_Home = true;
-        break;
-      case 'insights':
-        this.Insights_screen_active = true;
-        this._navigation.Is_Insights = true;
-        break;
-      case 'addpost':
-        this.Post_screen_active = true;
-        this._navigation.Is_Post = true;
-        break;
-      case 'notification':
-        this.Notification_screen_active = true;
-        this._navigation.Is_Notification = true;
-        break;
-      case 'profile':
-        this.Profile_screen_active = true;
-        this._navigation.Is_Profile = true;
-        break;
+    if (currentRoute) {
+      this.updateActiveState(currentRoute.charAt(0).toUpperCase() + currentRoute.slice(1));
     }
   }
 
   private resetActiveStates() {
-    this.Home_screen_active = false;
-    this.Insights_screen_active = false;
-    this.Post_screen_active = false;
-    this.Notification_screen_active = false;
-    this.Profile_screen_active = false;
+    this.homeScreenActive = false;
+    this.insightsScreenActive = false;
+    this.postScreenActive = false;
+    this.notificationScreenActive = false;
+    this.profileScreenActive = false;
 
-    this._navigation.Is_Home = false;
-    this._navigation.Is_Insights = false;
-    this._navigation.Is_Post = false;
-    this._navigation.Is_Notification = false;
-    this._navigation.Is_Profile = false;
+    this.navigation.Is_Home = false;
+    this.navigation.Is_Insights = false;
+    this.navigation.Is_Post = false;
+    this.navigation.Is_Notification = false;
+    this.navigation.Is_Profile = false;
+  }
+
+  private updateActiveState(screen: string) {
+    this.resetActiveStates(); 
+
+    switch (screen.toLowerCase()) {
+      case 'home':
+        this.homeScreenActive = true;
+        this.navigation.Is_Home = true;
+        break;
+      case 'insights':
+        this.insightsScreenActive = true;
+        this.navigation.Is_Insights = true;
+        break;
+      case 'addpost':
+        this.postScreenActive = true;
+        this.navigation.Is_Post = true;
+        break;
+      case 'notification':
+        this.notificationScreenActive = true;
+        this.navigation.Is_Notification = true;
+        break;
+      case 'profile':
+        this.profileScreenActive = true;
+        this.navigation.Is_Profile = true;
+        break;
+    }
   }
 
   isActive(screen: string): boolean {
-    switch (screen) {
+    switch (screen.toLowerCase()) {
       case 'home':
-        return this.Home_screen_active;
+        return this.homeScreenActive;
       case 'insights':
-        return this.Insights_screen_active;
+        return this.insightsScreenActive;
       case 'addpost':
-        return this.Post_screen_active;
+        return this.postScreenActive;
       case 'notification':
-        return this.Notification_screen_active;
+        return this.notificationScreenActive;
       case 'profile':
-        return this.Profile_screen_active;
+        return this.profileScreenActive;
       default:
         return false;
     }
