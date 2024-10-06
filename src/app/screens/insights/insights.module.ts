@@ -3,8 +3,11 @@ import { CommonModule } from '@angular/common';
 import { BusinessInsightsRoutingModule } from './insights-routing.module';
 import { BusinessInsightsComponent } from './insights.component';
 import { BusinessHomeModule } from '../business-home/business-home.module';
-import { BusinessBottomNavbarComponent } from '../business-home/business-bottom-navbar/business-bottom-navbar.component';
-import { BusinessTopNavbarComponent } from '../business-home/business-top-navbar/business-top-navbar.component';
+import { RouterModule, Routes } from '@angular/router';
+
+const routes: Routes = [
+  { path: '', component: BusinessInsightsComponent }
+];
 
 @NgModule({
   declarations: [
@@ -13,6 +16,8 @@ import { BusinessTopNavbarComponent } from '../business-home/business-top-navbar
   imports: [
     CommonModule,
     BusinessInsightsRoutingModule,
+    BusinessHomeModule,
+    RouterModule.forChild(routes)
   ],
   exports: [
     BusinessInsightsComponent

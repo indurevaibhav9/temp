@@ -13,4 +13,8 @@ describe('JwtDecoderService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+<<<<<<< HEAD
 });
+=======
+});
+>>>>>>> bc8790b (Corrected Routes for consumer-home and business-home)

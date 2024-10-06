@@ -9,8 +9,8 @@ import { LoginModule } from "./screens/login/login.module";
 import { LogoutModule } from "./screens/logout/logout.module";
 import { GlobalErrorHandlerService } from "./services/global-error-handler.service";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { LoginComponent } from "./screens/login/login.component";
 import { BusinessHomeModule } from "./screens/business-home/business-home.module";
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 import { AddPostModule } from "./screens/add-post/add-post.module";
@@ -22,6 +22,9 @@ import { ConsumerHomeModule } from "./screens/consumer-home/consumer-home.module
 import { SearchModule } from "./screens/search/search.module";
 
 >>>>>>> ff840b8 (Business and consumer navigation bar working)
+=======
+import { ConsumerHomeModule } from "./screens/consumer-home/consumer-home.module";
+>>>>>>> bc8790b (Corrected Routes for consumer-home and business-home)
 
 @NgModule({
   declarations: [
@@ -44,6 +47,7 @@ import { SearchModule } from "./screens/search/search.module";
 =======
     FontAwesomeModule,
 <<<<<<< HEAD
+<<<<<<< HEAD
     // ConsumerHomeModule,
     // BusinessHomeModule
 =======
@@ -61,6 +65,12 @@ import { SearchModule } from "./screens/search/search.module";
 >>>>>>> 797e237 (improved folder and file structure, edited names of consumer and business navigation bars)
   ],
 >>>>>>> 4c6615d (Added stashed changes)
+=======
+    BusinessHomeModule,
+    ConsumerHomeModule
+],
+  exports: [],
+>>>>>>> bc8790b (Corrected Routes for consumer-home and business-home)
   providers: [
     {
       provide: ErrorHandler,
