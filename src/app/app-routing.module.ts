@@ -74,7 +74,7 @@ const routes: Routes = [
     loadChildren: () => import("./screens/consumer-home/consumer-home.module").then(m => m.ConsumerHomeModule),
   },
 
-  { path: "**", redirectTo: "business-home/home" }
+  { path: "**", redirectTo: "consumer-home/home" }
 ];
 
 @NgModule({
