@@ -15,7 +15,7 @@ export class ConsumerBottomNavbarComponent implements OnInit {
   faBell = faBell;
   faCircleUser = faCircleUser;
 
-  Home_screen_active = false;
+  AdFeed_screen_active = false;
   Search_screen_active = false;
   Notification_screen_active = false;
   Profile_screen_active = false;
@@ -44,12 +44,12 @@ export class ConsumerBottomNavbarComponent implements OnInit {
   }
 
   private resetActiveStates() {
-    this.Home_screen_active = false;
+    this.AdFeed_screen_active = false;
     this.Search_screen_active = false;
     this.Notification_screen_active = false;
     this.Profile_screen_active = false;
 
-    this._navigation.Is_Home = false;
+    this._navigation.Is_AdFeed = false;
     this._navigation.Is_Search = false;
     this._navigation.Is_Notification = false;
     this._navigation.Is_Profile = false;
@@ -59,9 +59,9 @@ export class ConsumerBottomNavbarComponent implements OnInit {
     this.resetActiveStates(); 
 
     switch (screen.toLowerCase()) {
-      case 'home':
-        this.Home_screen_active = true;
-        this._navigation.Is_Home = true;
+      case 'adfeed':
+        this.AdFeed_screen_active = true;
+        this._navigation.Is_AdFeed = true;
         break;
       case 'search':
         this.Search_screen_active = true;
@@ -82,8 +82,8 @@ export class ConsumerBottomNavbarComponent implements OnInit {
 
   isActive(screen: string): boolean {
     switch (screen.toLowerCase()) {
-      case 'home':
-        return this.Home_screen_active;
+      case 'adfeed':
+        return this.AdFeed_screen_active;
       case 'search':
         return this.Search_screen_active;
       case 'notification':

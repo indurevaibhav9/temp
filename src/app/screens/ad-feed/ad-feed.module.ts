@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HomeRoutingModule } from './home-screen-routing.module';
-import { HomeScreenComponent } from './home-screen.component';
+import { AdFeedRoutingModule } from './ad-feed-routing.module';
+import { AdFeedComponent } from './ad-feed.component';
 import { BusinessHomeModule } from '../business-home/business-home.module';
 import { ConsumerHomeModule } from '../consumer-home/consumer-home.module';
 
@@ -9,16 +9,16 @@ import { ConsumerHomeModule } from '../consumer-home/consumer-home.module';
 
 @NgModule({
   declarations: [
-    HomeScreenComponent,
+    AdFeedComponent,
   ],
   imports: [
     CommonModule,
-    HomeRoutingModule,
+    AdFeedRoutingModule,
     BusinessHomeModule,
     ConsumerHomeModule
   ],
   exports: [
-    HomeScreenComponent,
+    AdFeedComponent,
   ],
 })
-export class HomeModule { }
+export class AdFeedModule { }

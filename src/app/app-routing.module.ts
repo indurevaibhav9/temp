@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  { path: "", redirectTo: "consumer-home/home", pathMatch: "full" },
+  { path: "", redirectTo: "consumer-home/adfeed", pathMatch: "full" },
 
   { path: "login", loadChildren: () => import("./screens/login/login.module").then(m => m.LoginModule) },
   { path: "register", loadChildren: () => import("./screens/register/register.module").then(m => m.RegisterModule) },
@@ -16,7 +16,7 @@ const routes: Routes = [
     loadChildren: () => import("./screens/consumer-home/consumer-home.module").then(m => m.ConsumerHomeModule),
   },
 
-  { path: "**", redirectTo: "consumer-home/home" }
+  { path: "**", redirectTo: "consumer-home/adfeed" }
 ];
 
 @NgModule({
