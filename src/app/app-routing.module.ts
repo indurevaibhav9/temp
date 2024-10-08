@@ -4,7 +4,7 @@ import { RouterModule, Routes } from "@angular/router";
 const routes: Routes = [
   {
     path: "",
-    redirectTo: "feedback-screen",
+    redirectTo: "discover-business-screen",
     pathMatch: "full",
   },
   {
@@ -33,6 +33,13 @@ const routes: Routes = [
         (module) => module.FeedbackScreenModule
       ),
   },
+  {
+    path: "discover-business-screen",
+    loadChildren: () =>
+      import("./screens/discover-business-screen/discover-business-screen.module").then(
+        (module) => module.DiscoverBusinessScreenModule
+      ),
+  }
 ];
 
 @NgModule({
