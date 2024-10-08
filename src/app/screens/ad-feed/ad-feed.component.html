@@ -1,40 +1,16 @@
-<div class="ad-feed-container p-4">
-  <!-- Loading Indicator -->
-  <div *ngIf="loading" class="text-center">
-    <p class="text-xl font-semibold">Loading...</p>
-  </div>
+<div class="ad-feed">
+ 
+  <div *ngFor="let ad of ads" class="ad-item ">
+    <ng-container *ngIf="ad.advertisementType=='Post'">
+      <app-Post [postDetails]="ad"></app-Post>
+    </ng-container>
 
-  <!-- Content Section -->
-  <div *ngIf="!loading && offers.length > 0">
-    <h2 class="text-2xl font-bold mb-4">Offers, Events, Posts, and Coupons</h2>
+    <ng-container *ngIf="ad.advertisementType=='Event'">
+      <app-Event [eventDetails]="ad"></app-Event>
+    </ng-container>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-      <ng-container *ngFor="let offer of offers">
-        <div class="offer-card p-4 border rounded-lg shadow-lg">
-          <h3 class="text-xl font-semibold">{{ offer.title }}</h3>
-          <p class="text-gray-700">{{ offer.description }}</p>
-          
-          <!-- Conditionally display additional info based on offer type -->
-          <div *ngIf="offer.type === 'coupon'">
-            <p class="font-bold">Coupon Code: {{ (offer as CouponCodeDTO).code }}</p>
-          </div>
-          <div *ngIf="offer.type === 'event'">
-            <p class="text-gray-500">Event Date: {{ (offer as EventDTO).date | date }}</p>
-          </div>
-          <div *ngIf="offer.type === 'post'">
-            <p class="text-gray-500">Posted on: {{ (offer as PostDTO).createdAt | date }}</p>
-          </div>
-
-          <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-            Learn More
-          </button>
-        </div>
-      </ng-container>
-    </div>
-  </div>
-
-  <!-- No Data Message -->
-  <div *ngIf="!loading && offers.length === 0" class="text-center">
-    <p class="text-xl font-semibold">No offers available at the moment.</p>
+    <ng-container *ngIf="ad.advertisementType=='Coupon'">
+      <app-Coupon [couponDetails]="ad"></app-Coupon>
+    </ng-container>
   </div>
 </div>

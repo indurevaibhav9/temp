@@ -1,4 +1,7 @@
-export interface OfferDescriptionDTO {
+import { OfferDescriptionDTO } from "./offerdescriptionGet";
+
+export interface AdvertisementDetails {
+    advertisementType:string;
     profileImageUrl: string;
     username: string;
     offerExpiry: string;
@@ -11,16 +14,10 @@ export interface OfferDescriptionDTO {
     descriptionContent: string;
     howToAvailSteps: string[];
     termsConditions: string[];
-  }
-  
-  export interface CouponCodeDTO extends Pick<OfferDescriptionDTO, 
-    'profileImageUrl' | 'username' | 'offerExpiry' | 'offerTitle' > {
-    // Additional properties for PostEventDTO, if any, can go here
-    likes: number;
-    dislikes: number;
+    websiteLink:string;
     couponCode:string;
     imageUrl:string;
     description: string;
-    offerImageUrl: string;
+    eventDateAndTime:string;
+    
   }
-  

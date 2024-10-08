@@ -2,16 +2,16 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdFeedComponent } from './ad-feed.component';
 import { OfferDescriptionComponent } from './offer-description/offer-description.component';
-import { PostEventComponent } from './Event/Event.component';
-import { PostWithImageComponent } from './Post/Post.component';
-import { PostWithImageCouponComponent } from './Coupon/Coupon.component';
+import { EventComponent } from './Event/Event.component';
+import { PostComponent } from './Post/Post.component';
+import { CouponComponent } from './Coupon/Coupon.component';
 
 const routes: Routes = [
   { path: '', component: AdFeedComponent }, // Default route for AdFeed
   { path: 'offer-description', component: OfferDescriptionComponent }, // Route for OfferDescription
-  { path: 'event', component: PostEventComponent },
-  { path: 'post', component: PostWithImageComponent },
-  {path:'coupon',component:PostWithImageCouponComponent}
+  { path: 'event', component: EventComponent },
+  { path: 'post', component: PostComponent },
+  {path:'coupon',component:CouponComponent}
  
  
 ];

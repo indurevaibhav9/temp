@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { OfferDescriptionService } from 'src/app/services/advertisementTypes.service';
+import { AdvertisementDetailsService } from 'src/app/services/advertisementTypes.service';
 import { OfferDescriptionDTO } from 'src/app/models/offerdescriptionGet';
 import { faBars, faUserGroup, faMagnifyingGlass, faThumbsUp, faThumbsDown, faLocationArrow, faBookmark, faEllipsisVertical, faLocationDot, faHeart, faBell, faCircleUser } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
@@ -34,23 +34,23 @@ export class OfferDescriptionComponent implements OnInit {
   faCircleUser = faCircleUser;
 
 
-  constructor(private offerDescriptionService: OfferDescriptionService,private router: Router) {}
+  constructor(private AdvertisementDetailsService: AdvertisementDetailsService,private router: Router) {}
 
   ngOnInit(): void {
-    this.offerDescriptionService.getOfferDescription().subscribe((data: OfferDescriptionDTO) => {
-      this.offerData = data;
+    // this.AdvertisementDetailsService.getOfferDescription().subscribe((data: OfferDescriptionDTO[]) => {
+    //   this.offerData = data;
 
-      // Calculate remaining days
-      const expiryDate = new Date(this.offerData.offerExpiry);
-      const currentDate = new Date();
-      const timeDiff = expiryDate.getTime() - currentDate.getTime();
-      this.remainingDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); // Convert time difference to days
+    //   // Calculate remaining days
+    //   const expiryDate = new Date(this.offerData.offerExpiry);
+    //   const currentDate = new Date();
+    //   const timeDiff = expiryDate.getTime() - currentDate.getTime();
+    //   this.remainingDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); // Convert time difference to days
 
-      // Check if expired
-      if (this.remainingDays <= 0) {
-        this.isExpired = true;
-      }
-    });
+    //   // Check if expired
+    //   if (this.remainingDays <= 0) {
+    //     this.isExpired = true;
+    //   }
+    // });
   }
 
 

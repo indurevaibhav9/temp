@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { OfferDescriptionService } from 'src/app/services/advertisementTypes.service';
+import { forkJoin } from 'rxjs'; // Ensure this is imported
+import { AdvertisementDetailsService } from 'src/app/services/advertisementTypes.service'; 
 import { OfferDescriptionDTO } from 'src/app/models/offerdescriptionGet';
-import { PostDTO } from 'src/app/models/PostGet';
-import { EventDTO } from 'src/app/models/EventGet';
-import { CouponCodeDTO } from 'src/app/models/CouponCodeGet';
-import { faBars, faUserGroup, faMagnifyingGlass, faLocationDot, faHeart, faBell, faCircleUser } from '@fortawesome/free-solid-svg-icons';
+
+import { AdvertisementDetails } from 'src/app/models/ad-details';
 
 @Component({
   selector: 'app-ad-feed',
@@ -12,63 +11,43 @@ import { faBars, faUserGroup, faMagnifyingGlass, faLocationDot, faHeart, faBell,
   styleUrls: []
 })
 export class AdFeedComponent implements OnInit {
+  ads: AdvertisementDetails []= [];
 
-  faBars = faBars;
-  faUserGroup = faUserGroup;
-  faMagnifyingGlass = faMagnifyingGlass;
-  faLocationDot = faLocationDot;
-  faHeart = faHeart;
-  faBell = faBell;
-  faCircleUser = faCircleUser;
-
-  offers: (OfferDescriptionDTO | EventDTO | CouponCodeDTO | PostDTO)[] = [];
-  loading: boolean = true;
-
-  constructor(private offerService: OfferDescriptionService) {}
+  constructor(private AdvertisementDetailsService: AdvertisementDetailsService) {}
 
   ngOnInit(): void {
-    this.fetchData();
-    // Optionally, you could set an interval for continuous fetching
-    // setInterval(() => this.fetchData(), 10000); // Fetch every 10 seconds
+    this.fetchAds();
   }
 
-  fetchData(): void {
-    this.loading = true;
+  fetchAds(): void {
+    // const post$ = this.AdvertisementDetailsService.getPost();
+    // const event$ = this.AdvertisementDetailsService.getEvent();
+    // const coupon$ = this.AdvertisementDetailsService.getCoupon();
 
-    // Fetch offers
-    this.offerService.getOfferDescription().subscribe({
-      next: (data: OfferDescriptionDTO) => {
-        this.offers.push(data);
+    // forkJoin<[PostDTO[], EventDTO[], CouponCodeDTO[]]>([post$, event$, coupon$]).subscribe(
+    //   ([postResponse, eventResponse, couponResponse]) => {
+    //     this.ads = [
+    //       ...postResponse,
+    //       ...eventResponse,
+    //       ...couponResponse
+    //     ];
+    //   },
+    //   (error: any) => {
+    //     console.error('Error fetching advertisements:', error);
+    //   }
+    // );
+   this.AdvertisementDetailsService.getAdvertisementDetails().subscribe(
+    {
+      next:(response)=>{
+        //console.log(response);//if there is no error and positive scenario
+        this.ads=response;//
       },
-      error: (err) => console.error(err),
-      complete: () => this.loading = false
-    });
-
-    // Fetch events
-    this.offerService.getEvent().subscribe({
-      next: (data: EventDTO) => {
-        this.offers.push(data);
-      },
-      error: (err) => console.error(err),
-      complete: () => this.loading = false
-    });
-
-    // Fetch posts
-    this.offerService.getPost().subscribe({
-      next: (data: PostDTO) => {
-        this.offers.push(data);
-      },
-      error: (err) => console.error(err),
-      complete: () => this.loading = false
-    });
-
-    // Fetch coupons
-    this.offerService.getCoupon().subscribe({
-      next: (data: CouponCodeDTO) => {
-        this.offers.push(data);
-      },
-      error: (err) => console.error(err),
-      complete: () => this.loading = false
-    });
+      error:(error)=>{
+        console.log(error);
+      }
+    }
+   )
   }
+
+  
 }
