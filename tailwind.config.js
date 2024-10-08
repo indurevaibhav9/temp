@@ -15,7 +15,7 @@ module.exports = {
       // Explicitly overriding the darkTheme in RippleUI as it breaks if system theme is dark.
       {
         themeName: "dark",
-        colorScheme: "light",
+        // colorScheme: "light",
         colors: {
           primary: "#ED6A5A",
           backgroundPrimary: "#FFFFFF",

@@ -37,7 +37,7 @@ const routes: Routes = [
       import("./screens/home/home.module").then(   // replace the path of business
         (module) => module.HomeModule
       ),
-    canActivate: [loginGuard],
+    canActivate: [businessGuard],
   },
   {
     path: "feedback-screen",
