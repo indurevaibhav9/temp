@@ -1,0 +1,28 @@
+<div>
+    <div class="image-upload">
+      <input type="file" accept="image/*" (change)="onImageUpload($event)" class="hidden" #fileInput>
+      <button type="button" rippleButton (click)="openFileDialog()" class="p-0">
+        <img src="assets/add-image-icon.png" alt="Image Icon" class="image-icon">
+      </button>
+    </div>
+  
+    <div class="uploaded-images flex flex-wrap" *ngIf="imagePreview">
+      <div class="relative mr-2 mb-2">
+        <img [src]="imagePreview" alt="Uploaded Image" class="uploaded-image">
+        <button type="button" (click)="removeImage()" rippleButton class="remove-button">
+          &times;
+        </button>
+      </div>
+    </div>
+  
+    <div class="buttons-container" *ngIf="selectedFile">
+      <button type="button" rippleButton (click)="uploadImages()" class="upload-button">
+        UPLOAD
+      </button>
+    </div>
+  </div>
+  
+  <div *ngIf="showPopUp">
+    <app-pop-up [messageTitle]="popUpTitle" [messageBody]="popUpBody" (close)="onPopUpClose()"></app-pop-up>
+  </div>
+  

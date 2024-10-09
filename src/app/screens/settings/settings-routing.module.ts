@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MainSettingsComponent } from './components/main-settings/main-settings.component';
-import { ProfileInformationComponent } from './components/profile-information/profile-information.component';
 import { PasswordManagementComponent } from './components/password-management/password-management.component';
+import { UserInformationComponent } from './components/user-information/user-information.component';
+import { BusinessInformationComponent } from './components/business-information/business-information.component';
 
 const routes: Routes = [
   { 
@@ -10,13 +11,17 @@ const routes: Routes = [
     component:MainSettingsComponent 
   },
   { 
-    path: 'profile-information', 
-    component:ProfileInformationComponent
+    path: 'user-information', 
+    component:UserInformationComponent
   },
   { 
     path: 'password-management', 
     component:PasswordManagementComponent 
   },
+  {
+    path: 'business-information',
+    component:BusinessInformationComponent
+  }
 ];
 
 @NgModule({
