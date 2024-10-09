@@ -1,31 +1,18 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { UserInformation } from '../models/user-information';
 import { BusinessInformation } from '../models/business-information';
-import { PresignedUrl } from '../models/presigned-url';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SettingsService {
 
-  private generatedFileNamesSubject = new BehaviorSubject<string[]>([]);
-  generatedFileNames$ = this.generatedFileNamesSubject.asObservable();
-
   constructor(private http:HttpClient) { }
 
-  setGeneratedFileNames(fileNames: string[]): void {
-    this.generatedFileNamesSubject.next(fileNames);
-    console.log('Generated file names:', fileNames);
-  }
-
-  getGeneratedFileNames(): string[] {
-    return this.generatedFileNamesSubject.getValue();
-  }
-
   getUserDetails(username: string): Observable<any> {
-    return this.http.get(`http://192.168.1.108:8762/settings/consumer-details/${username}`,
+    return this.http.get(`https://583b-2409-40c2-102d-af53-f603-61fb-abdd-26f8.ngrok-free.app/Settings/consumer-details/${username}`,
       {
         responseType: 'text',
         headers: new HttpHeaders({
@@ -38,7 +25,7 @@ export class SettingsService {
 
   postUserDetails(data:UserInformation):Observable<String>{
     return this.http.post(
-      `http://192.168.1.108:8762/settings/update-consumer`,
+      `https://583b-2409-40c2-102d-af53-f603-61fb-abdd-26f8.ngrok-free.app/Settings/update-consumer`,
       data,
       {
         responseType: 'text',
@@ -52,40 +39,7 @@ export class SettingsService {
   }
 
   getBusinessDetails(username: string): Observable<any> {
-    return this.http.get(`http://192.168.1.108:8762/settings/business-details/${username}`,
-      {
-        responseType: 'text',
-    });
-  }
-
-  postBusinessDetails(data:BusinessInformation):Observable<String>{
-    return this.http.post(
-      `http://192.168.1.108:8762/settings/update-business`,
-      data,
-      {
-        responseType: 'text',
-      }
-    );
-  }
-
-  getPresignedUrl(imageFileNames: string[], username: string): Observable<PresignedUrl> {
-    return this.http.post<PresignedUrl>(
-      `http://192.168.1.108:8081/content/generate-presigned-url`,
-      { imageFileNames, username },
-    );
-  }
-
-  uploadToS3(file: File, presignedUrl: string){
-    const headers = new HttpHeaders({ 'Content-Type': file.type });
-    return this.http.put(
-      presignedUrl,
-      file,
-      { headers }
-    );
-  }
-
-  getImageLink(username:string,imageFileName:string): Observable<string>{
-    return this.http.get(`http://192.168.1.108:8762/settings/get-image/${imageFileName}`,
+    return this.http.get(`https://583b-2409-40c2-102d-af53-f603-61fb-abdd-26f8.ngrok-free.app/Settings/business-details/${username}`,
       {
         responseType: 'text',
         headers: new HttpHeaders({
@@ -94,6 +48,21 @@ export class SettingsService {
         'accept': '*/*',
       }),
     });
+  }
+
+  postBusinessDetails(data:BusinessInformation):Observable<String>{
+    return this.http.post(
+      `https://583b-2409-40c2-102d-af53-f603-61fb-abdd-26f8.ngrok-free.app/Settings/update-business`,
+      data,
+      {
+        responseType: 'text',
+        headers: new HttpHeaders({
+          'ngrok-skip-browser-warning': 'true',
+          'Content-Type': 'application/json',
+          'accept': '*/*',
+        }),
+      }
+    );
   }
 
 }

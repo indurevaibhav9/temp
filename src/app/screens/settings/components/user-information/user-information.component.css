@@ -1,3 +1,24 @@
+.icon-btn {
+    background: none;
+    border: none;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.reset-button,
+.post-button {
+    font-size: 14px;
+    font-family: 'Roboto';
+    color: #FFFFFF;
+    background-color: #ED6A5A;
+    border: 2px solid #ED6A5A;
+    border-radius: 4px;
+    width: 130px;
+    height: 35px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
 .name-input,
 .username-input,
 .phone-input,

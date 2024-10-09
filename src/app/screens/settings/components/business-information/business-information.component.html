@@ -1,19 +1,16 @@
-<div class="mb-1 ml-4 mt-16">
+<div class="mb-2 ml-4">
     <header class="flex items-center mb-2">
       <button class="icon-btn" aria-label="Back" (click)="handleClick()">
         <i class="ri-arrow-left-line"></i>
       </button>
-      <h1 class="text-black font-bold text-xl mb-2  mt-2">Profile Information</h1>
+      <h1 class="text-black font-bold text-xl mb-2 ml-2 mt-2">Profile Information</h1>
     </header>
     <h2 class="text-gray-500 text-sm font-semi-bold mb-1">Update Profile Details</h2>
 </div>
 <form [formGroup]="businessInfo" (ngSubmit)="handleSubmit()">
+
     <div class="font-roboto text-black text-base mt-4 ml-4">
-        <app-image-component id="profile" *ngIf="imageFileName" [imageFileName]="imageFileName" (fileUploadSuccess)="patchImageFileName($event)"></app-image-component>
-    </div>
-    
-    <div class="font-roboto text-black text-base mt-4 ml-4">
-        <label for="name">Name*</label>
+        <label for="name">Name</label>
     </div>
     <div class="ml-4">
         <input formControlName="name" type="text" name="name" required class="name-input w-[330px] h-[28px] mt-1 border border-[#ED6A5A] rounded-md p-2" placeholder="current name" id="name">
@@ -21,23 +18,28 @@
     </div>
 
     <div class="font-roboto text-black text-base mt-4 ml-4">
-        <label for="username">Username*</label>
+        <label for="username">Username</label>
     </div>
     <div class="ml-4">
-        <input formControlName="businessUsername" type="text" name="username" required class="username-input w-[330px] h-[28px] mt-1 border border-[#ED6A5A] rounded-md p-2" placeholder="current username" id="username" readonly>
+        <input formControlName="businessUsername" type="text" name="username" required class="username-input w-[330px] h-[28px] mt-1 border border-[#ED6A5A] rounded-md p-2" placeholder="current username" id="username">
         <div *ngIf="businessInfo.get('businessUsername')?.touched && businessInfo.get('businessUsername')?.invalid" class="text-red-500">Username is required</div>
+    </div>
+
+    <div class="font-roboto text-black text-base mt-4 ml-4">
+        <label for="profile">Profile Picture</label>
+        <app-image-component id="profile"></app-image-component>
     </div>
     
     <div class="font-roboto text-black text-base mt-4 ml-4">
-        <label for="contactNumber">Phone Number*</label>
+        <label for="contactNumber">Phone Number</label>
     </div>
     <div class="ml-4">
-        <input formControlName="phoneNumber" type="text" name="contactNumber" required class="phone-input w-[330px] h-[28px] mt-1 border border-[#ED6A5A] rounded-md p-2" placeholder="current contact number" id="contactNumber" readonly>
+        <input formControlName="phoneNumber" type="number" name="contactNumber" required class="phone-input w-[330px] h-[28px] mt-1 border border-[#ED6A5A] rounded-md p-2" placeholder="current contact number" id="contactNumber">
         <div *ngIf="businessInfo.get('contactNumber')?.touched && businessInfo.get('contactNumber')?.invalid" class="text-red-500">Phone Number is required</div>
     </div>
 
     <div class="font-roboto text-black text-base mt-4 ml-4">
-        <label for="emailID">Email ID*</label>
+        <label for="emailID">Email ID</label>
     </div>
     <div class="ml-4">
         <input formControlName="email" type="text" name="emailID" required class="email-input w-[330px] h-[28px] mt-1 border border-[#ED6A5A] rounded-md p-2" placeholder="current emailID" id="emailID">
@@ -45,7 +47,7 @@
     </div>
 
     <div class="font-roboto text-black text-base mt-4 ml-4">
-        <label for="gender">Gender*</label>
+        <label for="gender">Gender</label>
     </div>
     <div class="ml-4">
         <select formControlName="gender" name="gender" required
@@ -59,7 +61,7 @@
     </div>
 
     <div class="font-roboto text-black text-base mt-4 ml-4">
-        <label for="businessName">Business Name*</label>
+        <label for="businessName">Business Name</label>
     </div>
     <div class="ml-4">
         <input formControlName="businessName" type="text" name="businessName" required class="businessName-input w-[330px] h-[28px] mt-1 border border-[#ED6A5A] rounded-md p-2" placeholder="current businessName" id="businessName">
@@ -67,7 +69,7 @@
     </div>
 
     <div class="font-roboto text-black text-base mt-4 ml-4">
-        <label for="businessType">Business Type*</label>
+        <label for="businessType">Business Type</label>
     </div>
     <div class="ml-4">
         <input formControlName="businessType" type="text" name="businessType" required class="businessType-input w-[330px] h-[28px] mt-1 border border-[#ED6A5A] rounded-md p-2" placeholder="current businessType" id="businessType">
@@ -75,17 +77,15 @@
     </div>
 
     <div class="font-roboto text-black text-base mt-4 ml-4">
-        <label for="bio">Bio*</label>
+        <label for="bio">Bio</label>
     </div>
     <div class="ml-4">
         <textarea formControlName="bio" name="bio" required class="bio-input w-[330px] h-[100px] mt-1 border border-[#ED6A5A] rounded-md p-2" placeholder="current bio" id="bio"></textarea>
         <div *ngIf="businessInfo.get('bio')?.touched && businessInfo.get('bio')?.invalid" class="text-red-500">Bio is required</div>
     </div>
 
-    
-
     <div class="font-roboto text-black text-base mt-4 ml-4">
-        <label for="state">State*</label>
+        <label for="state">State</label>
     </div>
     <div class="ml-4">
         <input formControlName="state" type="text" name="state" required class="state-input w-[330px] h-[28px] mt-1 border border-[#ED6A5A] rounded-md p-2" placeholder="current state" id="state">
@@ -93,18 +93,15 @@
     </div>
 
     <div class="font-roboto text-black text-base mt-4 ml-4">
-        <label for="city">City*</label>
+        <label for="city">City</label>
     </div>
     <div class="ml-4">
-        <select formControlName="city" class="city-input w-[330px] h-[36px] mt-1 border border-[#ED6A5A] rounded-md p-2">
-            <option value="" disabled selected>Select City</option>
-            <option *ngFor="let city of getCitiesByState(businessInfo.get('state')?.value)" [value]="city">{{ city }}</option>
-        </select>
+        <input formControlName="city" type="text" name="city" required class="city-input w-[330px] h-[28px] mt-1 border border-[#ED6A5A] rounded-md p-2" placeholder="current city" id="city">
         <div *ngIf="businessInfo.get('city')?.touched && businessInfo.get('city')?.invalid" class="text-red-500">City is required</div>
     </div>
 
     <div class="font-roboto text-black text-base mt-4 ml-4">
-        <label for="pincode">Pincode*</label>
+        <label for="pincode">Pincode</label>
     </div>
     <div class="ml-4">
         <input formControlName="pincode" type="text" name="pincode" required class="pincode-input w-[330px] h-[28px] mt-1 border border-[#ED6A5A] rounded-md p-2" placeholder="current pincode" id="pincode">
@@ -122,9 +119,9 @@
     </div>
     
     <div class="font-roboto text-black text-base mt-4 ml-4">
-        <label for="aadharImage">Aadhar Card Image</label>
+        <label>Aadhar Card Image</label>
+        <app-image-component></app-image-component>
     </div>
-    <app-aadhar-pan-image id="aadharImage" (fileUpload)="patchAadhar($event)"></app-aadhar-pan-image>
     
     <div class="font-roboto text-black text-base mt-4 ml-4">
         <label for="pancardNumber">Pancard Number</label>
@@ -137,18 +134,15 @@
     </div>
     
     <div class="font-roboto text-black text-base mt-4 ml-4">
-        <label for="pancardImage">PanCard Image</label>
+        <label>Pancard Card Image</label>
+        <app-image-component></app-image-component>
     </div>
-    <app-aadhar-pan-image id="pancardImage" (fileUpload)="patchPancard($event)"></app-aadhar-pan-image>
 
-    <div class="flex items-center ml-10 mt-4 mb-16">
-        <button type="button" class="w-[130px] h-[35px] bg-[#ED6A5A] text-white border border-[#ED6A5A] rounded-md hover:bg-[#f57c6c] focus:outline-none focus:ring-4 focus:ring-[#ED6A5A] mt-2 text-[14px] font-['Roboto']" (click)="resetForm()">RESET DETAILS</button>
-        <button type="submit" class="w-[130px] h-[35px] bg-[#ED6A5A] text-white border border-[#ED6A5A] rounded-md ml-4 hover:bg-[#f57c6c] focus:outline-none focus:ring-4 focus:ring-[#ED6A5A] ml-2 mt-2 text-[14px] font-['Roboto']">UPDATE</button>
+    <div class="flex items-center ml-10 mt-4">
+        <button type="button" class="reset-button w-[130px] h-[35px] bg-[#ED6A5A] text-white border border-[#ED6A5A] rounded-md hover:bg-[#f57c6c] focus:outline-none focus:ring-4 focus:ring-[#ED6A5A] mt-2" (click)="resetForm()">RESET DETAILS</button>
+        <button type="submit" class="post-button w-[130px] h-[35px] bg-[#ED6A5A] text-white border border-[#ED6A5A] rounded-md ml-4 hover:bg-[#f57c6c] focus:outline-none focus:ring-4 focus:ring-[#ED6A5A] ml-2 mt-2">UPDATE</button>
     </div>
 </form>
 <div *ngIf="showPopUp">
     <app-pop-up [messageTitle]="popUpTitle" [messageBody]="popUpBody" (close)="onPopUpClose()"></app-pop-up>
-</div>
-<div *ngIf="loading">
-    <app-loader></app-loader>
 </div>

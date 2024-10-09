@@ -5,6 +5,20 @@
     cursor: pointer;
 }
 
+.reset-button,
+.post-button {
+    font-size: 14px;
+    font-family: 'Roboto';
+    color: #FFFFFF;
+    background-color: #ED6A5A;
+    border: 2px solid #ED6A5A;
+    border-radius: 4px;
+    width: 130px;
+    height: 35px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
 .name-input,
 .username-input,
 .phone-input,
@@ -29,16 +43,4 @@
 .bio-input{
     color: black !important; 
     font-size: 14px;
-}
-
-.city-input {
-    width: 330px; 
-    height: 36px; 
-    margin-top: 1rem;
-    border: 1px solid #ED6A5A; 
-    border-radius: 4px; 
-    padding: 8px; 
-    font-family: 'Roboto', sans-serif;
-    background-color: white; 
-    appearance: none; 
 }
