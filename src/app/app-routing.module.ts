@@ -7,7 +7,7 @@ import { loginGuard } from "./authGuards/login/login.guard";
 const routes: Routes = [
   {
     path: "",
-    redirectTo: "feedback-screen",
+    redirectTo: "login",
     pathMatch: "full",
   },
   {
@@ -28,7 +28,7 @@ const routes: Routes = [
     path: "otpscreen/:mobileNumber",
     loadChildren: () =>
       import("./screens/otpScreen/otpscreen.module").then(
-        (module) => module.OtpscreenModule
+        (module) => module.OtpScreenModule
       ),
   },
   {
