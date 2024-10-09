@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { SavedPostsDTO } from '../models/savedPosts';
-import { BusinessDetailsDTO } from '../models/BusinessDetails';
+import { BusinessDetails } from '../models/BusinessDetails';
 import { ProfilePostsDTO } from '../models/profilePosts';
 
 @Injectable({
@@ -30,8 +30,8 @@ export class BusinessService {
 
   //dummy json : https://dummyjson.com/c/2c5d-5b3e-4419-b5ee
   //backend url for business: http://192.168.1.9:8762/user/profile/tanvi247
-  getBusinessDetails(): Observable<BusinessDetailsDTO[]> { // Return type changed to an array
-    return this.http.get<BusinessDetailsDTO[]>('http://192.168.1.9:8762/user/profile/tanvi247', {
+  getBusinessDetails(): Observable<BusinessDetails[]> { // Return type changed to an array
+    return this.http.get<BusinessDetails[]>('http://192.168.1.9:8762/user/profile/tanvi247', {
       responseType: 'json',
       headers: new HttpHeaders({
         'ngrok-skip-browser-warning': 'true',

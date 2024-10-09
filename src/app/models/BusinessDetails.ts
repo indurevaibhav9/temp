@@ -1,4 +1,4 @@
-export interface BusinessDetailsDTO {
+export interface BusinessDetails {
     name: string;
     username: string;
     profilePictureUrl: string;

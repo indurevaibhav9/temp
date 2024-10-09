@@ -4,7 +4,7 @@ import { faBars, faUserGroup, faMagnifyingGlass, faThumbsUp, faThumbsDown,faLoca
 import { OfferDescriptionService } from 'src/app/services/offer-description.service'; // Adjust the path as needed
 import { OfferDescriptionDTO } from 'src/app/models/offerdescriptionGet';
 import { SavedPostsDTO } from 'src/app/models/savedPosts';
-import { BusinessDetailsDTO } from 'src/app/models/BusinessDetails';
+import { BusinessDetails } from 'src/app/models/BusinessDetails';
 import { ProfilePostsDTO } from 'src/app/models/profilePosts';
 
 @Component({
@@ -14,7 +14,7 @@ import { ProfilePostsDTO } from 'src/app/models/profilePosts';
 })
 
 export class BusinessProfileComponent implements OnInit {
-  @Input() businessDetails!: BusinessDetailsDTO[];
+  @Input() businessDetails!: BusinessDetails[];
   faBars = faBars;
   faUserGroup = faUserGroup;
   faMagnifyingGlass = faMagnifyingGlass;
@@ -113,7 +113,7 @@ export class BusinessProfileComponent implements OnInit {
 // }
   fetchBusinessDetails() {
     this.businessService.getBusinessDetails().subscribe(
-      (data: BusinessDetailsDTO[]) => {
+      (data: BusinessDetails[]) => {
         this.business = data;
         console.log('Business Details:', this.business);
       }
