@@ -8,6 +8,7 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { LoginModule } from "./screens/login/login.module";
 import { GlobalErrorHandlerService } from "./services/global-error-handler.service";
+import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,6 +18,7 @@ import { GlobalErrorHandlerService } from "./services/global-error-handler.servi
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),
     LoginModule,
+    FontAwesomeModule
   ],
   providers: [
     {

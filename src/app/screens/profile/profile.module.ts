@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ProfileRoutingModule } from './profile-routing.module';
 import { BusinessProfileComponent } from './business-profile/business-profile.component';
-import { BusinessModuleModule } from 'src/app/business-module/business-module.module';
 import { ConsumerProfileComponent } from './consumer-profile/consumer-profile.component';
 
 @NgModule({
@@ -14,7 +13,7 @@ import { ConsumerProfileComponent } from './consumer-profile/consumer-profile.co
   imports: [
     CommonModule,
     ProfileRoutingModule,
-    BusinessModuleModule
+    FontAwesomeModule
   ]
 })
 export class ProfileModule { }

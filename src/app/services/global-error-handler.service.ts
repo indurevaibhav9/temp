@@ -15,7 +15,7 @@ export class GlobalErrorHandlerService implements ErrorHandler {
       error = error.rejection; // get the error object
     }
     this.zone.run(() => {
-      this.alertService.sendAlertTrigger(new Alert(error.name, error.message));
+      // this.alertService.sendAlertTrigger(new Alert(error.name, error.message));
     });
   }
 }
