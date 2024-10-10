@@ -6,23 +6,19 @@ import { ionEye, ionEyeOff } from "@ng-icons/ionicons";
 import { AlertPopupComponent } from "src/app/screens/alert-popup/alert-popup.component";
 import { LoginRoutingModule } from "./login-routing.module";
 import { LoginComponent } from "./login.component";
-import { BusinessHomeModule } from "../business-home/business-home.module";
-import { SharedModule } from "src/app/shared/shared-module/shared-module.module";
+import { SharedModuleModule } from "src/app/shared/shared-module/shared-module.module";
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';  // Ensure FontAwesomeModule is imported
 
 @NgModule({
-  declarations: [
-    LoginComponent
-  ],
+  declarations: [LoginComponent, AlertPopupComponent],  // LoginComponent only declared here, not in LoginRoutingModule
   imports: [
     CommonModule,
     LoginRoutingModule,
     ReactiveFormsModule,
     NgIconsModule.withIcons({ ionEye, ionEyeOff }),
-    SharedModule
+    SharedModuleModule,
+    FontAwesomeModule  // Import FontAwesomeModule for <fa-icon>
   ],
-  schemas: [NO_ERRORS_SCHEMA],
-  exports: [
-    LoginComponent 
-  ]
+  schemas: [NO_ERRORS_SCHEMA],  // Use NO_ERRORS_SCHEMA for handling unknown components, only if needed
 })
 export class LoginModule {}

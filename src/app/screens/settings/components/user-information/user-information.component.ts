@@ -20,6 +20,7 @@ export class UserInformationComponent {
   popUpBody: string = '';
   username: string='';
   tempUsername:string='diana_biz04';
+  loading: boolean = true;
 
   constructor(private fb: FormBuilder, private router: Router,private settingsService: SettingsService,private jwtDecoder: JwtDecoderService) {
     this.profileInformation = this.fb.group({
@@ -48,17 +49,25 @@ export class UserInformationComponent {
     const decodedInfo = token ? this.jwtDecoder.decodeInfoFromToken(token) : this.jwtDecoder.decodeInfoFromToken('');
     this.username = decodedInfo['sub'];
 
-    this.settingsService.getUserDetails(this.tempUsername).subscribe(response => {
-      try {
-        const userData = JSON.parse(response);
-        console.log(userData);
-        if (userData.length > 0) {
-          this.updateFormWithUserData(userData[0]);
-        } else {
-          console.log('No user data found');
+    this.settingsService.getUserDetails(this.tempUsername).subscribe({
+      next: (response) => {
+        try {
+          const userData = JSON.parse(response);
+          console.log(userData);
+          if (userData.length > 0) {
+            this.updateFormWithUserData(userData[0]);
+          } else {
+            console.log('No user data found');
+          }
+        } catch (error) {
+          console.error('Error parsing JSON:', error);
         }
-      } catch (error) {
-        console.error('Error parsing JSON:', error);
+      },
+      error: (error: HttpErrorResponse) => {
+        console.error('Error fetching user data:', error);
+      },
+      complete: () => {
+        this.loading = false; 
       }
     });
   }
@@ -106,6 +115,7 @@ export class UserInformationComponent {
 
   onPopUpClose() {
     this.showPopUp = false; 
+    window.location.reload();
   }
 
   resetForm(): void {

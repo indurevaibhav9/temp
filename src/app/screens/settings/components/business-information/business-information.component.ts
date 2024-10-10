@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { BusinessInformation } from 'src/app/models/business-information';
 import { JwtDecoderService } from 'src/app/services/jwt-decoder.service';
 import { SettingsService } from 'src/app/services/settings.service';
+import { catchError, finalize } from 'rxjs/operators'; // Import these if you want to handle errors or final actions
+import { of } from 'rxjs'; 
 
 @Component({
   selector: 'app-business-information',
@@ -18,7 +20,8 @@ export class BusinessInformationComponent {
   popUpTitle: string = '';
   popUpBody: string = '';
   username: string='';
-  tempUsername:string='edward_biz05';
+  tempUsername:string='isaac_biz09';
+  loading: boolean = true;
 
   constructor(private fb:FormBuilder,private router:Router,private jwtDecoder:JwtDecoderService,private settingsService:SettingsService){
     this.businessInfo=this.fb.group({
@@ -49,17 +52,25 @@ export class BusinessInformationComponent {
     const decodedInfo = token ? this.jwtDecoder.decodeInfoFromToken(token) : this.jwtDecoder.decodeInfoFromToken('');
     this.username = decodedInfo['sub'];
 
-    this.settingsService.getBusinessDetails(this.tempUsername).subscribe(response => {
-      try {
-        const userData = JSON.parse(response);
-        console.log(userData);
-        if (userData.length > 0) {
-          this.updateFormWithUserData(userData[0]);
-        } else {
-          console.log('No user data found');
+    this.settingsService.getBusinessDetails(this.tempUsername).subscribe({
+      next: (response) => {
+        try {
+          const userData = JSON.parse(response);
+          console.log(userData);
+          if (userData.length > 0) {
+            this.updateFormWithUserData(userData[0]);
+          } else {
+            console.log('No user data found');
+          }
+        } catch (error) {
+          console.error('Error parsing JSON:', error);
         }
-      } catch (error) {
-        console.error('Error parsing JSON:', error);
+      },
+      error: (error: HttpErrorResponse) => {
+        console.error('Error fetching data:', error);
+      },
+      complete: () => {
+        this.loading = false; 
       }
     });
   }
@@ -142,6 +153,7 @@ export class BusinessInformationComponent {
 
   onPopUpClose() {
     this.showPopUp = false; 
+    window.location.reload();
   }
 
   resetForm(): void {
