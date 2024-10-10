@@ -7,6 +7,10 @@
 /src/app/screens/navbar     
 /package-lock.json
 .npmrc
-/dist
-/icons
-.vscode/
+package-lock.json
+node_modules
+android
+ios
+dist
+coverage
+docker

@@ -15,11 +15,11 @@
                 <div class="flex flex-col w-full">
                   <div class="grow h-16 justify-center mx-auto mb-2 pb-3">
                     <div class="avatar h-14 w-14">
-                      <img src="https://i.pravatar.cc/150?u=a042581f4e29026024d" alt="avatar" />
+                      <img src={{business.profilePictureUrl}} alt="avatar" />
                     </div>
                   </div>
-                  <span class="text-xl mt-2 font-sidebar text-primary">Business Name</span>
-                  <span class="text-lg font-normal font-sidebar text-content2">Business User Name</span>
+                  <span class="text-xl mt-2 font-sidebar text-primary">{{business.name}}</span>
+                  <span class="text-lg font-normal font-sidebar text-content2">{{business.username}}</span>
                 </div>
               </section>
 
@@ -77,6 +77,5 @@
       </div>
     </div>
   </div>
-
   <div class="bottom-component z-10"></div>
 </div>

@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { faAdd, faBell, faChartColumn, faChartLine, faCirclePlus, faCircleUser, faHome, faUser } from '@fortawesome/free-solid-svg-icons';
 import { BusinessNavigationServiceService } from 'src/app/services/business-navigation-service.service';
+import { BusinessDetails } from 'src/app/models/BusinessDetails';
+
 
 @Component({
   selector: 'app-business-bottom-navbar',
