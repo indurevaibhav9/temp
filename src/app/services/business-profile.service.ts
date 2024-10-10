@@ -1,9 +1,9 @@
+import { AdvertisementDetails } from 'src/app/models/ad-details';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { SavedPostsDTO } from '../models/savedPosts';
 import { BusinessDetails } from '../models/BusinessDetails';
-import { ProfilePostsDTO } from '../models/profilePosts';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -38,20 +38,23 @@ export class BusinessService {
       }),
     });
   }
-
-  getProfilePosts(): Observable<ProfilePostsDTO[]> { // Return type changed to an array
-    return this.http.get<ProfilePostsDTO[]>('http://192.168.1.9:8082/feed/business/profile/tanvi247', {
+  getProfilePosts(): Observable<AdvertisementDetails[]> {
+    return this.http.get<{ advertisements: AdvertisementDetails[] }>('http://192.168.1.9:8082/feed/business/profile/tanvi247', {
+      responseType: 'json',
+      headers: new HttpHeaders({
+        'ngrok-skip-browser-warning': 'true',
+      }),
+    }).pipe(
+      map(response => response.advertisements) // Transform response to just the advertisements array
+    );
+  }
+  getSavedPosts(): Observable<AdvertisementDetails[]> { // Return type changed to an array
+    return this.http.get<AdvertisementDetails[]>('http://192.168.1.9:8082/feed/saved/tanvi247', {
       responseType: 'json',
       headers: new HttpHeaders({
         'ngrok-skip-browser-warning': 'true',
       }),
     });
   }
-  getSavedPosts(): Observable<SavedPostsDTO[]> { // Return type changed to an array
-    return this.http.get<SavedPostsDTO[]>('http://192.168.1.9:8082/feed/saved/tanvi247', {
-      responseType: 'json',
-      headers: new HttpHeaders({
-        'ngrok-skip-browser-warning': 'true',
-      }),
-    });
-  }}
+
+}

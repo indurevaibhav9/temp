@@ -17,11 +17,11 @@
 
     <div class="mt-16 mb-16 test1:w-full" style="max-height: 2400px;">
         <div class="profile-container">
-            <div class="header bg-white p-4 flex items-center" >
+            <div class="header bg-white p-2 flex items-center" style="font-family: 'Roboto', sans-serif; font-weight: 400; letter-spacing: 0.5px;">
               <img src="{{ business.profilePictureUrl }}" alt="Business Logo" class="rounded-full ml-1 w-24 h-24 border border-red-5">
-              <div class="ml-4">
+              <div class="ml-5 mt-2">
                 <h2 class="text-black text-lg font-bold">{{ business.name }}</h2>
-                <p class="text-red-500 mb-3">{{ business.username }}</p>
+                <p class="text-red-500 mb-2">{{ business.username }}</p>
                 <div class="social-links flex justify-start items-center">
                   <a [href]="business.phoneNumber" class="text-red-500" target="_blank">
                     <i class="ri-phone-line text-2xl pr-1"></i>
@@ -39,11 +39,10 @@
                     <i class="ri-share-line text-2xl px-2"></i>
                   </a>
                 </div>
-                <i class="ri-edit-2-line ml-auto text-white text-xl"></i>
               </div>
             </div>
 
-            <div class="stats bg-white flex justify-between px-16 text-center">
+            <div class="stats bg-white flex justify-between px-16 text-center " style="font-family: 'Roboto', sans-serif; font-weight: 400; letter-spacing: 0.5px;">
               <div>
                 <p class="font-bold">{{ business.numberOfAdvertisements }}</p>
                 <p>Posts</p>
@@ -77,11 +76,42 @@
               </button>
             </div>
 
-            <div class="post-section grid grid-cols-1 gap-4 p-3 py-4" *ngIf="selectedTab === 'posts'">
+            <div class="post-section grid grid-cols-1 gap-2 py-2" *ngIf="selectedTab === 'posts'">
+              <div class="">
+ 
+                <div *ngFor="let post of profilePosts" class="ad-item ">
+                  <ng-container *ngIf="post.advertisementType=='Post'">
+                    <app-Post [postDetails]="post"></app-Post>
+                  </ng-container>
+              
+                  <ng-container *ngIf="post.advertisementType=='Event'">
+                    <app-Event [eventDetails]="post"></app-Event>
+                  </ng-container>
+              
+                  <ng-container *ngIf="post.advertisementType=='Coupon'">
+                    <app-Coupon [couponDetails]="post"></app-Coupon>
+                  </ng-container>
+                </div>
+              </div>
+              
             </div>
 
-            <div class="saved-section grid grid-cols-1 gap-2 p-2" *ngIf="selectedTab === 'saved'">
-              <div *ngFor="let post of savedPosts" class="aspect-square">
+            <div class="saved-section grid grid-cols-1 gap-2 py-2" *ngIf="selectedTab === 'saved'">
+              <div class="">
+ 
+                <div *ngFor="let post of savedPosts" class="ad-item ">
+                  <ng-container *ngIf="post.advertisementType=='Post'">
+                    <app-Post [postDetails]="post"></app-Post>
+                  </ng-container>
+              
+                  <ng-container *ngIf="post.advertisementType=='Event'">
+                    <app-Event [eventDetails]="post"></app-Event>
+                  </ng-container>
+              
+                  <ng-container *ngIf="post.advertisementType=='Coupon'">
+                    <app-Coupon [couponDetails]="post"></app-Coupon>
+                  </ng-container>
+                </div>
               </div>
             </div>
 

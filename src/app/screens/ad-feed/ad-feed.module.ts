@@ -27,6 +27,13 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     CommonModule,
     AdFeedRoutingModule,
     FontAwesomeModule
+  ],
+  exports: [
+    AdFeedComponent,
+    EventComponent,
+    PostComponent,
+    CouponComponent,
+    ReportPostComponent
   ]
 })
 export class AdFeedModule { }
