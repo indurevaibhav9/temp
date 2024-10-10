@@ -1,0 +1,89 @@
+<div class="flex justify-center p-0">
+  <div class="border border-white bg-white w-full max-w-sm shadow-lg mt-1 mb-1">
+
+
+
+    <div class="flex items-center justify-between p-2">
+      <img [src]="eventDetails.profileImageUrl" alt="Profile" class="w-12 h-12 rounded-full mt-2 ml-1">
+      <div class="flex-grow ml-2 text-left">
+        <div class="font-bold text-lg mt-2 text-black">{{ eventDetails.username }}</div>
+        <div class="text-sm text-gray-500">
+          <ng-container *ngIf="isExpired; else notExpired">
+            Expired
+          </ng-container>
+          <ng-template #notExpired>
+            Expires in {{ remainingDays }} days
+          </ng-template>
+        </div>
+      </div>
+      <button
+        class="bg-primary text-white font-medium font-system-ui border-none px-3 py-1 rounded mt-2 mr-1 cursor-pointer">
+        FOLLOW
+      </button>
+    </div>
+
+
+    <div>
+
+      <img [src]="eventDetails.offerImageUrl" alt="Event" class="w-full mt-2 object-cover h-96">
+
+      <div class="w-full px-2 py-1 text-xl font-bold bg-primary text-white border-none cursor-pointer text-center">
+        {{ eventDetails.eventDateAndTime | date:'dd MMM hh:mm a' }}
+      </div>
+      <div class="m-4 font-bold text-xl text-gray-500 text-center">
+        {{ eventDetails.offerTitle }}-Book Your tickets Now
+      </div>
+
+
+
+    </div>
+
+    <!-- Book Now Button -->
+    <div class="text-center mb-4">
+      <button (click)="bookNow()"
+        class="mx-auto py-3 px-6 bg-primary text-white font-bold text-lg rounded-full flex items-center justify-center cursor-pointer shadow-md transition duration-150 ease-in-out hover:bg-opacity-90">
+        Book Now
+        <fa-icon [icon]="faArrowRight" class="ml-2 fa-lg" [ngStyle]="{'color': '#ffffff'}"></fa-icon>
+      </button>
+    </div>
+
+
+
+    <div class="flex justify-between items-center m-4">
+      <!-- Left side icons -->
+      <div class="flex items-center space-x-4">
+        <button class="bg-none border-none flex items-center cursor-pointer">
+          <fa-icon [icon]="faThumbsUp" class="fa-xl" [ngStyle]="{'color': '#ff6251'}"></fa-icon>
+          <span class="text-black ml-1">{{ eventDetails.likes }}</span>
+        </button>
+
+        <button class="bg-none border-none flex items-center cursor-pointer">
+          <fa-icon [icon]="faThumbsDown" class="fa-xl" [ngStyle]="{'color': '#ff6251'}"></fa-icon>
+          <span class="text-black ml-1">{{ eventDetails.dislikes }}</span>
+        </button>
+      </div>
+
+      <!-- Right side icons -->
+      <div class="flex items-center space-x-4">
+        <button class="bg-none border-none flex items-center cursor-pointer">
+          <fa-icon [icon]="faLocationArrow" class="fa-xl" [ngStyle]="{'color': '#ffb43f'}"></fa-icon>
+        </button>
+
+        <button class="bg-none border-none flex items-center cursor-pointer">
+          <fa-icon [icon]="faBookmark" class="fa-xl" [ngStyle]="{'color': '#ffb43f'}"></fa-icon>
+        </button>
+
+        <button class="bg-none border-none flex items-center cursor-pointer">
+          <fa-icon [icon]="faEllipsisVertical" class="fa-xl" [ngStyle]="{'color': '#000000'}"></fa-icon>
+        </button>
+
+      </div>
+    </div>
+
+    <button
+      class="w-full px-2 py-1 text-lg font-bold bg-primary text-white border-none rounded-b-[4px] cursor-pointer text-center">
+      Show Details →
+    </button>
+  </div>
+</div>
+

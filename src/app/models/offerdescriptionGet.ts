@@ -1,4 +1,5 @@
 export interface OfferDescriptionDTO {
+    
     profileImageUrl: string;
     username: string;
     offerExpiry: string;
@@ -12,3 +13,4 @@ export interface OfferDescriptionDTO {
     howToAvailSteps: string[];
     termsConditions: string[];
   }
+  
