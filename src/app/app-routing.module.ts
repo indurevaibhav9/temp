@@ -53,15 +53,15 @@ const routes: Routes = [
         (module) => module.FeedbackScreenModule
       ),
   },
-  // Add a wildcard route for a 404 page if needed
-  { path: '**', redirectTo: 'login' },
   {
     path: 'profile',
     loadChildren: () =>
       import('./screens/profile/profile.module').then(
         (module) => module.ProfileModule
       )
-  }
+  },
+  // Add a wildcard route for a 404 page if needed
+  { path: '**', redirectTo: 'login' },
 ];
 
 @NgModule({
