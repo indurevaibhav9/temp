@@ -54,7 +54,7 @@ const routes: Routes = [
       ),
   },
   // Add a wildcard route for a 404 page if needed
-  { path: '**', redirectTo: 'login' }
+  { path: '**', redirectTo: 'login' },
   {
     path: 'profile',
     loadChildren: () =>

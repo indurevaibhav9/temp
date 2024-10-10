@@ -37,12 +37,13 @@ module.exports = {
         'xl': '1280px',
         '2xl': '1536px',
       },
-      colors: {
-        primary: "#ED6A5A",     // Corrected primary color to be a single value
+      colors:{
+        'primarycolor': ['#ED6A5A']
       },
       fontFamily: {
-        primary: ["sansita-one", "sans-serif"],
-        secondary: ["merriweather", "sans-serif"]
+        'sidebar' : ['Roboto'],
+        'primary':["sansita-one", "sans-serif"],
+        'secondary':["merriweather", "sans-serif"]
       },
       borderRadius: {
         '4px': '4px', // Custom border radius class
