@@ -41,9 +41,8 @@ module.exports = {
         'primarycolor': ['#ED6A5A']
       },
       fontFamily: {
-        'sidebar' : ['Roboto'],
-        'primary':["sansita-one", "sans-serif"],
-        'secondary':["merriweather", "sans-serif"]
+        'primary': ["sansita-one", "sans-serif"],
+        'secondary': ["Roboto", "sans-serif"],
       }
     },
   },
