@@ -12,8 +12,7 @@ import { BusinessHomeModule } from "./screens/business-home/business-home.module
 import { ConsumerHomeModule } from "./screens/consumer-home/consumer-home.module";
 import { ReactiveFormsModule } from "@angular/forms";
 import { RegisterModule } from "./screens/register/register.module";
-
-
+import { SharedModuleModule } from "./shared/shared-module/shared-module.module";
 @NgModule({
   declarations: [
     AppComponent
@@ -24,9 +23,7 @@ import { RegisterModule } from "./screens/register/register.module";
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),
     LoginModule,
-    LogoutModule,
-    BusinessHomeModule,
-    ConsumerHomeModule,
+    SharedModuleModule,
     ReactiveFormsModule,
     RegisterModule
   ],
