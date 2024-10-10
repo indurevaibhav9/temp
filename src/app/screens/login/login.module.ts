@@ -7,8 +7,6 @@ import { AlertPopupComponent } from "src/app/screens/alert-popup/alert-popup.com
 import { LoginRoutingModule } from "./login-routing.module";
 import { LoginComponent } from "./login.component";
 import { BusinessHomeModule } from "../business-home/business-home.module";
- 
-
 import { SharedModule } from "src/app/shared/shared-module/shared-module.module";
 
 @NgModule({
@@ -19,7 +17,6 @@ import { SharedModule } from "src/app/shared/shared-module/shared-module.module"
     CommonModule,
     LoginRoutingModule,
     ReactiveFormsModule,
-    NgIconsModule.withIcons({ ionEye, ionEyeOff })
     NgIconsModule.withIcons({ ionEye, ionEyeOff }),
     SharedModule
   ],

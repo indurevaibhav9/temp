@@ -9,14 +9,13 @@ import { LoginModule } from "./screens/login/login.module";
 import { GlobalErrorHandlerService } from "./services/global-error-handler.service";
 import { BusinessHomeModule } from "./screens/business-home/business-home.module";
 import { ConsumerHomeModule } from "./screens/consumer-home/consumer-home.module";
-
 import { ReactiveFormsModule } from "@angular/forms";
 import { RegisterModule } from "./screens/register/register.module";
+
 @NgModule({
   declarations: [
     AppComponent
   ],
-  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -24,20 +23,16 @@ import { RegisterModule } from "./screens/register/register.module";
     AngularFireModule.initializeApp(environment.firebase),
     LoginModule,
     BusinessHomeModule,
-    ConsumerHomeModule
-],
-  exports: [],
+    ConsumerHomeModule,
     ReactiveFormsModule,
     RegisterModule,
-],
+  ],
   providers: [
     {
       provide: ErrorHandler,
       useClass: GlobalErrorHandlerService,
     },
-    
   ],
   bootstrap: [AppComponent],
-  
 })
 export class AppModule {}
