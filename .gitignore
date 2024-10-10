@@ -14,8 +14,4 @@ ios
 dist
 coverage
 docker
-<<<<<<< HEAD
-package-lock.json
-=======
 .vscode/
->>>>>>> 99cc030 (changes after pulling from develop)
