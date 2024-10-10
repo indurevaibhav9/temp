@@ -5,8 +5,11 @@ import { businessGuard } from "./authGuards/business/business.guard";
 import { loginGuard } from "./authGuards/login/login.guard";
 
 const routes: Routes = [
-  { path: "", redirectTo: "business-home", pathMatch: "full" },
-
+  {
+    path: "",
+    redirectTo: "settings",
+    pathMatch: "full",
+  },
   {
     path: "login",
     loadChildren: () => import("./screens/login/login.module").then(m => m.LoginModule),

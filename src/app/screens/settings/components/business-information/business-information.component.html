@@ -34,7 +34,7 @@
         <label for="contactNumber">Phone Number</label>
     </div>
     <div class="ml-4">
-        <input formControlName="phoneNumber" type="number" name="contactNumber" required class="phone-input w-[330px] h-[28px] mt-1 border border-[#ED6A5A] rounded-md p-2" placeholder="current contact number" id="contactNumber">
+        <input formControlName="phoneNumber" type="text" name="contactNumber" required class="phone-input w-[330px] h-[28px] mt-1 border border-[#ED6A5A] rounded-md p-2" placeholder="current contact number" id="contactNumber">
         <div *ngIf="businessInfo.get('contactNumber')?.touched && businessInfo.get('contactNumber')?.invalid" class="text-red-500">Phone Number is required</div>
     </div>
 
@@ -145,4 +145,7 @@
 </form>
 <div *ngIf="showPopUp">
     <app-pop-up [messageTitle]="popUpTitle" [messageBody]="popUpBody" (close)="onPopUpClose()"></app-pop-up>
+</div>
+<div *ngIf="loading">
+    <app-loader></app-loader>
 </div>

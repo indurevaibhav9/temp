@@ -12,7 +12,7 @@ export class SettingsService {
   constructor(private http:HttpClient) { }
 
   getUserDetails(username: string): Observable<any> {
-    return this.http.get(`https://583b-2409-40c2-102d-af53-f603-61fb-abdd-26f8.ngrok-free.app/Settings/consumer-details/${username}`,
+    return this.http.get(`https://3d23-106-213-83-208.ngrok-free.app/Settings/consumer-details/${username}`,
       {
         responseType: 'text',
         headers: new HttpHeaders({
@@ -25,7 +25,7 @@ export class SettingsService {
 
   postUserDetails(data:UserInformation):Observable<String>{
     return this.http.post(
-      `https://583b-2409-40c2-102d-af53-f603-61fb-abdd-26f8.ngrok-free.app/Settings/update-consumer`,
+      `https://3d23-106-213-83-208.ngrok-free.app/Settings/update-consumer`,
       data,
       {
         responseType: 'text',
@@ -39,7 +39,7 @@ export class SettingsService {
   }
 
   getBusinessDetails(username: string): Observable<any> {
-    return this.http.get(`https://583b-2409-40c2-102d-af53-f603-61fb-abdd-26f8.ngrok-free.app/Settings/business-details/${username}`,
+    return this.http.get(`https://3d23-106-213-83-208.ngrok-free.app/Settings/business-details/${username}`,
       {
         responseType: 'text',
         headers: new HttpHeaders({
@@ -52,7 +52,7 @@ export class SettingsService {
 
   postBusinessDetails(data:BusinessInformation):Observable<String>{
     return this.http.post(
-      `https://583b-2409-40c2-102d-af53-f603-61fb-abdd-26f8.ngrok-free.app/Settings/update-business`,
+      `https://3d23-106-213-83-208.ngrok-free.app/Settings/update-business`,
       data,
       {
         responseType: 'text',
