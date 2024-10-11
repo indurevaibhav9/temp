@@ -1,0 +1,70 @@
+<div class="flex flex-col p-4 w-full bg-white min-h-screen max-w-screen">
+    <header class="flex mt-6 items-center mb-5">
+      <div class="flex items-center w-full rounded-lg border border-primary-0 hover:ring-2 hover:ring-primary-0">
+        <fa-icon
+          [icon]="faArrowLeft"
+          class="text-xl text-gray-400 cursor-pointer p-2"
+          (click)="goBack()"
+        ></fa-icon>
+        <input
+          class="flex-grow px-2 py-2 outline-none bg-transparent w-full"
+          type="text"
+          [(ngModel)]="searchQuery"
+          placeholder="Search"
+          (keyup.enter)="onSearch()"
+        />
+        <fa-icon
+          [icon]="faTimesCircle"
+          class="text-xl text-gray-400 cursor-pointer p-2"
+          (click)="clearSearch()"
+        ></fa-icon>
+      </div>
+    </header>
+  
+    <div class="mt-4 w-full" *ngIf="searchQuery">
+      <div class="grid gap-4">
+        <div
+          class="flex items-center mb-2"
+          *ngFor="let business of businesses"
+        >
+          <img
+            [src]="business.profilePicture"
+            alt="{{ business.name }} profilePicture"
+            class="w-16 h-16 rounded-full object-cover mr-4"
+          />
+          <div>
+            <h3 class="text-sm text-gray-900 font-secondary">{{ business.name }}</h3>
+            <p class="text-sm text-gray-500 font-secondary">{{ business.username }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- <div class="flex items-center justify-center my-4">
+      <div class="flex-grow h-px bg-gray-300"></div>
+      <h4 class="text-sm text-gray-400 px-2 font-secondary">
+        N E A R B Y&nbsp; &nbsp;B U S I N E S S E S
+      </h4>
+      <div class="flex-grow h-px bg-gray-300"></div>
+    </div> -->
+  
+    <!-- <div class="mt-4">
+      <div class="grid gap-4">
+        <div
+          class="flex items-center hover:shadow-md transition-shadow duration-300"
+          *ngFor="let business of nearbyBusinesses"
+        >
+          <img
+            [src]="business.profilePicture"
+            alt="{{ business.name }} profile picture"
+            class="w-16 h-16 rounded-full object-cover mr-4"
+          />
+          <div>
+            <h3 class="text-sm text-gray-900 font-secondary">{{ business.name }}</h3>
+            <p class="text-sm text-gray-400 font-secondary">{{ business.username }}</p>
+          </div>
+        </div>
+      </div>
+    </div> -->
+  </div>
+  

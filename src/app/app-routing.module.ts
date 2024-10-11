@@ -46,6 +46,7 @@ const routes: Routes = [
         (module) => module.FeedbackScreenModule
       ),
   },
+  { path: 'search', loadChildren: () => import('./screens/search/search.module').then(m => m.SearchModule) },
 ];
 
 @NgModule({
