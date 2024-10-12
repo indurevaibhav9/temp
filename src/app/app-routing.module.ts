@@ -5,19 +5,19 @@ import { businessGuard } from "./authGuards/business/business.guard";
 import { loginGuard } from "./authGuards/login/login.guard";
 
 const routes: Routes = [
-  { path: "", redirectTo: "consumer-home/adfeed", pathMatch: "full" },
+  { path: "", redirectTo: "business-home/adfeed", pathMatch: "full" },
 
   {
     path: "login",
     loadChildren: () => import("./screens/login/login.module").then(m => m.LoginModule),
-    canActivate: [loginGuard]
+    // canActivate: [loginGuard]
   },
   { path: "register", loadChildren: () => import("./screens/register/register.module").then(m => m.RegisterModule) },
 
   {
     path: "business-home",
     loadChildren: () => import("./screens/business-home/business-home.module").then(m => m.BusinessHomeModule),
-    canActivate: [businessGuard],
+    // canActivate: [businessGuard]
   },
   {
     path: "otpscreen/:mobileNumber",
@@ -28,7 +28,7 @@ const routes: Routes = [
     loadChildren: () => import("./screens/consumer-home/consumer-home.module").then(m => m.ConsumerHomeModule),
   },
 
-  { path: "**", redirectTo: "consumer-home/adfeed" }
+  { path: "**", redirectTo: "business-home/adfeed" }
 ];
 
 @NgModule({
