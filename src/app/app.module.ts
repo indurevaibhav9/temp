@@ -22,7 +22,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     LoginModule,
     ReactiveFormsModule,
     RegisterModule,
-],
     FontAwesomeModule
   ],
   providers: [
