@@ -7,17 +7,22 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { LoginModule } from "./screens/login/login.module";
 import { GlobalErrorHandlerService } from "./services/global-error-handler.service";
+import { ReactiveFormsModule } from "@angular/forms";
+import { RegisterModule } from "./screens/register/register.module";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
-  declarations: [AppComponent ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),
     LoginModule,
+    ReactiveFormsModule,
+    RegisterModule,
+],
     FontAwesomeModule
   ],
   providers: [
