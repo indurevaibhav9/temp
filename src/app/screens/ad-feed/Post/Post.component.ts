@@ -34,6 +34,22 @@ export class PostComponent {
 
 
 
+  ngOnInit(): void {
+   
+
+      
+    // Calculate remaining days
+    const expiryDate = new Date(this.postDetails.offerExpiry);
+    const currentDate = new Date();
+    const timeDiff = expiryDate.getTime() - currentDate.getTime();
+    this.remainingDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); // Convert time difference to days
+
+    // Check if expired
+    if (this.remainingDays <= 0) {
+      this.isExpired = true;
+    }
+   
+  };
   
 
   

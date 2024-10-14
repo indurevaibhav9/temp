@@ -9,7 +9,9 @@ import { LoginModule } from "./screens/login/login.module";
 import { GlobalErrorHandlerService } from "./services/global-error-handler.service";
 import { ReactiveFormsModule } from "@angular/forms";
 import { RegisterModule } from "./screens/register/register.module";
-import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -21,7 +23,7 @@ import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
     ReactiveFormsModule,
     RegisterModule,
     FontAwesomeModule
-],
+  ],
   providers: [
     {
       provide: ErrorHandler,
