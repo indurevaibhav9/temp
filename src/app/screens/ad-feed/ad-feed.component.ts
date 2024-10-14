@@ -20,22 +20,7 @@ export class AdFeedComponent implements OnInit {
   }
 
   fetchAds(): void {
-    // const post$ = this.AdvertisementDetailsService.getPost();
-    // const event$ = this.AdvertisementDetailsService.getEvent();
-    // const coupon$ = this.AdvertisementDetailsService.getCoupon();
-
-    // forkJoin<[PostDTO[], EventDTO[], CouponCodeDTO[]]>([post$, event$, coupon$]).subscribe(
-    //   ([postResponse, eventResponse, couponResponse]) => {
-    //     this.ads = [
-    //       ...postResponse,
-    //       ...eventResponse,
-    //       ...couponResponse
-    //     ];
-    //   },
-    //   (error: any) => {
-    //     console.error('Error fetching advertisements:', error);
-    //   }
-    // );
+   
    this.AdvertisementDetailsService.getAdvertisementDetails().subscribe(
     {
       next:(response)=>{
