@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { BusinessService } from 'src/app/services/business-profile.service';
-import { faBars, faUserGroup, faMagnifyingGlass, faThumbsUp, faThumbsDown,faLocationArrow, faBookmark, faEllipsisVertical,faLocationDot, faHeart, faBell, faCircleUser } from '@fortawesome/free-solid-svg-icons';
-import { OfferDescriptionService } from 'src/app/services/offer-description.service'; // Adjust the path as needed
+import { faBars, faList, faUserGroup, faMagnifyingGlass, faThumbsUp, faThumbsDown,faLocationArrow, faBookmark, faEllipsisVertical,faLocationDot, faHeart, faBell, faCircleUser } from '@fortawesome/free-solid-svg-icons';
+import { OfferDescriptionService } from 'src/app/services/offer-description.service';
 import { OfferDescriptionDTO } from 'src/app/models/offerdescriptionGet';
 import { BusinessDetails } from 'src/app/models/BusinessDetails';
 import { AdvertisementDetails } from 'src/app/models/ad-details';
@@ -17,6 +17,7 @@ export class BusinessProfileComponent implements OnInit {
   @Input() profilePosts!: AdvertisementDetails[];
   @Input() savedPosts!: AdvertisementDetails[];
   faBars = faBars;
+  faList = faList;
   faUserGroup = faUserGroup;
   faMagnifyingGlass = faMagnifyingGlass;
   faThumbsUp = faThumbsUp;
@@ -42,28 +43,27 @@ export class BusinessProfileComponent implements OnInit {
     this.fetchProfilePosts();
     this.fetchSavedPosts();
   }
-  
+
   fetchBusinessDetails() {
     this.businessService.getBusinessDetails().subscribe((data: BusinessDetails[]) => {
       this.business = data;
       console.log('Business Details:', this.business);
     });
   }
-  
+
   fetchProfilePosts() {
     this.businessService.getProfilePosts().subscribe((data: AdvertisementDetails[]) => {
       this.profilePosts = data;
       console.log('Profile Posts:', this.profilePosts);
     });
   }
-  
+
   fetchSavedPosts() {
     this.businessService.getSavedPosts().subscribe((data: AdvertisementDetails[]) => {
       this.savedPosts = data;
       console.log('Saved Posts:', this.savedPosts);
     });
   }
-  
 
   switchTab(tab: string): void {
     this.selectedTab = tab;

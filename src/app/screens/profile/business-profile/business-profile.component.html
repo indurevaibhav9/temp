@@ -15,13 +15,13 @@
   </header>
 </div>
 
-    <div class="mt-16 mb-16 test1:w-full" style="max-height: 2400px;">
+  <div class="mt-16 mb-16 test1:w-full" style="max-height: 2400px;">
         <div class="profile-container">
             <div class="header bg-white p-2 flex items-center" style="font-family: 'Roboto', sans-serif; font-weight: 400; letter-spacing: 0.5px;">
-              <img src="{{ business.profilePictureUrl }}" alt="Business Logo" class="rounded-full ml-1 w-24 h-24 border border-red-5">
+              <img src="{{ business.profilePictureUrl }}" alt="Business Logo" class="rounded-full ml-2 w-24 h-24 border border-red-5">
               <div class="ml-5 mt-2">
-                <h2 class="text-black text-lg font-bold">{{ business.name }}</h2>
-                <p class="text-red-500 mb-2">{{ business.username }}</p>
+                <h2 class="text-black text-lg font-bold  tracking-wider truncate max-w-screen-md">{{ business.name }}</h2>
+                <p class="text-red-500 mb-2 tracking-wider truncate max-w-screen-md">@{{ business.username }}</p>
                 <div class="social-links flex justify-start items-center">
                   <a [href]="business.phoneNumber" class="text-red-500" target="_blank">
                     <i class="ri-phone-line text-2xl pr-1"></i>
@@ -42,7 +42,7 @@
               </div>
             </div>
 
-            <div class="stats bg-white flex justify-between px-16 text-center " style="font-family: 'Roboto', sans-serif; font-weight: 400; letter-spacing: 0.5px;">
+            <div class="stats bg-white flex justify-between mt-2 px-12 text-center " style="font-family: 'Roboto', sans-serif; font-weight: 400; letter-spacing: 0.5px;">
               <div>
                 <p class="font-bold">{{ business.numberOfAdvertisements }}</p>
                 <p>Posts</p>
@@ -63,51 +63,42 @@
                 [class.active-tab]="selectedTab === 'posts'"
                 class="flex-1 p-4 flex items-center justify-center rounded-sm bg-gray-100 hover:bg-gray-200 transition-colors"
               >
-                <i class="" [ngClass]="{'text-primarycolor-0': selectedTab === 'posts', 'text-gray-500': selectedTab !== 'posts'}"></i>
-                Posts
+                <fa-icon [icon]="faList" class="text-2xl" [ngClass]="{'text-white': selectedTab === 'posts', 'text-primarycolor-0': selectedTab !== 'posts'}"></fa-icon>
               </button>
               <button
                 (click)="switchTab('saved')"
                 [class.active-tab]="selectedTab === 'saved'"
                 class="flex-1 p-4 flex items-center justify-center rounded-sm bg-gray-100 hover:bg-gray-200 transition-colors"
               >
-                <i class="" [ngClass]="{'text-primarycolor-0': selectedTab === 'saved', 'text-gray-500': selectedTab !== 'saved'}"></i>
-                Saved
+                <fa-icon [icon]="faBookmark" class="text-2xl" [ngClass]="{'text-white': selectedTab === 'saved', 'text-primarycolor-0': selectedTab !== 'saved'}"></fa-icon>
               </button>
             </div>
 
             <div class="post-section grid grid-cols-1 gap-2 py-2" *ngIf="selectedTab === 'posts'">
               <div class="">
- 
                 <div *ngFor="let post of profilePosts" class="ad-item ">
                   <ng-container *ngIf="post.advertisementType=='Post'">
                     <app-Post [postDetails]="post"></app-Post>
                   </ng-container>
-              
                   <ng-container *ngIf="post.advertisementType=='Event'">
                     <app-Event [eventDetails]="post"></app-Event>
                   </ng-container>
-              
                   <ng-container *ngIf="post.advertisementType=='Coupon'">
                     <app-Coupon [couponDetails]="post"></app-Coupon>
                   </ng-container>
                 </div>
               </div>
-              
             </div>
 
             <div class="saved-section grid grid-cols-1 gap-2 py-2" *ngIf="selectedTab === 'saved'">
               <div class="">
- 
                 <div *ngFor="let post of savedPosts" class="ad-item ">
                   <ng-container *ngIf="post.advertisementType=='Post'">
                     <app-Post [postDetails]="post"></app-Post>
                   </ng-container>
-              
                   <ng-container *ngIf="post.advertisementType=='Event'">
                     <app-Event [eventDetails]="post"></app-Event>
                   </ng-container>
-              
                   <ng-container *ngIf="post.advertisementType=='Coupon'">
                     <app-Coupon [couponDetails]="post"></app-Coupon>
                   </ng-container>
