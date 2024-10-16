@@ -13,74 +13,42 @@ export class SearchComponent implements OnInit {
   faTimesCircle = faTimesCircle;
   searchQuery: string = '';
   businesses: { name: string, username: string, profilePicture: string }[] = [];
-  // nearbyBusinesses: { name: string, username: string, profilePicture: string }[] = [];
-  allBusinesses: { name: string, username: string, profilePicture: string }[] = [];
 
   constructor(private searchService: SearchService) { }
 
   ngOnInit(): void {
-    this.loadBusinesses('');
-    // this.loadNearbyBusinesses();
+    // No need to load all businesses initially
+    console.log('Search Component Initialized');
   }
 
   loadBusinesses(query: string): void {
+    console.log('Sending query to backend:', query);
     this.searchService.getBusinesses(query).subscribe((data) => {
       console.log('Fetched Businesses:', data);
-      this.allBusinesses = data;
-      this.businesses = data;
+      this.businesses = data; // Assign the filtered businesses
     });
   }
 
-  // loadNearbyBusinesses(): void {
-  //   this.searchService.getNearbyBusinesses().subscribe((data) => {
-  //     console.log('Fetched Nearby Businesses:', data);
-  //     this.nearbyBusinesses = data;
-  //   });
-  // }
-
   onSearch(): void {
     console.log("Search query:", this.searchQuery);
-    console.log("All businesses:", this.allBusinesses);
-  
+
     if (this.searchQuery) {
-      const searchQueryLower = this.searchQuery.toLowerCase();
-  
-      this.businesses = this.allBusinesses.filter(business => {
-        const businessName = business.name.toLowerCase();
-        const businessUsername = business.username.toLowerCase();
-  
-        const match = businessName.includes(searchQueryLower) || businessUsername.includes(searchQueryLower);
-        
-        console.log(`Business name: ${businessName}, Business username: ${businessUsername}, Match: ${match}`);
-        
-        return match;
-      });
-  
-      console.log("Filtered businesses:", this.businesses);
+      // Fetch filtered businesses based on search query from the backend
+      this.loadBusinesses(this.searchQuery);
     } else {
-      this.businesses = this.allBusinesses;
+      // If search query is empty, optionally handle it (e.g., clear businesses list)
+      console.log('Empty search query, nothing to fetch.');
     }
   }
-  
-
-  // onSearch(): void {
-  //   console.log("Search query:", this.searchQuery);
-
-  //   if (this.searchQuery) {
-  //     // Fetch businesses based on the search query from the backend
-  //     this.loadBusinesses(this.searchQuery);
-  //   } else {
-  //     // If search query is empty, fetch all businesses again
-  //     this.loadBusinesses('');
-  //   }
-  // }
 
   clearSearch(): void {
     this.searchQuery = '';
-    this.loadBusinesses('');
+    console.log('Search cleared');
+    // Optionally clear the businesses list
+    this.businesses = [];
   }
 
   goBack(): void {
-    // do later
+    console.log('Back button clicked');
   }
 }
