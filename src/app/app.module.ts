@@ -13,14 +13,7 @@ import { ConsumerHomeModule } from "./screens/consumer-home/consumer-home.module
 import { ReactiveFormsModule } from "@angular/forms";
 import { RegisterModule } from "./screens/register/register.module";
 
-<<<<<<< HEAD
->>>>>>> ff840b8 (Business and consumer navigation bar working)
-=======
-import { ConsumerHomeModule } from "./screens/consumer-home/consumer-home.module";
->>>>>>> bc8790b (Corrected Routes for consumer-home and business-home)
 
-=======
->>>>>>> dd58006 (Renamed Home module to AdFeed module)
 @NgModule({
   declarations: [
     AppComponent
@@ -31,10 +24,11 @@ import { ConsumerHomeModule } from "./screens/consumer-home/consumer-home.module
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),
     LoginModule,
+    LogoutModule,
     BusinessHomeModule,
     ConsumerHomeModule,
     ReactiveFormsModule,
-    RegisterModule,
+    RegisterModule
   ],
   providers: [
     {

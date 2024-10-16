@@ -3,8 +3,11 @@ import { Router } from '@angular/router';
 import { faAdd, faBell, faChartColumn, faCirclePlus, faCircleUser, faHome, faUser } from '@fortawesome/free-solid-svg-icons';
 import { mdiChartBoxOutline } from '@mdi/js';
 import { BusinessNavigationServiceService } from 'src/app/services/business-navigation-service.service';
+<<<<<<< HEAD
 import { HomeModule } from '../../home-screen/home-screen.module';
 import { BusinessInsightsModule } from '../../insights/insights.module';
+=======
+>>>>>>> 79946b6 (business-home working with docker integration)
 
 @Component({
   selector: 'app-business-bottom-navbar',
@@ -12,6 +15,7 @@ import { BusinessInsightsModule } from '../../insights/insights.module';
   templateUrl: './business-bottom-navbar.component.html'
 =======
   templateUrl: './business-bottom-navbar.component.html',
+<<<<<<< HEAD
   styles: [`
     .nav-icon {
       color: #FFFFFF; 
@@ -57,6 +61,11 @@ export class BusinessBottomNavbarComponent {
     this.updateActiveState('home');
 >>>>>>> bc8790b (Corrected Routes for consumer-home and business-home)
 =======
+=======
+  styles: []
+})
+
+>>>>>>> 79946b6 (business-home working with docker integration)
 export class BusinessBottomNavbarComponent implements OnInit {
 
   faHome = faHome; 

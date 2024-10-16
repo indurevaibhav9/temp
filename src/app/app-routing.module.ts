@@ -26,6 +26,7 @@ const routes: Routes = [
   {
     path: "consumer-home",
     loadChildren: () => import("./screens/consumer-home/consumer-home.module").then(m => m.ConsumerHomeModule),
+    // canActivate: [customerGuard]
   },
 
   { path: "**", redirectTo: "business-home/adfeed" }

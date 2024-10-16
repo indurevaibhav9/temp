@@ -9,6 +9,7 @@ import { ConsumerNavigationService } from 'src/app/services/consumer-navigation.
   styles: []
 })
 <<<<<<< HEAD
+<<<<<<< HEAD
 export class ConsumerBottomNavbarComponent {
   
   constructor(private router: Router, private _navigation: ConsumerNavigationService) {}
@@ -21,6 +22,9 @@ export class ConsumerBottomNavbarComponent {
     this.router.navigate(['/consumernavbar']);
     this.updateActiveState('Home');
 =======
+=======
+
+>>>>>>> 79946b6 (business-home working with docker integration)
 export class ConsumerBottomNavbarComponent implements OnInit {
 
   faHome = faHome;
