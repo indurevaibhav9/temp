@@ -13,6 +13,7 @@ import { ConsumerHomeModule } from "./screens/consumer-home/consumer-home.module
 import { ReactiveFormsModule } from "@angular/forms";
 import { RegisterModule } from "./screens/register/register.module";
 
+
 @NgModule({
   declarations: [
     AppComponent
@@ -26,10 +27,11 @@ import { RegisterModule } from "./screens/register/register.module";
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),
     LoginModule,
+    LogoutModule,
     BusinessHomeModule,
     ConsumerHomeModule,
     ReactiveFormsModule,
-    RegisterModule,
+    RegisterModule
   ],
   providers: [
     {
