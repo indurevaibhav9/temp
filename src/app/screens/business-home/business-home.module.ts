@@ -6,7 +6,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BusinessHomeComponent } from './business-home.component';
 import { BusinessHomeRoutingModule } from './business-home-routing.module';
 
-
 @NgModule({
   declarations: [
     BusinessBottomNavbarComponent,
@@ -20,7 +19,8 @@ import { BusinessHomeRoutingModule } from './business-home-routing.module';
   ],
   exports: [
     BusinessBottomNavbarComponent,
-    BusinessTopNavbarComponent
+    BusinessTopNavbarComponent,
+    BusinessHomeComponent
   ]
 })
 export class BusinessHomeModule { }

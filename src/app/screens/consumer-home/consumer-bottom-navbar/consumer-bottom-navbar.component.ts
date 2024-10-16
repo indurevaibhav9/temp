@@ -8,6 +8,7 @@ import { ConsumerNavigationService } from 'src/app/services/consumer-navigation.
   templateUrl: './consumer-bottom-navbar.component.html',
   styles: []
 })
+
 export class ConsumerBottomNavbarComponent implements OnInit {
 
   faHome = faHome;

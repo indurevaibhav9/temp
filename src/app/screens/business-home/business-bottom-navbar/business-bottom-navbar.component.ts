@@ -1,38 +1,14 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { faAdd, faBell, faChartColumn, faChartLine, faCirclePlus, faCircleUser, faHome, faUser } from '@fortawesome/free-solid-svg-icons';
 import { BusinessNavigationServiceService } from 'src/app/services/business-navigation-service.service';
-import { BusinessDetails } from 'src/app/models/BusinessDetails';
-
 
 @Component({
   selector: 'app-business-bottom-navbar',
   templateUrl: './business-bottom-navbar.component.html',
-  styles: [`
-    .nav-icon {
-      color: #FFFFFF; 
-      font-size: 24px;
-      transition: color 0.3s ease, transform 0.3s ease;
-    }
-    .nav-icon:hover, .active-icon {
-      color: #007BFF; 
-      transform: scale(1.2); 
-    }
-
-    .nav-icon-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 10px;
-      transition: background-color 0.3s ease;
-    }
-    .nav-icon-container:hover {
-      background-color: rgba(0, 123, 255, 0.1); 
-      border-radius: 50%; 
-    }
-  `]
+  styles: []
 })
+
 export class BusinessBottomNavbarComponent implements OnInit {
 
   faHome = faHome; 

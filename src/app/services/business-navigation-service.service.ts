@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BusinessDetails } from '../models/BusinessDetails';
+import { UserProfileDto } from '../models/UserProfileDTO';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -15,8 +15,8 @@ export class BusinessNavigationServiceService {
   Is_Notification:boolean = false;
   Is_Profile:boolean = false;
 
-  getBusinessDetails(): Observable<BusinessDetails[]> { 
-    return this.http.get<BusinessDetails[]>('http://localhost:8762/user/profile/tanvi247', {
+  getBusinessDetails(): Observable<UserProfileDto[]> { 
+    return this.http.get<UserProfileDto[]>('http://192.168.0.105:8762/user/profile/tanvi247', {
       responseType: 'json',
       headers: new HttpHeaders({
         'ngrok-skip-browser-warning': 'true',
