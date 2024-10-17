@@ -1,12 +1,14 @@
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BusinessInformation } from 'src/app/models/business-information';
 import { JwtDecoderService } from 'src/app/services/jwt-decoder.service';
 import { SettingsService } from 'src/app/services/settings.service';
-import { catchError, finalize } from 'rxjs/operators'; // Import these if you want to handle errors or final actions
-import { of } from 'rxjs'; 
+
+interface StateData {
+  state: { name: string; cities: string[] }[];
+}
 
 @Component({
   selector: 'app-business-information',
@@ -20,10 +22,12 @@ export class BusinessInformationComponent {
   popUpTitle: string = '';
   popUpBody: string = '';
   username: string='';
-  tempUsername:string='isaac_biz09';
+  tempUsername:string='alice_biz01';
   loading: boolean = true;
+  imageFileName: string = '';
+  stateData: StateData;
 
-  constructor(private fb:FormBuilder,private router:Router,private jwtDecoder:JwtDecoderService,private settingsService:SettingsService){
+  constructor(private http: HttpClient,private fb:FormBuilder,private router:Router,private jwtDecoder:JwtDecoderService,private settingsService:SettingsService){
     this.businessInfo=this.fb.group({
       name:[''],
       businessUsername:[''],
@@ -44,6 +48,11 @@ export class BusinessInformationComponent {
         pancardImage: ['']
       })
     });
+
+    this.http.get<StateData>("assets/Statesandcities.json")
+      .subscribe((data) => {
+        this.stateData = data;
+      });
   }
   
   ngOnInit():void{
@@ -60,7 +69,9 @@ export class BusinessInformationComponent {
           if (userData.length > 0) {
             this.updateFormWithUserData(userData[0]);
           } else {
-            console.log('No user data found');
+            this.popUpTitle = 'Error!';
+            this.popUpBody = 'Data not found';
+            this.showPopUp = true;
           }
         } catch (error) {
           console.error('Error parsing JSON:', error);
@@ -96,6 +107,8 @@ export class BusinessInformationComponent {
         pancardImage: user.kycDetails?.pancardImage
       }
     });
+
+    this.imageFileName = user.profilePicture;
   }
 
   handleSubmit(){
@@ -157,10 +170,15 @@ export class BusinessInformationComponent {
   }
 
   resetForm(): void {
-    this.businessInfo.reset();
+    this.ngOnInit();
   }
 
   handleClick():void{
     this.router.navigate(['/settings']);
+  }
+
+  getCitiesByState(selectedState: string): string[] {
+    const state = this.stateData.state.find((state) => state.name === selectedState);
+    return state ? state.cities : [];
   }
 }
