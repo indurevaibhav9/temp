@@ -1,47 +1,72 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { PresignedUrl } from 'src/app/models/presigned-url';
+import { JwtDecoderService } from 'src/app/services/jwt-decoder.service';
+import { SettingsService } from 'src/app/services/settings.service';
 
 @Component({
   selector: 'app-image-component',
   templateUrl: './image-component.component.html',
   styleUrls: ['./image-component.component.css']
 })
-export class ImageComponentComponent {
+export class ImageComponentComponent implements OnInit {
+  @Input() imageFileName: string;
   @ViewChild('fileInput', { static: false }) fileInput!: ElementRef;
-  imagePreview: string | null = null; 
-  selectedFile: File | null = null;   
-  username: string = '';  
+  imagePreviews: string[] = [];
+  selectedFiles: File[] = [];
+  tempusername: string = 'alice_biz01';  
+  username:string='';
   presignedUrl: string | null = null;
-  maxImageCount: number = 1; 
+  maxImageCount: number = 2; 
   isUploadCompleted: boolean = false; 
   showPopUp: boolean = false;
   popUpTitle: string = '';
   popUpBody: string = '';
-  uploadImageCount: number = 0;
+  showButton: boolean=false;
+  currentProfilePhotoUrl: string | null = null;
+  imageFileNameArray: string[]=[];
+  presignedUrls: string[] = [];
+  deleted: boolean=false;
 
-  constructor() {}
+  constructor(private settingsService: SettingsService,private jwtDecoder: JwtDecoderService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log('Received imageFileName:', this.imageFileName);
+    const token = localStorage.getItem('token');
+    const decodedInfo = token ? this.jwtDecoder.decodeInfoFromToken(token) : this.jwtDecoder.decodeInfoFromToken('');
+    this.username = decodedInfo['sub'];
+
+    this.settingsService.getImageLink(this.tempusername, this.imageFileName).subscribe({
+      next: (imageLink: string) => {
+        this.currentProfilePhotoUrl = imageLink;
+        this.createImagePreviewFromLink(imageLink);
+      },
+      error: (err) => {
+        console.error('Error fetching image link', err);
+      }
+    });
+  }
+
+  private createImagePreviewFromLink(imageLink: string): void {
+    this.imagePreviews.push(imageLink);
+  }
 
   openFileDialog(): void {
     this.fileInput.nativeElement.click();
+    this.imagePreviews = []; 
   }
 
   onImageUpload(event: Event): void {
     const input = event.target as HTMLInputElement;
-
-    if (input.files && input.files.length > 0) {
-      const file = input.files[0];
-
-      if (this.selectedFile) {
-        this.popUpTitle = "Error!";
-        this.popUpBody = "You can upload only one image.";
-        this.showPopUp = true;
-        return;
-      }
-
-      this.selectedFile = file;
-      this.createImagePreview(file);
+  
+    if (input.files) {
+      const newFiles = Array.from(input.files);
+  
+      newFiles.forEach((file: File) => {
+        this.selectedFiles.push(file); 
+        this.createImagePreview(file); 
+      });
     }
+    this.showButton=true;
   }
 
   uploadImages(): void {
@@ -52,6 +77,31 @@ export class ImageComponentComponent {
       return;
     }
 
+    const fileNames = this.selectedFiles.map(file => file.name);
+
+    this.settingsService.getPresignedUrl(fileNames, this.tempusername).subscribe({
+      next: (presignedUrl: PresignedUrl) => {
+        console.log(presignedUrl);
+        this.presignedUrls = presignedUrl.presignedUrls;
+
+        this.settingsService.setGeneratedFileNames(presignedUrl.generatedFileNames);
+        
+        this.selectedFiles.forEach((file, index) => {
+          const url = this.presignedUrls[index];
+          console.log(url);
+          console.log(file);
+          this.settingsService.uploadToS3(file, url);
+          this.popUpTitle = 'Sucess!';
+          this.popUpBody = 'Sucessfully uploaded';
+          this.showPopUp = true;
+          this.isUploadCompleted=true;
+        });
+      },
+      error: (error: any) => {
+        console.error('Error retrieving presigned URLs:', error);
+      }
+    });
+      
     console.log("Image uploaded");
     this.isUploadCompleted = true;
   }
@@ -59,15 +109,9 @@ export class ImageComponentComponent {
   private createImagePreview(file: File): void {
     const reader = new FileReader();
     reader.onload = () => {
-      this.imagePreview = reader.result as string; 
+      this.imagePreviews.push(reader.result as string);
     };
     reader.readAsDataURL(file);
-  }
-
-  removeImage(): void {
-    this.imagePreview = null;
-    this.selectedFile = null;
-    this.isUploadCompleted = false; 
   }
 
   onPopUpClose(): void {

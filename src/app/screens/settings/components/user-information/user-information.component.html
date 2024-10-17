@@ -10,7 +10,12 @@
 <form [formGroup]="profileInformation" (ngSubmit)="handleSubmit()">
 
     <div class="font-roboto text-black text-base mt-4 ml-4">
-        <label for="name">Name</label>
+        <label for="profile">Profile Picture</label>
+        <app-image-component id="profile" *ngIf="imageFileName" [imageFileName]="imageFileName"></app-image-component>
+    </div>
+
+    <div class="font-roboto text-black text-base mt-4 ml-4">
+        <label for="name">Name*</label>
     </div>
     <div class="ml-4">
         <input formControlName="name" type="text" name="name" required class="name-input w-[330px] h-[28px] mt-1 border border-[#ED6A5A] rounded-md p-2" placeholder="current name" id="name">
@@ -21,17 +26,12 @@
         <label for="username">Username</label>
     </div>
     <div class="ml-4">
-        <input formControlName="username" type="text" name="username" required class="username-input w-[330px] h-[28px] mt-1 border border-[#ED6A5A] rounded-md p-2" placeholder="current username" id="username">
+        <input formControlName="username" type="text" name="username" required class="username-input w-[330px] h-[28px] mt-1 border border-[#ED6A5A] rounded-md p-2" placeholder="current username" id="username" readonly>
         <div *ngIf="profileInformation.get('username')?.touched && profileInformation.get('username')?.invalid" class="text-red-500">Username is required</div>
-    </div>
-
-    <div class="font-roboto text-black text-base mt-4 ml-4">
-        <label for="profile">Profile Picture</label>
-        <app-image-component id="profile"></app-image-component>
     </div>
     
     <div class="font-roboto text-black text-base mt-4 ml-4">
-        <label for="contactNumber">Phone Number</label>
+        <label for="contactNumber">Phone Number*</label>
     </div>
     <div class="ml-4">
         <input formControlName="contactNumber" type="number" name="contactNumber" required class="phone-input w-[330px] h-[28px] mt-1 border border-[#ED6A5A] rounded-md p-2" placeholder="current contact number" id="contactNumber">
@@ -39,7 +39,7 @@
     </div>
 
     <div class="font-roboto text-black text-base mt-4 ml-4">
-        <label for="emailID">Email ID</label>
+        <label for="emailID">Email ID*</label>
     </div>
     <div class="ml-4">
         <input formControlName="emailID" type="text" name="emailID" required class="email-input w-[330px] h-[28px] mt-1 border border-[#ED6A5A] rounded-md p-2" placeholder="current emailID" id="emailID">
@@ -47,7 +47,7 @@
     </div>
 
     <div class="font-roboto text-black text-base mt-4 ml-4">
-        <label for="gender">Gender</label>
+        <label for="gender">Gender*</label>
     </div>
     <div class="ml-4">
         <select formControlName="gender" name="gender" required
@@ -61,8 +61,8 @@
     </div>
 
     <div class="flex items-center ml-10 mt-4">
-        <button type="button" class="reset-button w-[130px] h-[35px] bg-[#ED6A5A] text-white border border-[#ED6A5A] rounded-md hover:bg-[#f57c6c] focus:outline-none focus:ring-4 focus:ring-[#ED6A5A] mt-2" (click)="resetForm()">RESET DETAILS</button>
-        <button type="submit" class="post-button w-[130px] h-[35px] bg-[#ED6A5A] text-white border border-[#ED6A5A] rounded-md ml-4 hover:bg-[#f57c6c] focus:outline-none focus:ring-4 focus:ring-[#ED6A5A] ml-2 mt-2">UPDATE</button>
+        <button type="button" class="text-[14px] font-['Roboto'] w-[130px] h-[35px] bg-[#ED6A5A] text-white border border-[#ED6A5A] rounded-md hover:bg-[#f57c6c] focus:outline-none focus:ring-4 focus:ring-[#ED6A5A] mt-2" (click)="resetForm()">RESET DETAILS</button>
+        <button type="submit" class="text-[14px] font-['Roboto'] w-[130px] h-[35px] bg-[#ED6A5A] text-white border border-[#ED6A5A] rounded-md ml-4 hover:bg-[#f57c6c] focus:outline-none focus:ring-4 focus:ring-[#ED6A5A] ml-2 mt-2">UPDATE</button>
     </div>
 </form>
 <div *ngIf="showPopUp">

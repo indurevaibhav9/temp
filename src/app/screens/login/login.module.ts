@@ -6,7 +6,7 @@ import { ionEye, ionEyeOff } from "@ng-icons/ionicons";
 import { AlertPopupComponent } from "src/app/screens/alert-popup/alert-popup.component";
 import { LoginRoutingModule } from "./login-routing.module";
 import { LoginComponent } from "./login.component";
-import { SharedModuleModule } from "src/app/shared/shared-module/shared-module.module";
+import { SharedModuleModule } from "src/app/shared/shared-module/shared.module";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';  // Ensure FontAwesomeModule is imported
 
 @NgModule({

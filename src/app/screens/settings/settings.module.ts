@@ -5,11 +5,11 @@ import { MainSettingsComponent } from './components/main-settings/main-settings.
 import { PasswordManagementComponent } from './components/password-management/password-management.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { SharedModuleModule } from 'src/app/shared/shared-module/shared-module.module';
+import { SharedModuleModule } from 'src/app/shared/shared-module/shared.module';
 import { UserInformationComponent } from './components/user-information/user-information.component';
 import { ImageComponentComponent } from './components/image-component/image-component.component';
 import { BusinessInformationComponent } from './components/business-information/business-information.component';
-
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 @NgModule({
   declarations: [
@@ -25,6 +25,6 @@ import { BusinessInformationComponent } from './components/business-information/
     ReactiveFormsModule,
     RouterModule,
     SharedModuleModule
-  ]
+  ],
 })
 export class SettingsModule { }

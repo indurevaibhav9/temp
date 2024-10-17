@@ -19,8 +19,9 @@ export class UserInformationComponent {
   popUpTitle: string = '';
   popUpBody: string = '';
   username: string='';
-  tempUsername:string='diana_biz04';
+  tempUsername:string='john_doe01';
   loading: boolean = true;
+  imageFileName: string = '';
 
   constructor(private fb: FormBuilder, private router: Router,private settingsService: SettingsService,private jwtDecoder: JwtDecoderService) {
     this.profileInformation = this.fb.group({
@@ -80,6 +81,7 @@ export class UserInformationComponent {
       contactNumber: user.phoneNumber,
       gender: user.gender.toLowerCase()
     });
+    this.imageFileName=user.profilePicture;
   }
 
   createRequest(details: FormGroup){
@@ -119,13 +121,10 @@ export class UserInformationComponent {
   }
 
   resetForm(): void {
-    this.profileInformation.reset();
+    this.ngOnInit();
   }
 
   handleClick():void{
     this.router.navigate(['/settings']);
   }
-
-  
-
 }
