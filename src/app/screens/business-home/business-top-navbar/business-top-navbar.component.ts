@@ -1,19 +1,8 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { faArrowRightFromBracket, faBars, faCircleQuestion, faDiceD20, faDiceD6, faFileLines, faFilePen, faGear, faMessage, faSearch } from '@fortawesome/free-solid-svg-icons';
-
-=======
-import { Component, Input } from '@angular/core';
-=======
 import { Component, OnInit } from '@angular/core';
->>>>>>> c8b2c8c (Consumer and Business data is displayed through dummy data)
 import { Router } from '@angular/router';
 import { faArrowRightFromBracket, faBars, faCircleQuestion, faDiceD20, faDiceD6, faFileLines, faFilePen, faGear, faMessage, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { UserProfileDTO } from 'src/app/models/UserProfileDTO';
-import { BusinessNavigationServiceService } from 'src/app/services/business-navigation-service.service';
->>>>>>> 79946b6 (business-home working with docker integration)
+import { BusinessNavigationService } from 'src/app/services/business-navigation.service';
 
 @Component({
   selector: 'app-business-top-navbar',
@@ -22,16 +11,6 @@ import { BusinessNavigationServiceService } from 'src/app/services/business-navi
 })
 export class BusinessTopNavbarComponent implements OnInit {
 
-<<<<<<< HEAD
-  constructor(private router: Router) {} 
-
-  navigateToSearch(): void {
-    this.router.navigate(['business-home/search']); 
-  }
-<<<<<<< HEAD
-}
-=======
-=======
   faBars = faBars;
   faSearch = faSearch;
   faMessage = faMessage;
@@ -44,9 +23,8 @@ export class BusinessTopNavbarComponent implements OnInit {
   faFilePen = faFilePen;
 
   business: any; 
->>>>>>> c8b2c8c (Consumer and Business data is displayed through dummy data)
 
-  constructor(private router: Router, private businessNavigationServiceService: BusinessNavigationServiceService) { }
+  constructor(private router: Router, private businessNavigationService: BusinessNavigationService) { }
 
   ngOnInit(): void {
     this.fetchBusinessDetails();
@@ -57,7 +35,7 @@ export class BusinessTopNavbarComponent implements OnInit {
   }
 
   fetchBusinessDetails() {
-    this.businessNavigationServiceService.getBusinessDetails().subscribe({
+    this.businessNavigationService.getBusinessDetails().subscribe({
       next: (data: UserProfileDTO[]) => {
         console.log('Raw Data:', data);
 
@@ -69,7 +47,7 @@ export class BusinessTopNavbarComponent implements OnInit {
           this.business = {}; 
         }
       },
-      error: (error) => {
+      error: (error:any) => {
         console.error('Failed to fetch business details', error);
         this.business = {}; 
       },
@@ -79,4 +57,3 @@ export class BusinessTopNavbarComponent implements OnInit {
     });
   }
 }
->>>>>>> 79946b6 (business-home working with docker integration)
