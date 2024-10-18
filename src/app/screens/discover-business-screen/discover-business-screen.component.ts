@@ -25,74 +25,77 @@ export class DiscoverBusinessScreenComponent implements OnInit {
         id: "1",
         name: "EcoWear Boutique",
         username: "@ecowear_boutique",
-        logoUrl: "assets/images/ecowear_boutique_logo.png",
+        logoUrl: "https://images.unsplash.com/photo-1506765515384-028b60a970df?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=300&q=80&w=300",
         isFollowing: false
       },
       {
         id: "2",
         name: "Crafty Creations",
         username: "@crafty_creations",
-        logoUrl: "assets/images/crafty_creations_logo.png",
+        logoUrl: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=300&q=80&w=300",
         isFollowing: false
       },
       {
         id: "3",
         name: "FitLife Gear",
         username: "@fitlife_gear",
-        logoUrl: "assets/images/fitlife_gear_logo.png",
+        logoUrl: "https://images.unsplash.com/photo-1501854140801-50d01698950b?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=300&q=80&w=300",
         isFollowing: false
       },
       {
         id: "4",
         name: "Pure Bliss Skincare",
         username: "@purebliss_skincare",
-        logoUrl: "assets/images/purebliss_skincare_logo.png",
+        logoUrl: "https://images.unsplash.com/photo-1533612608997-212b06408abb?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=300&q=80&w=300",
         isFollowing: false
       },
       {
         id: "5",
         name: "Sweet Treats Bakery",
         username: "@sweettreats_bakery",
-        logoUrl: "assets/images/sweettreats_bakery_logo.png",
+        logoUrl: "https://images.unsplash.com/photo-1542831371-d531d36971e6?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=300&q=80&w=300",
         isFollowing: false
       },
       {
         id: "6",
         name: "Nurture Naturals",
         username: "@nurture_naturals",
-        logoUrl: "assets/images/nurture_naturals_logo.png",
+        logoUrl: "https://images.unsplash.com/photo-1508050919630-b135583b29d1?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=300&q=80&w=300",
         isFollowing: false
       },
       {
         id: "7",
         name: "Chic Threads",
         username: "@chic_threads",
-        logoUrl: "assets/images/chic_threads_logo.png",
+        logoUrl: "https://images.unsplash.com/photo-1543168256-418811576931?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=300&q=80&w=300",
         isFollowing: false
       },
       {
         id: "8",
         name: "TechHub Gadgets",
         username: "@techhub_gadgets",
-        logoUrl: "assets/images/techhub_gadgets_logo.png",
+        logoUrl: "https://images.unsplash.com/photo-1517430816045-df4b7de4fbdc?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=300&q=80&w=300",
         isFollowing: false
       },
       {
         id: "9",
         name: "Green Leaf Café",
         username: "@greenleaf_cafe",
-        logoUrl: "assets/images/greenleaf_cafe_logo.png",
+        logoUrl: "https://images.unsplash.com/photo-1543779250-3a883b2511d8?auto=format&fit=crop&w=100&q=80",
         isFollowing: false
       },
       {
         id: "10",
         name: "Glamour Styles Salon",
         username: "@glamour_styles_salon",
-        logoUrl: "assets/images/glamour_styles_salon_logo.png",
+        logoUrl: "https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&w=100&q=80",
         isFollowing: false
       },
     ];
   }
+  
+
+ 
 
   toggleFollow(business: DiscoverBusiness): void {
     business.isFollowing = !business.isFollowing;

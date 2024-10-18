@@ -7,7 +7,7 @@ import { loginGuard } from "./authGuards/login/login.guard";
 const routes: Routes = [
   {
     path: "",
-    redirectTo: "login",
+    redirectTo: "discover-business-screen",
     pathMatch: "full",
   },
   {
@@ -17,6 +17,13 @@ const routes: Routes = [
         (module) => module.LoginModule
       ),
       canActivate:[loginGuard]
+  },
+  {
+    path: "discover-business-screen",
+    loadChildren: () =>
+      import("./screens/discover-business-screen/discover-business-screen.module").then(
+        (module) => module.DiscoverBusinessScreenModule
+      ),
   },
   {
     path: "homeCustomer",
@@ -44,13 +51,6 @@ const routes: Routes = [
     loadChildren: () =>
       import("./screens/feedback-screen/feedback-screen.module").then(
         (module) => module.FeedbackScreenModule
-      ),
-  },
-  {
-    path: "discover-business-screen",
-    loadChildren: () =>
-      import("./screens/discover-business-screen/discover-business-screen.module").then(
-        (module) => module.DiscoverBusinessScreenModule
       ),
   }
 ];
