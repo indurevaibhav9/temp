@@ -12,12 +12,11 @@ export class SearchComponent implements OnInit {
   faArrowLeft = faArrowLeft;
   faTimesCircle = faTimesCircle;
   searchQuery: string = '';
-  businesses: { name: string, username: string, profilePicture: string }[] = [];
+  businesses: { name: string, username: string, profilePicture: string, imageUrl?: string }[] = [];
 
   constructor(private searchService: SearchService) { }
 
   ngOnInit(): void {
-    // No need to load all businesses initially
     console.log('Search Component Initialized');
   }
 
@@ -25,7 +24,13 @@ export class SearchComponent implements OnInit {
     console.log('Sending query to backend:', query);
     this.searchService.getBusinesses(query).subscribe((data) => {
       console.log('Fetched Businesses:', data);
-      this.businesses = data; // Assign the filtered businesses
+      this.businesses = data;
+
+      this.businesses.forEach(business => {
+        this.searchService.getImageUrl(business.profilePicture).subscribe(imageUrl => {
+          business.imageUrl = imageUrl;
+        });
+      });
     });
   }
 
@@ -33,10 +38,8 @@ export class SearchComponent implements OnInit {
     console.log("Search query:", this.searchQuery);
 
     if (this.searchQuery) {
-      // Fetch filtered businesses based on search query from the backend
       this.loadBusinesses(this.searchQuery);
     } else {
-      // If search query is empty, optionally handle it (e.g., clear businesses list)
       console.log('Empty search query, nothing to fetch.');
     }
   }
@@ -44,7 +47,6 @@ export class SearchComponent implements OnInit {
   clearSearch(): void {
     this.searchQuery = '';
     console.log('Search cleared');
-    // Optionally clear the businesses list
     this.businesses = [];
   }
 

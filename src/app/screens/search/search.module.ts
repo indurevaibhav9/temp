@@ -15,6 +15,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     SearchRoutingModule,
     FormsModule,
     FontAwesomeModule
+  ],
+  exports: [
+    SearchComponent
   ]
 })
 export class SearchModule { }
