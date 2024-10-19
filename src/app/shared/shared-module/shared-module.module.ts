@@ -10,6 +10,6 @@ import { SearchModule } from 'src/app/screens/search/search.module';
     CommonModule,
     SearchModule
   ],
-  exports: [PopUpComponent , LoaderComponent]
+  exports: [PopUpComponent , LoaderComponent, SearchModule]
 })
 export class SharedModule { }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { SearchService } from '../../services/search.service';
 import { faArrowLeft, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
 
 @Component({
   selector: 'app-search',
@@ -13,15 +15,24 @@ export class SearchComponent implements OnInit {
   faTimesCircle = faTimesCircle;
   searchQuery: string = '';
   businesses: { name: string, username: string, profilePicture: string, imageUrl?: string }[] = [];
+  private searchSubject = new Subject<string>();
 
   constructor(private searchService: SearchService) { }
 
   ngOnInit(): void {
     console.log('Search Component Initialized');
+
+    this.searchSubject.pipe(
+      debounceTime(300),
+      distinctUntilChanged()
+    ).subscribe(query => {
+      this.loadBusinesses(query);
+    });
   }
 
   loadBusinesses(query: string): void {
     console.log('Sending query to backend:', query);
+    
     this.searchService.getBusinesses(query).subscribe((data) => {
       console.log('Fetched Businesses:', data);
       this.businesses = data;
@@ -35,12 +46,11 @@ export class SearchComponent implements OnInit {
   }
 
   onSearch(): void {
-    console.log("Search query:", this.searchQuery);
-
-    if (this.searchQuery) {
-      this.loadBusinesses(this.searchQuery);
+    if (this.searchQuery.trim()) {
+      console.log("Search query:", this.searchQuery);
+      this.searchSubject.next(this.searchQuery);
     } else {
-      console.log('Empty search query, nothing to fetch.');
+      this.clearSearch();
     }
   }
 
@@ -54,3 +64,15 @@ export class SearchComponent implements OnInit {
     console.log('Back button clicked');
   }
 }
+
+// import { Router } from '@angular/router';
+
+// // Inside your SearchComponent class
+// constructor(private router: Router) {}
+
+// onUserClick(username: string) {
+//   this.router.navigate([`/business-profile/${username}`]);
+// }
+
+
+// <app-business-profile [username]="selectedUsername"></app-business-profile>
