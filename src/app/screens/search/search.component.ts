@@ -35,13 +35,10 @@ export class SearchComponent implements OnInit {
     
     this.searchService.getBusinesses(query).subscribe((data) => {
       console.log('Fetched Businesses:', data);
-      this.businesses = data;
-
-      this.businesses.forEach(business => {
-        this.searchService.getImageUrl(business.profilePicture).subscribe(imageUrl => {
-          business.imageUrl = imageUrl;
-        });
-      });
+      this.businesses = data.map(business => ({
+        ...business,
+        imageUrl: this.searchService.getImageUrl(business.profilePicture)
+      }));
     });
   }
 
@@ -64,15 +61,3 @@ export class SearchComponent implements OnInit {
     console.log('Back button clicked');
   }
 }
-
-// import { Router } from '@angular/router';
-
-// // Inside your SearchComponent class
-// constructor(private router: Router) {}
-
-// onUserClick(username: string) {
-//   this.router.navigate([`/business-profile/${username}`]);
-// }
-
-
-// <app-business-profile [username]="selectedUsername"></app-business-profile>

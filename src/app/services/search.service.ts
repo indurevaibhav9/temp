@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { tap, catchError, map } from 'rxjs/operators';
+import { tap, catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -33,21 +33,7 @@ export class SearchService {
       );
   }
 
-  getImageUrl(profilePicture: string): Observable<string> {
-    const url = `${this.imageUrl}/${profilePicture}`;
-    console.log('Fetching image from URL:', url);
-
-    return this.http.get(url, { responseType: 'blob' })
-      .pipe(
-        map(blob => {
-          const objectUrl = URL.createObjectURL(blob);
-          console.log('Converted Image URL:', objectUrl);
-          return objectUrl;
-        }),
-        catchError(error => {
-          console.error('Error fetching image URL:', error);
-          throw error;
-        })
-      );
+  getImageUrl(profilePicture: string): string {
+    return `${this.imageUrl}/${profilePicture}`;
   }
 }
