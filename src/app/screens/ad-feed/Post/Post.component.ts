@@ -1,8 +1,6 @@
-import { Component,Input ,OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { faBars, faUserGroup, faMagnifyingGlass, faThumbsUp, faThumbsDown, faLocationArrow, faBookmark, faEllipsisVertical, faLocationDot, faHeart, faBell, faCircleUser } from '@fortawesome/free-solid-svg-icons';
-
-import { AdvertisementDetailsService } from 'src/app/services/advertisementTypes.service'; // Adjust the path as needed
-import { Router } from '@angular/router';
+import { AdvertisementDetailsService } from 'src/app/services/advertisementTypes.service';
 import { AdvertisementDetails } from 'src/app/models/ad-details';
 
 @Component({
@@ -10,12 +8,17 @@ import { AdvertisementDetails } from 'src/app/models/ad-details';
   templateUrl: './Post.component.html',
   styles: []
 })
-export class PostComponent {
-  @Input() postDetails!: AdvertisementDetails; // Use non-null assertion since we're expecting this to be set
+export class PostComponent implements OnInit {
+  @Input() postDetails!: AdvertisementDetails;
   remainingDays: number;
   isExpired: boolean = false;
-  reportVisible: boolean = false; // Property to control visibility of report modal
-  showReportComponent: boolean = false;
+  showLikeAnimation: boolean = false; 
+  showDislikeAnimation: boolean = false;
+  isSaved: boolean = false; // Track saved state
+  showSavedMessage: boolean = false; // Track the display of "Saved" message
+  showReportButton: boolean = false; // Track visibility of report button
+  showReportSuccess: boolean = false; // Track visibility of success message
+
   // Font Awesome icons
   faBars = faBars;
   faUserGroup = faUserGroup;
@@ -30,27 +33,98 @@ export class PostComponent {
   faBell = faBell;
   faCircleUser = faCircleUser;
 
-  constructor() {}
-
-
+  constructor(private advertisementDetailsService: AdvertisementDetailsService) {}
 
   ngOnInit(): void {
-   
-
-      
-    // Calculate remaining days
     const expiryDate = new Date(this.postDetails.offerExpiry);
     const currentDate = new Date();
     const timeDiff = expiryDate.getTime() - currentDate.getTime();
-    this.remainingDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); // Convert time difference to days
+    this.remainingDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
-    // Check if expired
     if (this.remainingDays <= 0) {
       this.isExpired = true;
     }
-   
-  };
-  
+  }
+
+  likePost(): void {
+    const postId = this.postDetails.id;
+
+    // Update UI immediately
+    this.postDetails.likes += 1;
+    this.triggerAnimation('like');
+
+    this.advertisementDetailsService.updateLikes(postId).subscribe({
+      next: (updatedPost) => {
+        this.postDetails.likes = updatedPost.likes;
+      },
+      error: (err) => {
+        console.error('Error updating likes:', err);
+        this.postDetails.likes -= 1; // Revert update
+      }
+    });
+  }
+
+  dislikePost(): void {
+    const postId = this.postDetails.id;
+
+    // Update UI immediately
+    this.postDetails.dislikes += 1;
+    this.triggerAnimation('dislike');
+
+    this.advertisementDetailsService.updateDislikes(postId).subscribe({
+      next: (updatedPost) => {
+        this.postDetails.dislikes = updatedPost.dislikes;
+      },
+      error: (err) => {
+        console.error('Error updating dislikes:', err);
+        this.postDetails.dislikes -= 1; // Revert update
+      }
+    });
+  }
+
+  savePost(): void {
+    // Set isSaved to true and show the saved message
+    this.isSaved = true;
+    this.showSavedMessage = true;
+
+    // Hide the message after 0.5 seconds
+    setTimeout(() => {
+      this.showSavedMessage = false;
+      this.isSaved = false; // Reset isSaved if needed
+    }, 500); // 500 milliseconds
+  }
 
   
+
+  toggleReportButton(): void {
+    this.showReportButton = !this.showReportButton; // Toggle the visibility
+  }
+
+  reportPost(): void {
+    // Logic to report the post can be added here, e.g., calling a service
+
+    // Show the success message
+    this.showReportSuccess = true;
+
+    // Hide the report button after reporting
+    this.showReportButton = false; // Hide the report button after reporting
+  }
+
+  // New method to hide the success message
+  hideReportSuccess(): void {
+    this.showReportSuccess = false; // Hide the success message
+  }
+
+
+  private triggerAnimation(type: 'like' | 'dislike' | 'save') {
+    if (type === 'like') {
+      this.showLikeAnimation = true;
+    } else if (type === 'dislike') {
+      this.showDislikeAnimation = true;
+    }
+    setTimeout(() => {
+      this.showLikeAnimation = false;
+      this.showDislikeAnimation = false;
+    }, 500); // 500 milliseconds for the animation
+  }
 }

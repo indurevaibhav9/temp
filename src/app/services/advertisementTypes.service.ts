@@ -2,21 +2,19 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { OfferDescriptionDTO } from '../models/offerdescriptionGet';
-
-
-
 import { AdvertisementDetails } from '../models/ad-details';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AdvertisementDetailsService {
+  private baseUrl = 'https://dummyjson.com/c/e9c8-5ebd-4f70-a7b5'; // Replace with your actual API base URL
 
   constructor(private http: HttpClient) {}
 
-  // Updated return type to Observable<OfferDescriptionDTO[]>
+  // Fetch offer descriptions
   getOfferDescription(): Observable<OfferDescriptionDTO[]> {
-    return this.http.get<OfferDescriptionDTO[]>('https://72f9-2401-4900-1c45-6dcb-9999-414a-c5aa-94a8.ngrok-free.app/feed/advertisement/post', {
+    return this.http.get<OfferDescriptionDTO[]>(`${this.baseUrl}/feed/advertisement/post`, {
       responseType: 'json',
       headers: new HttpHeaders({
         'ngrok-skip-browser-warning': 'true',
@@ -24,37 +22,9 @@ export class AdvertisementDetailsService {
     });
   }
 
-  // // Updated return type to Observable<EventDTO[]>
-  // getEvent(): Observable<EventDTO[]> {
-  //   return this.http.get<EventDTO[]>('https://72f9-2401-4900-1c45-6dcb-9999-414a-c5aa-94a8.ngrok-free.app/feed/advertisement/event', {
-  //     responseType: 'json',
-  //     headers: new HttpHeaders({
-  //       'ngrok-skip-browser-warning': 'true',
-  //     }),
-  //   });
-  // }
-
-  // // Updated return type to Observable<PostDTO[]>
-  // getPost(): Observable<PostDTO[]> {
-  //   return this.http.get<PostDTO[]>('https://72f9-2401-4900-1c45-6dcb-9999-414a-c5aa-94a8.ngrok-free.app/feed/advertisement/post', {
-  //     responseType: 'json',
-  //     headers: new HttpHeaders({
-  //       'ngrok-skip-browser-warning': 'true',
-  //     }),
-  //   });
-  // }
-
-  // Updated return type to Observable<CouponCodeDTO[]>
-  // getCoupon(): Observable<CouponCodeDTO[]> {
-  //   return this.http.get<CouponCodeDTO[]>('https://72f9-2401-4900-1c45-6dcb-9999-414a-c5aa-94a8.ngrok-free.app/feed/advertisement/coupon', {
-  //     responseType: 'json',
-  //     headers: new HttpHeaders({
-  //       'ngrok-skip-browser-warning': 'true',
-  //     }),
-  //   });
-  // }
+  // Fetch advertisement details
   getAdvertisementDetails(): Observable<AdvertisementDetails[]> {
-    return this.http.get<AdvertisementDetails[]>('https://dummyjson.com/c/e9c8-5ebd-4f70-a7b5', {
+    return this.http.get<AdvertisementDetails[]>(`${this.baseUrl}/c/e9c8-5ebd-4f70-a7b5`, {
       responseType: 'json',
       headers: new HttpHeaders({
         'ngrok-skip-browser-warning': 'true',
@@ -62,6 +32,31 @@ export class AdvertisementDetailsService {
     });
   }
 
+  // Update likes for a specific advertisement
+  updateLikes(id: string): Observable<AdvertisementDetails> {
+    return this.http.post<AdvertisementDetails>(
+      `${this.baseUrl}/advertisement/${id}/like`,
+      {}, // Assuming no body is needed; adjust as necessary
+      {
+        responseType: 'json',
+        headers: new HttpHeaders({
+          'ngrok-skip-browser-warning': 'true',
+        }),
+      }
+    );
+  }
 
-
+  // Update dislikes for a specific advertisement
+  updateDislikes(id: string): Observable<AdvertisementDetails> {
+    return this.http.post<AdvertisementDetails>(
+      `${this.baseUrl}/advertisement/${id}/dislike`,
+      {}, // Assuming no body is needed; adjust as necessary
+      {
+        responseType: 'json',
+        headers: new HttpHeaders({
+          'ngrok-skip-browser-warning': 'true',
+        }),
+      }
+    );
+  }
 }
