@@ -7,6 +7,7 @@
         (click)="goBack()"
       ></fa-icon>
       <input
+        #searchInput
         class="flex-grow px-2 py-2 outline-none bg-transparent w-full"
         type="text"
         [(ngModel)]="searchQuery"
@@ -24,8 +25,9 @@
   <div class="mt-4 w-full" *ngIf="searchQuery">
     <div class="grid gap-4">
       <div
-        class="flex items-center mb-2"
+        class="flex items-center mb-2 cursor-pointer"
         *ngFor="let business of businesses"
+        (click)="onUserClick(business.username)"
       >
         <img
           [src]="business.imageUrl"
