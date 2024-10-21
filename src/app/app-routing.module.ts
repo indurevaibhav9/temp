@@ -28,6 +28,11 @@ const routes: Routes = [
     loadChildren: () => import("./screens/consumer-home/consumer-home.module").then(m => m.ConsumerHomeModule),
     // canActivate: [customerGuard]
   },
+  {
+    path: "discover-business-screen",
+    loadChildren: () => import("./screens/discover-business-screen/discover-business-screen.module").then(m => m.DiscoverBusinessScreenModule),
+    // You can add guards here if necessary
+  },
 
   { path: "**", redirectTo: "login" }
 ];
