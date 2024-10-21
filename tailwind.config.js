@@ -31,15 +31,12 @@ module.exports = {
     extend: {
       screens: {
         'test1' : '360px',
-        'test1' : '360px',
         'sm': '640px',
         'md': '768px',
         'lg': '1024px',
         'xl': '1280px',
         '2xl': '1536px',
       },
-      colors:{
-        'primarycolor': ['#ED6A5A'],
       colors:{
         'primarycolor': ['#ED6A5A']
       },
@@ -51,5 +48,4 @@ module.exports = {
     },
   },
   plugins: [require("rippleui")],
-}
 }
