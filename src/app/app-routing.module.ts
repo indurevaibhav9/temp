@@ -5,7 +5,7 @@ import { businessGuard } from "./authGuards/business/business.guard";
 import { loginGuard } from "./authGuards/login/login.guard";
 
 const routes: Routes = [
-  { path: "", redirectTo: "business-home/adfeed", pathMatch: "full" },
+  { path: "", redirectTo: "login", pathMatch: "full" },
 
   {
     path: "login",
@@ -29,7 +29,7 @@ const routes: Routes = [
     // canActivate: [customerGuard]
   },
 
-  { path: "**", redirectTo: "business-home/adfeed" }
+  { path: "**", redirectTo: "login" }
 ];
 
 @NgModule({
