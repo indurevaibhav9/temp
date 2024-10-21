@@ -25,7 +25,7 @@ export class SettingsService {
   }
 
   getUserDetails(username: string): Observable<any> {
-    return this.http.get(`http://192.168.1.104:8762/settings/consumer-details/${username}`,
+    return this.http.get(`http://192.168.1.105:8762/settings/consumer-details/${username}`,
       {
         responseType: 'text',
         headers: new HttpHeaders({
@@ -38,7 +38,7 @@ export class SettingsService {
 
   postUserDetails(data:UserInformation):Observable<String>{
     return this.http.post(
-      `http://192.168.1.104:8762/settings/update-consumer`,
+      `http://192.168.1.105:8762/settings/update-consumer`,
       data,
       {
         responseType: 'text',
@@ -52,7 +52,7 @@ export class SettingsService {
   }
 
   getBusinessDetails(username: string): Observable<any> {
-    return this.http.get(`http://192.168.1.104:8762/settings/business-details/${username}`,
+    return this.http.get(`http://192.168.1.105:8762/settings/business-details/${username}`,
       {
         responseType: 'text',
     });
@@ -60,7 +60,7 @@ export class SettingsService {
 
   postBusinessDetails(data:BusinessInformation):Observable<String>{
     return this.http.post(
-      `http://192.168.1.104:8762/settings/update-business`,
+      `http://192.168.1.105:8762/settings/update-business`,
       data,
       {
         responseType: 'text',
@@ -70,7 +70,7 @@ export class SettingsService {
 
   getPresignedUrl(imageFileNames: string[], username: string): Observable<PresignedUrl> {
     return this.http.post<PresignedUrl>(
-      `http://192.168.1.104:8081/content/generate-presigned-url`,
+      `http://192.168.1.105:8081/content/generate-presigned-url`,
       { imageFileNames, username },
     );
   }
@@ -81,21 +81,11 @@ export class SettingsService {
       presignedUrl,
       file,
       { headers }
-    ).subscribe({
-      next: (response) => {
-        console.log('uploaded sucessfully', response);
-      },
-      error: (error:any) => {
-        console.error('Error uploading image to S3:', error);
-        console.error('Status:', error.status);
-        console.error('Message:', error.message);
-        console.error('Response:', error.error);
-      }
-    });
+    );
   }
 
   getImageLink(username:string,imageFileName:string): Observable<string>{
-    return this.http.get(`http://192.168.1.104:8762/settings/get-image/${imageFileName}`,
+    return this.http.get(`http://192.168.1.105:8762/settings/get-image/${imageFileName}`,
       {
         responseType: 'text',
         headers: new HttpHeaders({

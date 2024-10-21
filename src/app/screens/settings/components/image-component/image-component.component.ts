@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { PresignedUrl } from 'src/app/models/presigned-url';
 import { JwtDecoderService } from 'src/app/services/jwt-decoder.service';
 import { SettingsService } from 'src/app/services/settings.service';
@@ -10,10 +10,11 @@ import { SettingsService } from 'src/app/services/settings.service';
 })
 export class ImageComponentComponent implements OnInit {
   @Input() imageFileName: string;
+  @Output() fileUploadSuccess: EventEmitter<string> = new EventEmitter<string>();
   @ViewChild('fileInput', { static: false }) fileInput!: ElementRef;
   imagePreviews: string[] = [];
   selectedFiles: File[] = [];
-  tempusername: string = 'alice_biz01';  
+  tempusername: string = 'alice_biz04';  
   username:string='';
   presignedUrl: string | null = null;
   maxImageCount: number = 2; 
@@ -90,11 +91,19 @@ export class ImageComponentComponent implements OnInit {
           const url = this.presignedUrls[index];
           console.log(url);
           console.log(file);
-          this.settingsService.uploadToS3(file, url);
-          this.popUpTitle = 'Sucess!';
-          this.popUpBody = 'Sucessfully uploaded';
-          this.showPopUp = true;
-          this.isUploadCompleted=true;
+          this.settingsService.uploadToS3(file, url).subscribe({
+            next: () => {
+              const uploadedFileName = presignedUrl.generatedFileNames[index];
+              this.fileUploadSuccess.emit(uploadedFileName); 
+              this.popUpTitle = 'Success!';
+              this.popUpBody = 'Successfully uploaded';
+              this.showPopUp = true;
+              this.isUploadCompleted = true;
+            },
+            error: (error: any) => {
+              console.error('Error uploading image:', error);
+            }
+          });
         });
       },
       error: (error: any) => {

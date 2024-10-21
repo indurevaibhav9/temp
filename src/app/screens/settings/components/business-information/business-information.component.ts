@@ -22,10 +22,11 @@ export class BusinessInformationComponent {
   popUpTitle: string = '';
   popUpBody: string = '';
   username: string='';
-  tempUsername:string='alice_biz01';
+  tempUsername:string='alice_biz04';
   loading: boolean = true;
   imageFileName: string = '';
   stateData: StateData;
+  imageNames: string[] = [];
 
   constructor(private http: HttpClient,private fb:FormBuilder,private router:Router,private jwtDecoder:JwtDecoderService,private settingsService:SettingsService){
     this.businessInfo=this.fb.group({
@@ -86,11 +87,11 @@ export class BusinessInformationComponent {
     });
   }
   
-  private updateFormWithUserData(user: any) {
+  private updateFormWithUserData(user: BusinessInformation) {
     this.businessInfo.patchValue({
       name: user.name,
       businessUsername: user.businessUsername,
-      profilePicture: user.profilePicture,
+      profilePicture:user.profilePicture,
       email: user.email,
       phoneNumber: user.phoneNumber,
       gender: user.gender.toLowerCase(),
@@ -122,12 +123,40 @@ export class BusinessInformationComponent {
     }
   }
 
+  patchImageFileName(uploadedFileName: string): void {
+    console.log(uploadedFileName);
+    const profilePicture = uploadedFileName || this.businessInfo.get('profilePicture')?.value;
+    this.businessInfo.patchValue({
+      profilePicture: profilePicture
+    });
+  }
+
+  patchAadhar(uploadedFileName:string): void{
+    console.log(uploadedFileName);
+    const aadharImage = uploadedFileName || this.businessInfo.get('aadharImage')?.value;
+    this.businessInfo.patchValue({
+      kycDetails: {
+        aadharImage: aadharImage
+      }
+    });
+  }
+
+  patchPancard(uploadedFileName:string): void{
+    console.log(uploadedFileName);
+    const pancardImage = uploadedFileName || this.businessInfo.get('aadharImage')?.value;
+    this.businessInfo.patchValue({
+      kycDetails: {
+        pancardImage:pancardImage
+      }
+    });
+  }
+
   createRequest(details:FormGroup){
     this.businessInfoData.name=details.value['name'];
     this.businessInfoData.businessUsername=details.value['businessUsername'];
     this.businessInfoData.businessName=details.value['businessName'];
     this.businessInfoData.businessType=details.value['businessType'];
-    this.businessInfoData.profilePicture=details.value['profilePicture'];
+    this.businessInfoData.profilePicture = details.value['profilePicture'];
     this.businessInfoData.phoneNumber=details.value['phoneNumber'];
     this.businessInfoData.pincode=details.value['pincode'];
     this.businessInfoData.city=details.value['city'];
@@ -141,6 +170,8 @@ export class BusinessInformationComponent {
       pancardNumber: details.value.kycDetails['pancardNumber'],
       pancardImage: details.value.kycDetails['pancardImage']
     };
+    
+    console.log(this.businessInfoData);
     this.processRequest(this.businessInfoData);
   }
 

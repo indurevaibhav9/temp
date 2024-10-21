@@ -10,7 +10,7 @@
 <form [formGroup]="businessInfo" (ngSubmit)="handleSubmit()">
     <div class="font-roboto text-black text-base mt-4 ml-4">
         <label for="profile">Profile Picture</label>
-        <app-image-component id="profile" *ngIf="imageFileName" [imageFileName]="imageFileName"></app-image-component>
+        <app-image-component id="profile" *ngIf="imageFileName" [imageFileName]="imageFileName" (fileUploadSuccess)="patchImageFileName($event)"></app-image-component>
     </div>
     
     <div class="font-roboto text-black text-base mt-4 ml-4">
@@ -33,7 +33,7 @@
         <label for="contactNumber">Phone Number*</label>
     </div>
     <div class="ml-4">
-        <input formControlName="phoneNumber" type="text" name="contactNumber" required class="phone-input w-[330px] h-[28px] mt-1 border border-[#ED6A5A] rounded-md p-2" placeholder="current contact number" id="contactNumber">
+        <input formControlName="phoneNumber" type="text" name="contactNumber" required class="phone-input w-[330px] h-[28px] mt-1 border border-[#ED6A5A] rounded-md p-2" placeholder="current contact number" id="contactNumber" readonly>
         <div *ngIf="businessInfo.get('contactNumber')?.touched && businessInfo.get('contactNumber')?.invalid" class="text-red-500">Phone Number is required</div>
     </div>
 
@@ -125,9 +125,7 @@
     <div class="font-roboto text-black text-base mt-4 ml-4">
         <label for="aadharImage">Aadhar Card Image</label>
     </div>
-    <div class="ml-4">
-        <input formControlName="aadharImage" type="file" class="input-file bg-white file:bg-[#ED6A5A] border-[#ED6A5A] file:text-black text-black" id="aadharImage"/>
-    </div>
+    <app-aadhar-pan-image id="aadharImage" (fileUpload)="patchAadhar($event)"></app-aadhar-pan-image>
     
     <div class="font-roboto text-black text-base mt-4 ml-4">
         <label for="pancardNumber">Pancard Number</label>
@@ -142,9 +140,7 @@
     <div class="font-roboto text-black text-base mt-4 ml-4">
         <label for="pancardImage">PanCard Image</label>
     </div>
-    <div class="ml-4">
-        <input formControlName="pancardImage" type="file" class="input-file bg-white file:bg-[#ED6A5A] border-[#ED6A5A] file:text-black text-black" id="pancardImage"/>
-    </div>
+    <app-aadhar-pan-image id="pancardImage" (fileUpload)="patchPancard($event)"></app-aadhar-pan-image>
 
     <div class="flex items-center ml-10 mt-4">
         <button type="button" class="w-[130px] h-[35px] bg-[#ED6A5A] text-white border border-[#ED6A5A] rounded-md hover:bg-[#f57c6c] focus:outline-none focus:ring-4 focus:ring-[#ED6A5A] mt-2 text-[14px] font-['Roboto']" (click)="resetForm()">RESET DETAILS</button>
