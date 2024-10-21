@@ -9,9 +9,13 @@ import { LoginModule } from "./screens/login/login.module";
 import { GlobalErrorHandlerService } from "./services/global-error-handler.service";
 import { ReactiveFormsModule } from "@angular/forms";
 import { RegisterModule } from "./screens/register/register.module";
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { SharedModule } from "./shared/shared-module/shared-module.module";
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,  // No ProfileInfoComponent here
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -20,7 +24,9 @@ import { RegisterModule } from "./screens/register/register.module";
     LoginModule,
     ReactiveFormsModule,
     RegisterModule,
-],
+    FontAwesomeModule,
+    SharedModule // Import SharedModule
+  ],
   providers: [
     {
       provide: ErrorHandler,

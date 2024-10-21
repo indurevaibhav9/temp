@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { SearchService } from '../../services/search.service';
 import { faArrowLeft, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
-import { Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Component({
@@ -18,7 +17,7 @@ export class SearchComponent implements OnInit {
   businesses: { name: string, username: string, profilePicture: string, imageUrl?: string }[] = [];
   private searchSubject = new Subject<string>();
 
-  @ViewChild('searchInput') searchInput!: ElementRef; // Reference to the search input field
+  @ViewChild('searchInput') searchInput!: ElementRef;
 
   constructor(private searchService: SearchService, private router: Router) { }
 
@@ -58,7 +57,7 @@ export class SearchComponent implements OnInit {
     this.searchQuery = '';
     console.log('Search cleared');
     this.businesses = [];
-    this.searchInput.nativeElement.focus(); // Focus the input field after clearing search
+    this.searchInput.nativeElement.focus();
   }
 
   goBack(): void {
@@ -67,6 +66,6 @@ export class SearchComponent implements OnInit {
 
   onUserClick(username: string): void {
     console.log('Navigating to profile:', username);
-    this.router.navigate([`/business-profile/${username}`]);
+    this.router.navigate([`/profile/business/${username}`]);
   }
 }

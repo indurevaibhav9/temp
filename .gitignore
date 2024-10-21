@@ -8,3 +8,4 @@ ios
 dist
 coverage
 docker
+package-lock.json

@@ -47,6 +47,9 @@ const routes: Routes = [
       ),
   },
   { path: 'search', loadChildren: () => import('./screens/search/search.module').then(m => m.SearchModule) },
+  // Add a wildcard route for a 404 page if needed
+  { path: '**', redirectTo: 'login' },
+  
 ];
 
 @NgModule({
