@@ -27,14 +27,6 @@ const routes: Routes = [
     loadChildren: () => import("./screens/otpScreen/otpscreen.module").then(m => m.OtpScreenModule),
   },
   {
-    path: "homeBusiness",
-    loadChildren: () =>
-      import("./screens/home/home.module").then(
-        (module) => module.HomeModule
-      ),
-    canActivate: [businessGuard],
-  },
-  {
     path: "feedback-screen",
     loadChildren: () =>
       import("./screens/feedback-screen/feedback-screen.module").then(
@@ -55,4 +47,3 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule {}
-
