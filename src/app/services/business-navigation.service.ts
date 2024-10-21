@@ -6,14 +6,14 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class BusinessNavigationServiceService {
+export class BusinessNavigationService {
   constructor(private http: HttpClient) { }
 
-  Is_AdFeed:boolean = true;
-  Is_Insights:boolean = false;
-  Is_Post:boolean = false;
-  Is_Notification:boolean = false;
-  Is_Profile:boolean = false;
+  is_AdFeed:boolean = true;
+  is_Insights:boolean = false;
+  is_Post:boolean = false;
+  is_Notification:boolean = false;
+  is_Profile:boolean = false;
 
   getBusinessDetails(): Observable<UserProfileDTO[]> { 
     return this.http.get<UserProfileDTO[]>('https://dummyjson.com/c/98c2-5f66-47f6-9292', {
