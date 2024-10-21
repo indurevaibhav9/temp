@@ -1,12 +1,12 @@
 import { Component } from "@angular/core";
-import { AuthService } from "src/app/services/auth/auth.service";
+import { AuthService } from "src/app/services/auth.service";
 
 @Component({
-  selector: "app-home",
-  templateUrl: "./home.component.html",
+  selector: "app-ad-feed",
+  templateUrl: "./ad-feed.component.html",
   styles: [],
 })
-export class HomeComponent {
+export class AdFeedComponent {
   constructor(private authService: AuthService) {}
 
   logout() {

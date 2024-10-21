@@ -95,10 +95,10 @@ This module contains all the necessary logic for spreezy frontend application.
 	<pre><code>unzip cli.zip -d ~/Android/cmdline-tools</code></pre>
 - Android CLI requires cmdline-tools to be renamed to 'latest' so we run the following command:
 	<pre><code>mv ~/Android/cmdline-tools/cmdline-tools ~/Android/cmdline-tools/latest</code></pre>
-- Open Bashrc:
+- Open Bashrc at new terminal 
 	<pre><code>nano ~/.bashrc</code></pre>
 - Add the following lines at the end of the file, save and exit:
-	<pre>export ANDROID_HOME=$HOME/Android</pre>
+	<pre>export ANDROID_HOME=$HOME/Downloads/Android</pre>
 	<pre>export PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$PATH</pre>
 	<pre>export PATH=$ANDROID_HOME/platform-tools:$PATH</pre>
 - Reload the bashrc using terminal:
