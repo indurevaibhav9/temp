@@ -8,8 +8,8 @@ import { tap, catchError } from 'rxjs/operators';
 })
 export class SearchService {
 
-  private businessesUrl = 'http://192.168.0.105:8762/user/search';
-  private imageUrl = 'http://images.spreezy.in/';
+  private businessesUrl = 'http://localhost:8762/user/search';
+  private imageUrl = 'http://images.spreezy.in';
 
   constructor(private http: HttpClient) { 
     console.log('SearchService initialized');
@@ -33,17 +33,7 @@ export class SearchService {
       );
   }
 
-  getImageUrl(profilePicture: string): Observable<string> {
-    const url = `${this.imageUrl}${profilePicture}`;
-    console.log('Fetching image from URL:', url);
-
-    return this.http.get(url, { responseType: 'text' })
-      .pipe(
-        tap(response => console.log('Fetched Image URL:', response)),
-        catchError(error => {
-          console.error('Error fetching image URL:', error);
-          throw error;
-        })
-      );
+  getImageUrl(profilePicture: string): string {
+    return `${this.imageUrl}/${profilePicture}`;
   }
 }
