@@ -39,7 +39,7 @@ module.exports = {
         '2xl': '1536px',
       },
       colors:{
-        'primarycolor': ['#ED6A5A']
+        'primarycolor': ['#ED6A5A'],
       colors:{
         'primarycolor': ['#ED6A5A']
       },
@@ -51,4 +51,5 @@ module.exports = {
     },
   },
   plugins: [require("rippleui")],
-};
+}
+}
