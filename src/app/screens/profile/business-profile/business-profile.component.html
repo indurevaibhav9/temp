@@ -1,24 +1,7 @@
 <div>
-  <div class="top w-full top-0 fixed border border-gray-300 bg-gray-200 max-w-xl font-sansita-one shadow-lg flex flex-col overflow-hidden"> 
-    <header class="flex items-center justify-between bg-primarycolor-0 text-white p-2 h-14">
-      <button class="menu-icon mr-4 ml-4">
-        <fa-icon [icon]="faBars" class="fa-xl" [ngStyle]="{'color': '#ffffff'}"></fa-icon>
-      </button>
-      <h1 class="logo font-bold text-3xl italic text-center flex-grow" style="font-family: Georgia, 'Times New Roman', Times, serif;">Spreezy</h1>
-      <div class="flex items-center space-x-2">
-        <button class="user-icon mr-6">
-          <fa-icon [icon]="faUserGroup" class="fa-lg" [ngStyle]="{'color': '#ffffff'}"></fa-icon>
-        </button>
-        <button class="search-icon">
-          <fa-icon [icon]="faMagnifyingGlass" class="fa-lg" [ngStyle]="{'color': '#ebebeb'}"></fa-icon>
-        </button>
-      </div>
-    </header>
-  </div>
-
   <div class="mt-16 mb-16 test1:w-full" style="max-height: 2400px;">
     <div class="profile-container">
-      <!-- Business Details and Stats -->
+<!-- Business Details and Stats -->
       <div class="header bg-white p-2 flex items-center" style="font-family: 'Roboto', sans-serif; font-weight: 400; letter-spacing: 0.5px;">
         <img src="{{ business.profilePictureUrl }}" alt="Business Logo" class="rounded-full ml-2 w-24 h-24 border border-red-5">
         <div class="ml-5 mt-2">
@@ -43,7 +26,6 @@
           </div>
         </div>
       </div>
-    
       <div class="stats bg-white flex justify-between mt-2 px-12 text-center " style="font-family: 'Roboto', sans-serif; font-weight: 400; letter-spacing: 0.5px;">
         <div>
           <p class="font-bold">{{ business.numberOfAdvertisements }}</p>
@@ -58,7 +40,7 @@
           <p>Following</p>
         </div>
       </div>
-
+<!-- Post and Saved Buttons -->
       <div class="tab-menu mt-4 flex justify-center space-x-0">
         <button
           (click)="switchTab('posts')"
@@ -73,12 +55,10 @@
           <fa-icon [icon]="faBookmark" class="text-2xl" [ngClass]="{'text-white': selectedTab === 'saved', 'text-primarycolor-0': selectedTab !== 'saved'}"></fa-icon>
         </button>
       </div>
-
+<!-- Profile Posts Section -->
       <div class="scroll-container posts-container" (scroll)="onScroll($event)" *ngIf="selectedTab === 'posts'">
-        <!-- Profile Posts Section -->
         <div class="post-section grid grid-cols-1 gap-2 py-2">
           <div *ngFor="let post of visibleProfilePosts" class="ad-item">
-            <!-- Conditionally render based on advertisement type -->
             <ng-container *ngIf="post.advertisementType == 'Post'">
               <div [ngClass]="{'grayed-out': isExpired(post.offerExpiry)}">
                 <app-Post [postDetails]="post"></app-Post>
@@ -95,24 +75,18 @@
               </div>
             </ng-container>
           </div>
-      
-          <!-- Loading spinner for profile posts -->
           <div *ngIf="loadingProfilePosts" class="text-center py-4">
-            <!-- <fa-icon [icon]="faSpinner" [spin]="true" class="fa-lg"></fa-icon> -->
              <app-loader></app-loader>
           </div>
         </div>
       </div>
-      
+<!-- Saved Posts Section -->
       <div class="scroll-container saved-container" (scroll)="onScroll($event)" *ngIf="selectedTab === 'saved'">
-        <!-- Saved Posts Section -->
         <div class="saved-section grid grid-cols-1 gap-2 py-2">
           <div *ngFor="let post of visibleSavedPosts" class="ad-item">
-            <!-- Conditionally render based on advertisement type -->
             <ng-container *ngIf="post.advertisementType == 'Post'">
               <div [ngClass]="{'grayed-out': isExpired(post.offerExpiry)}">
                 <app-Post  [postDetails]="post"></app-Post>
-                <!-- [isDisabled]="true" -->
               </div>
             </ng-container>
             <ng-container *ngIf="post.advertisementType == 'Event'">
@@ -126,24 +100,11 @@
               </div>
             </ng-container>
           </div>
-      
-          <!-- Loading spinner for saved posts -->
           <div *ngIf="loadingSavedPosts" class="text-center py-4">
-            <!-- <fa-icon [icon]="faSpinner" [spin]="true" class="fa-lg"></fa-icon> -->
             <app-loader></app-loader>
           </div>
         </div>
       </div>
-      
-    </div>
-    <div class="bottom fixed bottom-0 w-full">
-      <footer class="flex justify-around items-center bg-primarycolor-0 text-white p-2 h-14">
-        <img src="assets/Slogo.png" alt="Logo Icon" class="w-8 h-8 cursor-pointer" />
-        <fa-icon [icon]="faLocationDot" class="fa-2xl" [ngStyle]="{'color': '#ffffff'}"></fa-icon>
-        <fa-icon [icon]="faHeart" class="fa-2xl" [ngStyle]="{'color': '#ffffff'}"></fa-icon>
-        <fa-icon [icon]="faBell" class="fa-2xl" [ngStyle]="{'color': '#ffffff'}"></fa-icon>
-        <fa-icon [icon]="faCircleUser" class="fa-2xl" [ngStyle]="{'color': '#ffffff'}"></fa-icon>
-      </footer>
     </div>
   </div>
 </div>

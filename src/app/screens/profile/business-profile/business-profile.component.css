@@ -15,7 +15,7 @@
     background-color: #e0e0e0;
   }
   .scroll-container {
-    height: 500px; /* Adjust based on your layout */
+    height: 400px; /* Adjust based on layout */
     overflow-y: auto;
   }
   .grayed-out {

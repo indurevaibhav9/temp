@@ -1,8 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { BusinessService } from 'src/app/services/business-profile.service';
 import { faBars, faSpinner, faList, faUserGroup, faMagnifyingGlass, faThumbsUp, faThumbsDown, faLocationArrow, faBookmark, faEllipsisVertical, faLocationDot, faHeart, faBell, faCircleUser } from '@fortawesome/free-solid-svg-icons';
-import { OfferDescriptionService } from 'src/app/services/offer-description.service';
-import { OfferDescriptionDTO } from 'src/app/models/offerdescriptionGet';
 import { BusinessDetails } from 'src/app/models/BusinessDetails';
 import { AdvertisementDetails } from 'src/app/models/ad-details';
 import { DecodedToken } from 'src/app/models/decodedToken';
@@ -16,6 +14,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 
 export class BusinessProfileComponent implements OnInit {
+  business: any;
   @Input() profilePosts!: AdvertisementDetails[];
   @Input() savedPosts!: AdvertisementDetails[];
   visibleProfilePosts: AdvertisementDetails[] = [];
@@ -39,24 +38,19 @@ export class BusinessProfileComponent implements OnInit {
   faHeart = faHeart;
   faBell = faBell;
   faCircleUser = faCircleUser;
-  businesses: any[] = [];
-  business: any;
-  selectedTab: string = 'posts';
-  isCopied: boolean = false;
-  OfferDescriptionDTO: OfferDescriptionDTO;
-  ads: AdvertisementDetails[] = [];
-  currentUsername: string = ''; // default
+  selectedTab: string = 'posts'; //selected tab by default
+  currentUsername: string = '';
   username: string | null = null;
 
   constructor(
     private businessService: BusinessService,
-    private offerDescriptionService: OfferDescriptionService,
     private JwtDecoder: JwtDecoderService,
     private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    // Fetch the dynamic username from the route
+    this.currentUsername = this.fetchCurrentUsername();
+    console.log('Current username final is:',this.currentUsername);
     this.route.paramMap.subscribe(params => {
       this.username = params.get('username');
       if (this.username) {
@@ -130,12 +124,12 @@ export class BusinessProfileComponent implements OnInit {
     const nextPageEndIndex = nextPageStartIndex + this.postsPerPage;
 
     if (nextPageStartIndex < this.profilePosts.length) {
-      this.loadingProfilePosts = true; // Show spinner
+      this.loadingProfilePosts = true;
       setTimeout(() => {
         this.visibleProfilePosts.push(...this.profilePosts.slice(nextPageStartIndex, nextPageEndIndex));
         this.profilePostPage++;
-        this.loadingProfilePosts = false; // Hide spinner
-      }, 1000); // Simulate network delay
+        this.loadingProfilePosts = false;
+      }, 1000);
     }
   }
 
@@ -144,12 +138,12 @@ export class BusinessProfileComponent implements OnInit {
     const nextPageEndIndex = nextPageStartIndex + this.postsPerPage;
 
     if (nextPageStartIndex < this.savedPosts.length) {
-      this.loadingSavedPosts = true; // Show spinner
+      this.loadingSavedPosts = true;
       setTimeout(() => {
         this.visibleSavedPosts.push(...this.savedPosts.slice(nextPageStartIndex, nextPageEndIndex));
         this.savedPostPage++;
-        this.loadingSavedPosts = false; // Hide spinner
-      }, 1000); // Simulate network delay
+        this.loadingSavedPosts = false;
+      }, 1000);
     }
   }
 
