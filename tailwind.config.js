@@ -31,6 +31,7 @@ module.exports = {
     extend: {
       screens: {
         'test1' : '360px',
+        'test1' : '360px',
         'sm': '640px',
         'md': '768px',
         'lg': '1024px',
@@ -39,15 +40,14 @@ module.exports = {
       },
       colors:{
         'primarycolor': ['#ED6A5A']
+      colors:{
+        'primarycolor': ['#ED6A5A']
       },
       fontFamily: {
         'sidebar' : ['Roboto'],
         'primary':["sansita-one", "sans-serif"],
         'secondary':["merriweather", "sans-serif"]
-      },
-      borderRadius: {
-        '4px': '4px', // Custom border radius class
-      },
+      }
     },
   },
   plugins: [require("rippleui")],

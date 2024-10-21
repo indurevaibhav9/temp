@@ -6,15 +6,17 @@ import { environment } from "src/environments/environment.development";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { LoginModule } from "./screens/login/login.module";
+import { LogoutModule } from "./screens/logout/logout.module";
 import { GlobalErrorHandlerService } from "./services/global-error-handler.service";
+import { BusinessHomeModule } from "./screens/business-home/business-home.module";
+import { ConsumerHomeModule } from "./screens/consumer-home/consumer-home.module";
 import { ReactiveFormsModule } from "@angular/forms";
 import { RegisterModule } from "./screens/register/register.module";
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { SharedModule } from "./shared/shared-module/shared-module.module";
+
 
 @NgModule({
   declarations: [
-    AppComponent,  // No ProfileInfoComponent here
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -22,10 +24,11 @@ import { SharedModule } from "./shared/shared-module/shared-module.module";
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),
     LoginModule,
+    LogoutModule,
+    BusinessHomeModule,
+    ConsumerHomeModule,
     ReactiveFormsModule,
-    RegisterModule,
-    FontAwesomeModule,
-    SharedModule // Import SharedModule
+    RegisterModule
   ],
   providers: [
     {
