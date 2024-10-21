@@ -10,6 +10,7 @@ import { UserInformationComponent } from './components/user-information/user-inf
 import { ImageComponentComponent } from './components/image-component/image-component.component';
 import { BusinessInformationComponent } from './components/business-information/business-information.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { AadharPanImageComponent } from './components/aadhar-pan-image/aadhar-pan-image.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
     UserInformationComponent,
     ImageComponentComponent,
     BusinessInformationComponent,
+    AadharPanImageComponent,
   ],
   imports: [
     CommonModule,
