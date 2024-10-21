@@ -1,22 +1,21 @@
-
 <div class="discover-business w-full p-4">
-    <div class="flex items-center mb-5">
-      <h2 class="text-4xl font-bold text-gray-800 flex-grow">Discover Business</h2>
-      <fa-icon [icon]="faArrowRight" class="text-gray-400 text-4xl" style="margin-left: 20px;"></fa-icon> 
-    </div>
-  
-    <div class="business-list flex flex-col gap-4">
-      <div *ngFor="let business of businesses" class="business-card flex items-center bg-white p-4 rounded-lg shadow-md">
-        <img [src]="business.profilePicture" alt="{{ business.name }} Logo" class="business-logo w-12 h-12 rounded-full">
-        
-        <div class="business-details flex-grow ml-4">
-          <h3 class="text-lg font-medium">{{ business.name }}</h3>
-          <p class="text-gray-500 text-sm font-medium">{{ business.username }}</p>
-        </div>
-        
-        <button class="ripple follow-btn bg-primarycolor-0 text-white px-4 py-2 rounded-md hover:bg-opacity-80 transition-all" (click)="toggleFollow(business)">
-          {{ business.isFollowing ? 'Following' : 'Follow' }}
-        </button>
-      </div>
+  <div class="flex items-center mb-5">
+    <h2 class="text-4xl font-bold text-gray-800 flex-grow">Discover Business</h2>
+    <fa-icon [icon]="faArrowRight" class="text-gray-400 text-4xl" style="margin-left: 20px;"></fa-icon>
+  </div>
+
+  <div class="business-list flex flex-col gap-4">
+    <div *ngFor="let business of businesses" class="business-card flex items-center bg-white p-4 rounded-lg shadow-md">
+
+      <app-profile-info 
+        [name]="business.name" 
+        [username]="business.username" 
+        [imageUrl]="business.profilePicture">
+      </app-profile-info>
+
+      <button class="ripple follow-btn bg-primarycolor-0 text-white px-4 py-2 rounded-md hover:bg-opacity-80 transition-all" (click)="toggleFollow(business)">
+        {{ business.isFollowing ? 'Following' : 'Follow' }}
+      </button>
     </div>
   </div>
+</div>
