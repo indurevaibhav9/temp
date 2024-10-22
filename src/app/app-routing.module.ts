@@ -28,10 +28,6 @@ const routes: Routes = [
     loadChildren: () => import("./screens/consumer-home/consumer-home.module").then(m => m.ConsumerHomeModule),
     // canActivate: [customerGuard]
   },
-  { 
-    path: 'search',
-    loadChildren: () => import('./screens/search/search.module').then(m => m.SearchModule)
-  },
   { path: "**", redirectTo: "consumer-home" }
 ];
 
