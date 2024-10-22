@@ -1,5 +1,11 @@
-.vscode
-.angular
+/node_modules
+/.angular
+
+/android
+/ios
+/cypress
+/src/app/screens/navbar     
+/package-lock.json
 .npmrc
 package-lock.json
 node_modules
@@ -9,3 +15,4 @@ dist
 coverage
 docker
 package-lock.json
+.vscode/

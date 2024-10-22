@@ -6,7 +6,8 @@ const config: CapacitorConfig = {
   webDir: 'dist/spreezy-frontend',
   server: {
     androidScheme: 'https'
-  }
+  },
+
 };
 
 export default config;
