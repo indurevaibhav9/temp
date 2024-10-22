@@ -8,7 +8,7 @@ import { OfferDescriptionComponent } from './offer-description/offer-description
 import { EventComponent } from './Event/Event.component';
 import { PostComponent } from './Post/Post.component';
 import { CouponComponent } from './Coupon/Coupon.component';
-import { ReportPostComponent } from 'src/app/components/report-post/report-post.component';
+import { BasePostComponent } from 'src/app/components/base-post/base-post.component';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
@@ -19,7 +19,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     EventComponent,
     PostComponent,
     CouponComponent,
-    ReportPostComponent
+    BasePostComponent
+    
   
    
   ],

@@ -1,24 +1,23 @@
-import { Component,Input,OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { faBars, faUserGroup, faMagnifyingGlass, faThumbsUp, faThumbsDown, faLocationArrow, faBookmark, faEllipsisVertical, faLocationDot, faHeart, faBell, faCircleUser } from '@fortawesome/free-solid-svg-icons';
-import { AdvertisementDetailsService } from 'src/app/services/advertisementTypes.service'; // Adjust the path as needed
-import { OfferDescriptionDTO } from 'src/app/models/offerdescriptionGet';
-
+import { AdvertisementDetailsService } from 'src/app/services/advertisementTypes.service';
+import { BasePostComponent } from 'src/app/components/base-post/base-post.component';
 import { Router } from '@angular/router';
 import { AdvertisementDetails } from 'src/app/models/ad-details';
+
 @Component({
   selector: 'app-Coupon',
   templateUrl: './Coupon.component.html',
-  styles: [
-  ]
+  styles: []
 })
-export class CouponComponent implements OnInit {
+export class CouponComponent extends BasePostComponent implements OnInit {
   @Input() couponDetails!: AdvertisementDetails; 
-  remainingDays: number;
-  isExpired: boolean = false;
-  reportVisible: boolean = false; // Property to control visibility of report modal
-  showReportButton: boolean = false;
-  copyButtonText: string = 'Copy'; // Initially set the copy button text
+  reportVisible: boolean = false;
   
+  override showReportButton: boolean = false; 
+  override showReportSuccess: boolean = false; 
+  copyButtonText: string = 'Copy';
+
   faBars = faBars;
   faUserGroup = faUserGroup;
   faMagnifyingGlass = faMagnifyingGlass;
@@ -32,30 +31,32 @@ export class CouponComponent implements OnInit {
   faBell = faBell;
   faCircleUser = faCircleUser;
 
-  constructor(private AdvertisementDetailsService: AdvertisementDetailsService,private router: Router) {}
-
-  ngOnInit(): void {
-   
-    //   // Calculate remaining days
-      const expiryDate = new Date(this.couponDetails.offerExpiry);
-      const currentDate = new Date();
-      const timeDiff = expiryDate.getTime() - currentDate.getTime();
-      this.remainingDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); // Convert time difference to days
-
-      // Check if expired
-      if (this.remainingDays <= 0) {
-        this.isExpired = true;
-      }
-     
-    };
-
-    
-  
-
-  showDetails() {
-    this.router.navigate(['/ad-feed/offer-description']); // Now using injected router
+  constructor(
+    protected override advertisementDetailsService: AdvertisementDetailsService, // Add 'override' modifier
+    private router: Router
+  ) {
+    super(advertisementDetailsService); // Call the constructor of the base class
   }
-  
+
+  override ngOnInit(): void { // Add 'override' modifier
+    super.ngOnInit(); // Call ngOnInit from the base class
+  }
+
+  override toggleReportButton(): void { // Add 'override' modifier
+    this.showReportButton = !this.showReportButton; // Toggle visibility
+  }
+
+  override reportPost(): void { // Add 'override' modifier
+    this.showReportSuccess = true;
+    this.showReportButton = false; // Hide the report button after reporting
+    document.body.style.overflow = 'hidden';  
+  }
+
+  override hideReportSuccess(): void { // Add 'override' modifier
+    this.showReportSuccess = false; // Hide the success message
+    document.body.style.overflow = 'auto';  // Re-enable scrolling
+  }
+
   copyToClipboard(couponCode: string): void {
     navigator.clipboard.writeText(couponCode).then(() => {
       this.copyButtonText = 'Copied'; // Change button text to "Copied"

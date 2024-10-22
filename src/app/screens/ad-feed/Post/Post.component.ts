@@ -33,7 +33,7 @@ export class PostComponent implements OnInit {
   faBell = faBell;
   faCircleUser = faCircleUser;
 
-  constructor(private advertisementDetailsService: AdvertisementDetailsService) {}
+  constructor(private AdvertisementDetailsService: AdvertisementDetailsService) {}
 
   ngOnInit(): void {
     const expiryDate = new Date(this.postDetails.offerExpiry);
@@ -53,7 +53,7 @@ export class PostComponent implements OnInit {
     this.postDetails.likes += 1;
     this.triggerAnimation('like');
 
-    this.advertisementDetailsService.updateLikes(postId).subscribe({
+    this.AdvertisementDetailsService.updateLikes(postId).subscribe({
       next: (updatedPost) => {
         this.postDetails.likes = updatedPost.likes;
       },
@@ -71,7 +71,7 @@ export class PostComponent implements OnInit {
     this.postDetails.dislikes += 1;
     this.triggerAnimation('dislike');
 
-    this.advertisementDetailsService.updateDislikes(postId).subscribe({
+    this.AdvertisementDetailsService.updateDislikes(postId).subscribe({
       next: (updatedPost) => {
         this.postDetails.dislikes = updatedPost.dislikes;
       },
@@ -108,11 +108,13 @@ export class PostComponent implements OnInit {
 
     // Hide the report button after reporting
     this.showReportButton = false; // Hide the report button after reporting
+    document.body.style.overflow = 'hidden';  
   }
 
   // New method to hide the success message
   hideReportSuccess(): void {
     this.showReportSuccess = false; // Hide the success message
+    document.body.style.overflow = 'auto';  // Re-enable scrolling
   }
 
 
