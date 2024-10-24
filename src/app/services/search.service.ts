@@ -21,7 +21,7 @@ export class SearchService {
   businesses$ = this.businessesSubject.asObservable();
 
   constructor(private http: HttpClient) {
-    this.initSearchSubscription();
+    this.initSearchSubscription(); 
   }
 
   private initSearchSubscription(): void {
