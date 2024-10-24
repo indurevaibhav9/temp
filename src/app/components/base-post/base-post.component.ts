@@ -38,7 +38,7 @@ export class BasePostComponent implements OnInit {
   }
 
   likePost(): void {
-    const postId = this.adDetails.id;
+    const postId = this.adDetails.advertisementId;
 
     this.adDetails.likes += 1;
     this.triggerAnimation('like');
@@ -55,7 +55,7 @@ export class BasePostComponent implements OnInit {
   }
 
   dislikePost(): void {
-    const postId = this.adDetails.id;
+    const postId = this.adDetails.advertisementId;
 
     this.adDetails.dislikes += 1;
     this.triggerAnimation('dislike');

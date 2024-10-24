@@ -1,18 +1,7 @@
-import { Component } from "@angular/core";
+
 import { AuthService } from "src/app/services/auth.service";
 
-@Component({
-  selector: "app-ad-feed",
-  templateUrl: "./ad-feed.component.html",
-  styles: [],
-})
-export class AdFeedComponent {
-  constructor(private authService: AuthService) {}
 
-  logout() {
-    this.authService.logout();
-  }
-}
 import { Component, OnInit } from '@angular/core';
 import { forkJoin } from 'rxjs'; // Ensure this is imported
 import { AdvertisementDetailsService } from 'src/app/services/advertisementTypes.service'; 
@@ -28,8 +17,10 @@ import { AdvertisementDetails } from 'src/app/models/ad-details';
 export class AdFeedComponent implements OnInit {
   ads: AdvertisementDetails []= [];
 
-  constructor(private AdvertisementDetailsService: AdvertisementDetailsService) {}
-
+  constructor(private AdvertisementDetailsService: AdvertisementDetailsService,private authService: AuthService) {}
+  logout() {
+    this.authService.logout();
+  }
   ngOnInit(): void {
     this.fetchAds();
   }

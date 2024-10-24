@@ -47,13 +47,13 @@ export class PostComponent implements OnInit {
   }
 
   likePost(): void {
-    const postId = this.postDetails.id;
+    const advertisementId = this.postDetails.advertisementId;
 
     // Update UI immediately
-    this.postDetails.likes += 1;
+   
     this.triggerAnimation('like');
 
-    this.AdvertisementDetailsService.updateLikes(postId).subscribe({
+    this.AdvertisementDetailsService.updateLikes(advertisementId).subscribe({
       next: (updatedPost) => {
         this.postDetails.likes = updatedPost.likes;
       },
@@ -65,13 +65,13 @@ export class PostComponent implements OnInit {
   }
 
   dislikePost(): void {
-    const postId = this.postDetails.id;
+    const advertisementId = this.postDetails.advertisementId;
 
     // Update UI immediately
-    this.postDetails.dislikes += 1;
+    
     this.triggerAnimation('dislike');
 
-    this.AdvertisementDetailsService.updateDislikes(postId).subscribe({
+    this.AdvertisementDetailsService.updateDislikes(advertisementId).subscribe({
       next: (updatedPost) => {
         this.postDetails.dislikes = updatedPost.dislikes;
       },
@@ -83,18 +83,25 @@ export class PostComponent implements OnInit {
   }
 
   savePost(): void {
-    // Set isSaved to true and show the saved message
-    this.isSaved = true;
-    this.showSavedMessage = true;
+    const advertisementId = this.postDetails.advertisementId;
+    const username = this.postDetails.username; 
 
-    // Hide the message after 0.5 seconds
-    setTimeout(() => {
-      this.showSavedMessage = false;
-      this.isSaved = false; // Reset isSaved if needed
-    }, 500); // 500 milliseconds
+    this.AdvertisementDetailsService.savePost(username, advertisementId).subscribe({
+      next: (response) => {
+        console.log('Post saved successfully:', response);
+        this.isSaved = true;
+        this.showSavedMessage = true;
+
+        setTimeout(() => {
+          this.showSavedMessage = false;
+          this.isSaved = false; 
+        }, 500);
+      },
+      error: (err) => {
+        console.error('Error saving post:', err);
+      }
+    });
   }
-
-  
 
   toggleReportButton(): void {
     this.showReportButton = !this.showReportButton; // Toggle the visibility

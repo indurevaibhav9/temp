@@ -58,13 +58,13 @@ export class EventComponent implements OnInit {
   }
 
   likePost(): void {
-    const postId = this.eventDetails.id;
+    const advertisementId = this.eventDetails.advertisementId;
 
     // Update UI immediately
-    this.eventDetails.likes += 1;
+  
     this.triggerAnimation('like');
 
-    this.AdvertisementDetailsService.updateLikes(postId).subscribe({
+    this.AdvertisementDetailsService.updateLikes(52).subscribe({
       next: (updatedPost) => {
         this.eventDetails.likes = updatedPost.likes;
       },
@@ -76,13 +76,13 @@ export class EventComponent implements OnInit {
   }
 
   dislikePost(): void {
-    const postId = this.eventDetails.id;
+    const advertisementId = this.eventDetails.advertisementId;
 
     // Update UI immediately
-    this.eventDetails.dislikes += 1;
+
     this.triggerAnimation('dislike');
 
-    this.AdvertisementDetailsService.updateDislikes(postId).subscribe({
+    this.AdvertisementDetailsService.updateDislikes(52).subscribe({
       next: (updatedPost) => {
         this.eventDetails.dislikes = updatedPost.dislikes;
       },
@@ -94,15 +94,23 @@ export class EventComponent implements OnInit {
   }
 
   savePost(): void {
-    // Set isSaved to true and show the saved message
-    this.isSaved = true;
-    this.showSavedMessage = true;
+    const advertisementId = this.eventDetails.advertisementId;
+    const username = this.eventDetails.username; 
+    this.AdvertisementDetailsService.savePost(username, advertisementId).subscribe({
+      next: (response) => {
+        console.log('Post saved successfully:', response);
+        this.isSaved = true;
+        this.showSavedMessage = true;
 
-    // Hide the message after 0.5 seconds
-    setTimeout(() => {
-      this.showSavedMessage = false;
-      this.isSaved = false; // Reset isSaved if needed
-    }, 500); // 500 milliseconds
+        setTimeout(() => {
+          this.showSavedMessage = false;
+          this.isSaved = false; 
+        }, 500);
+      },
+      error: (err) => {
+        console.error('Error saving post:', err);
+      }
+    });
   }
 
   
