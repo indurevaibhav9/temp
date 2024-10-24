@@ -15,7 +15,7 @@ export class BusinessService {
   // Add username parameter to the method
   getBusinessDetails(username: string): Observable<BusinessDetails[]> {
     // Use backticks `` to construct the URL with the username
-    return this.http.get<BusinessDetails[]>(`http://192.168.1.14:8762/user/profile/${username}`, {
+    return this.http.get<BusinessDetails[]>(`http://192.168.1.14:8761/user/profile/${username}`, {
       responseType: 'json',
       headers: new HttpHeaders({
         'ngrok-skip-browser-warning': 'true',

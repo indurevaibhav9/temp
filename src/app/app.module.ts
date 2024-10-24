@@ -12,8 +12,6 @@ import { BusinessHomeModule } from "./screens/business-home/business-home.module
 import { ConsumerHomeModule } from "./screens/consumer-home/consumer-home.module";
 import { ReactiveFormsModule } from "@angular/forms";
 import { RegisterModule } from "./screens/register/register.module";
-import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
-import { SharedModule } from "./shared/shared-module/shared-module.module";
 
 
 @NgModule({
@@ -30,9 +28,7 @@ import { SharedModule } from "./shared/shared-module/shared-module.module";
     BusinessHomeModule,
     ConsumerHomeModule,
     ReactiveFormsModule,
-    RegisterModule,
-    FontAwesomeModule,
-    SharedModule
+    RegisterModule
   ],
   providers: [
     {
