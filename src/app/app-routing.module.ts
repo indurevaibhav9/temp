@@ -5,11 +5,8 @@ import { businessGuard } from "./authGuards/business/business.guard";
 import { loginGuard } from "./authGuards/login/login.guard";
 
 const routes: Routes = [
-  {
-    path: "",
-    redirectTo: "settings",
-    pathMatch: "full",
-  },
+  { path: "", redirectTo: "business-home", pathMatch: "full" },
+
   {
     path: "login",
     loadChildren: () => import("./screens/login/login.module").then(m => m.LoginModule),
@@ -27,19 +24,11 @@ const routes: Routes = [
     loadChildren: () => import("./screens/otpScreen/otpscreen.module").then(m => m.OtpScreenModule),
   },
   {
-    path: "feedback-screen",
-    loadChildren: () =>
-      import("./screens/feedback-screen/feedback-screen.module").then(
-        (module) => module.FeedbackScreenModule
-      ),
+    path: "consumer-home",
+    loadChildren: () => import("./screens/consumer-home/consumer-home.module").then(m => m.ConsumerHomeModule),
+    // canActivate: [customerGuard]
   },
-  {
-    path:"settings",
-    loadChildren: () =>
-      import("./screens/settings/settings.module").then(
-        (module) => module.SettingsModule
-      ),
-  }
+  { path: "**", redirectTo: "business-home"}
 ];
 
 @NgModule({

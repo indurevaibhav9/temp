@@ -8,7 +8,8 @@ import { LoginRoutingModule } from "./login-routing.module";
 import { LoginComponent } from "./login.component";
 <<<<<<< HEAD
 import { BusinessHomeModule } from "../business-home/business-home.module";
-import { SharedModule } from "src/app/shared/shared-module/shared-module.module";
+import { SharedModule } from "src/app/shared/shared-module/shared.module";
+
 
 @NgModule({
   declarations: [LoginComponent],
@@ -18,12 +19,7 @@ import { SharedModule } from "src/app/shared/shared-module/shared-module.module"
     LoginRoutingModule,
     ReactiveFormsModule,
     NgIconsModule.withIcons({ ionEye, ionEyeOff }),
-<<<<<<< HEAD
-    SharedModuleModule,
-    FontAwesomeModule  // Import FontAwesomeModule for <fa-icon>
-=======
-    BusinessModuleModule
->>>>>>> 4c6615d (Added stashed changes)
+    SharedModule
   ],
   schemas: [NO_ERRORS_SCHEMA],  // Use NO_ERRORS_SCHEMA for handling unknown components, only if needed
   schemas: [NO_ERRORS_SCHEMA],  // Use NO_ERRORS_SCHEMA for handling unknown components, only if needed

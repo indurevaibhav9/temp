@@ -5,12 +5,11 @@ import { MainSettingsComponent } from './components/main-settings/main-settings.
 import { PasswordManagementComponent } from './components/password-management/password-management.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { SharedModuleModule } from 'src/app/shared/shared-module/shared.module';
 import { UserInformationComponent } from './components/user-information/user-information.component';
 import { ImageComponentComponent } from './components/image-component/image-component.component';
 import { BusinessInformationComponent } from './components/business-information/business-information.component';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { AadharPanImageComponent } from './components/aadhar-pan-image/aadhar-pan-image.component';
+import { SharedModule } from 'src/app/shared/shared-module/shared.module';
 
 @NgModule({
   declarations: [
@@ -26,7 +25,7 @@ import { AadharPanImageComponent } from './components/aadhar-pan-image/aadhar-pa
     SettingsRoutingModule,
     ReactiveFormsModule,
     RouterModule,
-    SharedModuleModule
+    SharedModule
   ],
 })
 export class SettingsModule { }

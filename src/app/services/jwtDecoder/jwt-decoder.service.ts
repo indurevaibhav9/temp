@@ -10,7 +10,6 @@ export class JwtDecoderService {
   constructor() { }
 
   decodeInfoFromToken(token: string) : DecodedToken{
-<<<<<<< HEAD
     try{
       return jwtDecode<DecodedToken>(token);
     }
@@ -19,8 +18,3 @@ export class JwtDecoderService {
     }
   }
 }
-=======
-    return jwtDecode<DecodedToken>(token);
-  }
-}
->>>>>>> bc8790b (Corrected Routes for consumer-home and business-home)
