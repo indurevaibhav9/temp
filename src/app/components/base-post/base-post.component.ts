@@ -18,8 +18,8 @@ export class BasePostComponent implements OnInit {
   showReportButton: boolean = false; 
   showReportSuccess: boolean = false; 
 
-  constructor(protected advertisementDetailsService: AdvertisementDetailsService) {
-    this.advertisementDetailsService = advertisementDetailsService;
+  constructor(protected AdvertisementDetailsService: AdvertisementDetailsService) {
+    this.AdvertisementDetailsService = AdvertisementDetailsService;
   }
 
   ngOnInit(): void {
@@ -37,48 +37,41 @@ export class BasePostComponent implements OnInit {
     }
   }
 
+  
   likePost(): void {
-    const postId = this.adDetails.advertisementId;
+    const advertisementId = this.adDetails.advertisementId;
 
-    this.adDetails.likes += 1;
     this.triggerAnimation('like');
 
-    this.advertisementDetailsService.updateLikes(postId).subscribe({
-      next: (updatedPost) => {
-        this.adDetails.likes = updatedPost.likes;
-      },
-      error: (err) => {
-        console.error('Error updating likes:', err);
-        this.adDetails.likes -= 1;
-      }
+    this.AdvertisementDetailsService.updateLikes(advertisementId, (updatedPost) => {
+      this.adDetails.likes = updatedPost.likes;
     });
   }
 
   dislikePost(): void {
-    const postId = this.adDetails.advertisementId;
+    const advertisementId = this.adDetails.advertisementId;
 
-    this.adDetails.dislikes += 1;
     this.triggerAnimation('dislike');
 
-    this.advertisementDetailsService.updateDislikes(postId).subscribe({
-      next: (updatedPost) => {
-        this.adDetails.dislikes = updatedPost.dislikes;
-      },
-      error: (err) => {
-        console.error('Error updating dislikes:', err);
-        this.adDetails.dislikes -= 1;
-      }
+    this.AdvertisementDetailsService.updateDislikes(advertisementId, (updatedPost) => {
+      this.adDetails.dislikes = updatedPost.dislikes;
     });
   }
 
   savePost(): void {
-    this.isSaved = true;
-    this.showSavedMessage = true;
+    const advertisementId = this.adDetails.advertisementId;
+    const username = this.adDetails.username;
 
-    setTimeout(() => {
-      this.showSavedMessage = false;
-      this.isSaved = false;
-    }, 500);
+    this.AdvertisementDetailsService.savePost(username, advertisementId, (response) => {
+      console.log('Post saved successfully:', response);
+      this.isSaved = true;
+      this.showSavedMessage = true;
+
+      setTimeout(() => {
+        this.showSavedMessage = false;
+        this.isSaved = false; 
+      }, 500);
+    });
   }
 
   toggleReportButton(): void {

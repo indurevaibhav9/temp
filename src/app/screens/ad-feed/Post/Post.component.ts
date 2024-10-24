@@ -49,79 +49,59 @@ export class PostComponent implements OnInit {
   likePost(): void {
     const advertisementId = this.postDetails.advertisementId;
 
-    // Update UI immediately
-   
     this.triggerAnimation('like');
 
-    this.AdvertisementDetailsService.updateLikes(advertisementId).subscribe({
-      next: (updatedPost) => {
-        this.postDetails.likes = updatedPost.likes;
-      },
-      error: (err) => {
-        console.error('Error updating likes:', err);
-        this.postDetails.likes -= 1; // Revert update
-      }
+    this.AdvertisementDetailsService.updateLikes(advertisementId, (updatedPost) => {
+      this.postDetails.likes = updatedPost.likes;
     });
   }
 
   dislikePost(): void {
     const advertisementId = this.postDetails.advertisementId;
 
-    // Update UI immediately
-    
     this.triggerAnimation('dislike');
 
-    this.AdvertisementDetailsService.updateDislikes(advertisementId).subscribe({
-      next: (updatedPost) => {
-        this.postDetails.dislikes = updatedPost.dislikes;
-      },
-      error: (err) => {
-        console.error('Error updating dislikes:', err);
-        this.postDetails.dislikes -= 1; // Revert update
-      }
+    this.AdvertisementDetailsService.updateDislikes(advertisementId, (updatedPost) => {
+      this.postDetails.dislikes = updatedPost.dislikes;
     });
   }
 
   savePost(): void {
     const advertisementId = this.postDetails.advertisementId;
-    const username = this.postDetails.username; 
+    const username = this.postDetails.username;
+    this.triggerAnimation('save');
+    
+    this.showSavedMessage = true;
 
-    this.AdvertisementDetailsService.savePost(username, advertisementId).subscribe({
-      next: (response) => {
+    
+    setTimeout(() => {
+        this.showSavedMessage = false;
+    }, 500); 
+
+    
+    this.AdvertisementDetailsService.savePost(username, advertisementId, (response) => {
         console.log('Post saved successfully:', response);
         this.isSaved = true;
-        this.showSavedMessage = true;
-
-        setTimeout(() => {
-          this.showSavedMessage = false;
-          this.isSaved = false; 
-        }, 500);
-      },
-      error: (err) => {
-        console.error('Error saving post:', err);
-      }
     });
-  }
+}
 
   toggleReportButton(): void {
-    this.showReportButton = !this.showReportButton; // Toggle the visibility
+    this.showReportButton = !this.showReportButton; 
   }
 
   reportPost(): void {
-    // Logic to report the post can be added here, e.g., calling a service
-
-    // Show the success message
+    
     this.showReportSuccess = true;
 
-    // Hide the report button after reporting
-    this.showReportButton = false; // Hide the report button after reporting
+  
+    this.showReportButton = false; 
     document.body.style.overflow = 'hidden';  
   }
 
-  // New method to hide the success message
+  
   hideReportSuccess(): void {
-    this.showReportSuccess = false; // Hide the success message
-    document.body.style.overflow = 'auto';  // Re-enable scrolling
+    this.showReportSuccess = false; 
+    document.body.style.overflow = 'auto';  
   }
 
 
@@ -134,6 +114,6 @@ export class PostComponent implements OnInit {
     setTimeout(() => {
       this.showLikeAnimation = false;
       this.showDislikeAnimation = false;
-    }, 500); // 500 milliseconds for the animation
+    }, 500); 
   }
 }

@@ -53,63 +53,53 @@ export class CouponComponent implements OnInit {
     }
   }
 
-  likePost(): void {
+  
+  likePost(): AdvertisementDetails | null {
     const advertisementId = this.couponDetails.advertisementId;
 
-    // Update UI immediately
-    
     this.triggerAnimation('like');
 
-    this.AdvertisementDetailsService.updateLikes(advertisementId).subscribe({
-      next: (updatedPost) => {
-        this.couponDetails.likes = updatedPost.likes;
-      },
-      error: (err) => {
-        console.error('Error updating likes:', err);
-        this.couponDetails.likes -= 1; // Revert update
-      }
+    let updatedPost: AdvertisementDetails | null = null; // Variable to hold the updated post
+
+    this.AdvertisementDetailsService.updateLikes(advertisementId, (response) => {
+        updatedPost = response; // Store the updated post in the variable
+        this.couponDetails.likes = updatedPost.likes; // Update the likes count
+        console.log('Likes updated:', updatedPost.likes);
     });
-  }
+
+    return updatedPost; // Return the updated post (will be null initially)
+}
 
   dislikePost(): void {
     const advertisementId = this.couponDetails.advertisementId;
 
-    // Update UI immediately
-    
     this.triggerAnimation('dislike');
 
-    this.AdvertisementDetailsService.updateDislikes(advertisementId).subscribe({
-      next: (updatedPost) => {
-        this.couponDetails.dislikes = updatedPost.dislikes;
-      },
-      error: (err) => {
-        console.error('Error updating dislikes:', err);
-        this.couponDetails.dislikes -= 1; // Revert update
-      }
+    this.AdvertisementDetailsService.updateDislikes(advertisementId, (updatedPost) => {
+      this.couponDetails.dislikes = updatedPost.dislikes;
+      console.log('DisLikes updated:', updatedPost.dislikes); 
     });
   }
 
   savePost(): void {
     const advertisementId = this.couponDetails.advertisementId;
-    const username = this.couponDetails.username; // Get username from couponDetails
+    const username = this.couponDetails.username;
+    this.triggerAnimation('save');
+    // Show the saved message immediately
+    this.showSavedMessage = true;
 
-    this.AdvertisementDetailsService.savePost(username, advertisementId).subscribe({
-      next: (response) => {
+    // Hide the saved message after 2 seconds
+    setTimeout(() => {
+        this.showSavedMessage = false;
+    }, 500); // Adjust the delay as needed
+
+    // Call the savePost service (this can still be done in the background)
+    this.AdvertisementDetailsService.savePost(username, advertisementId, (response) => {
         console.log('Post saved successfully:', response);
         this.isSaved = true;
-        this.showSavedMessage = true;
-
-        setTimeout(() => {
-          this.showSavedMessage = false;
-          this.isSaved = false; 
-        }, 500);
-      },
-      error: (err) => {
-        console.error('Error saving post:', err);
-      }
     });
-  }
-
+}
+  
   
 
   toggleReportButton(): void {

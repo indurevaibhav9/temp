@@ -60,59 +60,41 @@ export class EventComponent implements OnInit {
   likePost(): void {
     const advertisementId = this.eventDetails.advertisementId;
 
-    // Update UI immediately
-  
     this.triggerAnimation('like');
 
-    this.AdvertisementDetailsService.updateLikes(52).subscribe({
-      next: (updatedPost) => {
-        this.eventDetails.likes = updatedPost.likes;
-      },
-      error: (err) => {
-        console.error('Error updating likes:', err);
-        this.eventDetails.likes -= 1; // Revert update
-      }
+    this.AdvertisementDetailsService.updateLikes(advertisementId, (updatedPost) => {
+      this.eventDetails.likes = updatedPost.likes;
     });
   }
 
   dislikePost(): void {
     const advertisementId = this.eventDetails.advertisementId;
 
-    // Update UI immediately
-
     this.triggerAnimation('dislike');
 
-    this.AdvertisementDetailsService.updateDislikes(52).subscribe({
-      next: (updatedPost) => {
-        this.eventDetails.dislikes = updatedPost.dislikes;
-      },
-      error: (err) => {
-        console.error('Error updating dislikes:', err);
-        this.eventDetails.dislikes -= 1; // Revert update
-      }
+    this.AdvertisementDetailsService.updateDislikes(advertisementId, (updatedPost) => {
+      this.eventDetails.dislikes = updatedPost.dislikes;
     });
   }
 
   savePost(): void {
     const advertisementId = this.eventDetails.advertisementId;
-    const username = this.eventDetails.username; 
-    this.AdvertisementDetailsService.savePost(username, advertisementId).subscribe({
-      next: (response) => {
+    const username = this.eventDetails.username;
+
+    // Show the saved message immediately
+    this.showSavedMessage = true;
+
+    // Hide the saved message after 2 seconds
+    setTimeout(() => {
+        this.showSavedMessage = false;
+    }, 500); // Adjust the delay as needed
+
+    // Call the savePost service (this can still be done in the background)
+    this.AdvertisementDetailsService.savePost(username, advertisementId, (response) => {
         console.log('Post saved successfully:', response);
         this.isSaved = true;
-        this.showSavedMessage = true;
-
-        setTimeout(() => {
-          this.showSavedMessage = false;
-          this.isSaved = false; 
-        }, 500);
-      },
-      error: (err) => {
-        console.error('Error saving post:', err);
-      }
     });
-  }
-
+}
   
 
   toggleReportButton(): void {

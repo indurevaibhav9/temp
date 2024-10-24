@@ -33,46 +33,64 @@ export class AdvertisementDetailsService {
   }
 
   // Update likes for a specific advertisement
-updateLikes(advertisementId: number): Observable<AdvertisementDetails> {
-  return this.http.post<AdvertisementDetails>(
-    `https://b053-2401-4900-1c44-5ce4-55a1-e786-aee0-8412.ngrok-free.app/content/advertisement/upvote/${advertisementId}`,
-    {}, // Assuming no body is needed; adjust as necessary
-    {
-      responseType: 'json',
-      headers: new HttpHeaders({
-        'ngrok-skip-browser-warning': 'true',
-      }),
-    }
-  );
-}
+  updateLikes(advertisementId: number, callback: (updatedPost: AdvertisementDetails) => void): void {
+    this.http.post<AdvertisementDetails>(
+      `https://b053-2401-4900-1c44-5ce4-55a1-e786-aee0-8412.ngrok-free.app/content/advertisement/upvote/${advertisementId}`,
+      {}, // Assuming no body is needed; adjust as necessary
+      {
+        responseType: 'json',
+        headers: new HttpHeaders({
+          'ngrok-skip-browser-warning': 'true',
+        }),
+      }
+    ).subscribe({
+      next: callback,
+      error: (err) => {
+        console.error('Error updating likes:', err);
+        // Handle error if needed
+      },
+    });
+  }
 
-// Update dislikes for a specific advertisement
-updateDislikes(advertisementId: number): Observable<AdvertisementDetails> {
-  return this.http.post<AdvertisementDetails>(
-    `https://b053-2401-4900-1c44-5ce4-55a1-e786-aee0-8412.ngrok-free.app/content/advertisement/downvote/${advertisementId}`,
-    {}, 
-    {
-      responseType: 'json',
-      headers: new HttpHeaders({
-        'ngrok-skip-browser-warning': 'true',
-      }),
-    }
-  );
-}
- // Save a post with an empty body
- savePost(username: string, advertisementId: number): Observable<AdvertisementDetails> {
-  return this.http.post<AdvertisementDetails>(
-    `https://b053-2401-4900-1c44-5ce4-55a1-e786-aee0-8412.ngrok-free.app/content/advertisement/save`, // Direct URL for saving
-    {}, // Empty body
-    {
-      responseType: 'json',
-      headers: new HttpHeaders({
-        'ngrok-skip-browser-warning': 'true',
-        'X-Username': username, // Sending username in headers
-        'X-Advertisement-ID': advertisementId.toString(), // Sending advertisementId in headers
-      }),
-    }
-  );
-}
+  // Update dislikes for a specific advertisement
+  updateDislikes(advertisementId: number, callback: (updatedPost: AdvertisementDetails) => void): void {
+    this.http.post<AdvertisementDetails>(
+      `https://b053-2401-4900-1c44-5ce4-55a1-e786-aee0-8412.ngrok-free.app/content/advertisement/downvote/${advertisementId}`,
+      {}, 
+      {
+        responseType: 'json',
+        headers: new HttpHeaders({
+          'ngrok-skip-browser-warning': 'true',
+        }),
+      }
+    ).subscribe({
+      next: callback,
+      error: (err) => {
+        console.error('Error updating dislikes:', err);
+        // Handle error if needed
+      },
+    });
+  }
 
+  // Save a post with an empty body
+  savePost(username: string, advertisementId: number, callback: (response: AdvertisementDetails) => void): void {
+    this.http.post<AdvertisementDetails>(
+      `https://b053-2401-4900-1c44-5ce4-55a1-e786-aee0-8412.ngrok-free.app/content/advertisement/save`, // Direct URL for saving
+      {}, // Empty body
+      {
+        responseType: 'json',
+        headers: new HttpHeaders({
+          'ngrok-skip-browser-warning': 'true',
+          'X-Username': username, // Sending username in headers
+          'X-Advertisement-ID': advertisementId.toString(), // Sending advertisementId in headers
+        }),
+      }
+    ).subscribe({
+      next: callback,
+      error: (err) => {
+        console.error('Error saving post:', err);
+        // Handle error if needed
+      },
+    });
+  }
 }

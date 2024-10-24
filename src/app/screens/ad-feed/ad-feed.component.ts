@@ -24,7 +24,11 @@ export class AdFeedComponent implements OnInit {
   ngOnInit(): void {
     this.fetchAds();
   }
-
+  isExpired(offerExpiry: string): boolean {
+    const expiryDate = new Date(offerExpiry);
+    const currentDate = new Date();
+    return expiryDate < currentDate;
+  }
   fetchAds(): void {
    
    this.AdvertisementDetailsService.getAdvertisementDetails().subscribe(
