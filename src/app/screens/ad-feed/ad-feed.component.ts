@@ -1,3 +1,18 @@
+import { Component } from "@angular/core";
+import { AuthService } from "src/app/services/auth.service";
+
+@Component({
+  selector: "app-ad-feed",
+  templateUrl: "./ad-feed.component.html",
+  styles: [],
+})
+export class AdFeedComponent {
+  constructor(private authService: AuthService) {}
+
+  logout() {
+    this.authService.logout();
+  }
+}
 import { Component, OnInit } from '@angular/core';
 import { forkJoin } from 'rxjs'; // Ensure this is imported
 import { AdvertisementDetailsService } from 'src/app/services/advertisementTypes.service'; 

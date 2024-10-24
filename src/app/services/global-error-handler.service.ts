@@ -12,7 +12,7 @@ export class GlobalErrorHandlerService implements ErrorHandler {
 
   handleError(error: any): void {
     if (!(error instanceof HttpErrorResponse)) {
-      error = error.rejection; // get the error object
+      error = error.rejection;
     }
     this.zone.run(() => {
       this.alertService.sendAlertTrigger(new Alert(error.name, error.message));
