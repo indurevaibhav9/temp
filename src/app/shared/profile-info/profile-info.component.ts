@@ -13,7 +13,7 @@ export class ProfileInfoComponent {
   constructor(private router: Router) { }
 
   onProfileClick(username: string): void {
-    console.log('Navigating to profile:', username);
-    this.router.navigate([`/profile/business/${username}`]);
+    // console.log('Navigating to profile:', username);
+    this.router.navigate([`/business-home/profile/${username}`]);
   }
 }

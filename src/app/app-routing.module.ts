@@ -31,8 +31,7 @@ const routes: Routes = [
     loadChildren: () => import("./screens/consumer-home/consumer-home.module").then(m => m.ConsumerHomeModule),
     // canActivate: [customerGuard]
   },
-
-  { path: "**", redirectTo: "discover-business-screen" }
+  { path: "**", redirectTo: "consumer-home" }
 ];
 
 @NgModule({
