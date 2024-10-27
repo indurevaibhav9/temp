@@ -5,6 +5,7 @@ import { PasswordManagementComponent } from './components/password-management/pa
 import { UserInformationComponent } from './components/user-information/user-information.component';
 import { BusinessInformationComponent } from './components/business-information/business-information.component';
 
+
 const routes: Routes = [
   { 
     path: '',
