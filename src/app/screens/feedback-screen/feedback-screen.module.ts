@@ -4,8 +4,8 @@ import { FeedbackScreenRoutingModule } from './feedback-screen-routing.module';
 import { FeedbackScreenComponent } from './feedback-screen.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ReactiveFormsModule } from '@angular/forms';
-import { SharedModuleModule } from 'src/app/shared/shared-module/shared.module';
 import { PopUpComponent } from 'src/app/components/pop-up/pop-up.component';
+import { SharedModule } from 'src/app/shared/shared-module/shared.module';
 
 @NgModule({
   declarations: [], // Declare both FeedbackScreenComponent and PopUpComponent
@@ -14,7 +14,7 @@ import { PopUpComponent } from 'src/app/components/pop-up/pop-up.component';
     FeedbackScreenRoutingModule,
     FontAwesomeModule,
     ReactiveFormsModule,
-    SharedModuleModule
+    SharedModule
   ],
 })
 export class FeedbackScreenModule {}
