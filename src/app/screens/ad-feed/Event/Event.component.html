@@ -9,7 +9,7 @@
             Expired
           </ng-container>
           <ng-template #notExpired>
-            Expires in {{ remainingDays }} days
+            Expires in {{ remainingDays }} days and {{ remainingHours }} hours
           </ng-template>
         </div>
       </div>
@@ -39,26 +39,26 @@
     <div class="text-center mb-4">
       <button (click)="bookNow()"
         class="mx-auto py-3 px-6 bg-primary text-white font-bold text-lg rounded-full flex items-center justify-center cursor-pointer shadow-md transition duration-150 ease-in-out hover:bg-opacity-90">
-        Book Now
-        <fa-icon [icon]="faArrowRight" class="ml-2 fa-lg" [ngStyle]="{'color': '#ffffff'}"></fa-icon>
+        Book Now →
+        
       </button>
     </div>
 
 
-    <div class="flex justify-between items-center m-4">
+    <div class="flex justify-between items-center m-4 mt-10">
       <!-- Left side icons -->
       <div class="flex items-center space-x-4">
         <button (click)="likePost()"
           class="flex items-center cursor-pointer transition-transform duration-500 ease-in-out"
           [ngClass]="{'scale-125': showLikeAnimation}" aria-label="Like Post">
-          <fa-icon [icon]="faThumbsUp" class="fa-xl text-[#ff6251]"></fa-icon>
+          <fa-icon [icon]="isLiked ? faThumbsUp : faThumbsUpOutline" class="fa-xl text-[#ff6251]"></fa-icon>
           <span class="text-black ml-1">{{ eventDetails.likes }}</span>
         </button>
-
+    
         <button (click)="dislikePost()"
           class="flex items-center cursor-pointer transition-transform duration-500 ease-in-out"
           [ngClass]="{'scale-125': showDislikeAnimation}" aria-label="Dislike Post">
-          <fa-icon [icon]="faThumbsDown" class="fa-xl text-[#ff6251]"></fa-icon>
+          <fa-icon [icon]="isDisliked ? faThumbsDown : faThumbsDownOutline" class="fa-xl text-[#ff6251]"></fa-icon>
           <span class="text-black ml-1">{{ eventDetails.dislikes }}</span>
         </button>
       </div>
@@ -71,18 +71,19 @@
 
         <div class="relative">
           <!-- Display Saved Message -->
-          <span *ngIf="showSavedMessage" class="absolute bottom-full left-1/2 transform -translate-x-1/2 text-black font-bold transition-opacity duration-500">
-              Saved!
+          <span *ngIf="showSavedMessage"
+            class="absolute bottom-full left-1/2 transform -translate-x-1/2 text-black font-bold transition-opacity duration-500">
+            Saved!
           </span>
-      
+
           <!-- Save Button -->
           <button (click)="savePost()" class="bg-transparent border-none flex items-center cursor-pointer">
-              <fa-icon [icon]="faBookmark" class="fa-xl transition-transform duration-300"
-                  [ngStyle]="{'color': '#ffb43f', 'transform': isSaved ? 'scale(1.2)' : 'scale(1)'}">
-              </fa-icon>
+            <fa-icon [icon]="faBookmark" class="fa-xl transition-transform duration-300"
+              [ngStyle]="{'color': '#ffb43f', 'transform': isSaved ? 'scale(1.2)' : 'scale(1)'}">
+            </fa-icon>
           </button>
-      </div>
-      
+        </div>
+
 
         <div class="flex items-center space-x-4 relative">
           <button class="bg-none border-none flex items-center cursor-pointer" (click)="toggleReportButton()">

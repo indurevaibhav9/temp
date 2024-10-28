@@ -1,11 +1,8 @@
 // src/app/components/post-event/post-event.component.ts
-import { Component,Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { faBars, faUserGroup, faMagnifyingGlass, faThumbsUp, faThumbsDown, faLocationArrow, faBookmark, faEllipsisVertical, faLocationDot, faHeart, faBell, faCircleUser } from '@fortawesome/free-solid-svg-icons';
-
-import { AdvertisementDetailsService } from 'src/app/services/advertisementTypes.service'; // Adjust the path as needed
-import { OfferDescriptionDTO } from 'src/app/models/offerdescriptionGet';
-import { Router } from '@angular/router';
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { faThumbsUp as faThumbsUpOutline, faThumbsDown as faThumbsDownOutline } from '@fortawesome/free-regular-svg-icons'; // Import outlined icons
+import { AdvertisementDetailsService } from 'src/app/services/advertisementTypes.service';
 import { AdvertisementDetails } from 'src/app/models/ad-details';
 @Component({
   selector: 'app-Event',
@@ -16,45 +13,58 @@ export class EventComponent implements OnInit {
   @Input() eventDetails!:AdvertisementDetails;
 
   remainingDays: number;
+  remainingHours: number;
   isExpired: boolean = false;
   reportVisible: boolean = false; // Property to control visibility of report modal
   showReportButton: boolean = false;
- 
+  showReportSuccess: boolean = false; 
   showLikeAnimation: boolean = false; 
   showDislikeAnimation: boolean = false;
   isSaved: boolean = false; // Track saved state
   showSavedMessage: boolean = false; // Track the display of "Saved" message
- 
-  showReportSuccess: boolean = false; // Track visibility of success message
+  
 
 
-  // FontAwesome icons
-  faBars = faBars;
-  faUserGroup = faUserGroup;
-  faMagnifyingGlass = faMagnifyingGlass;
-  faThumbsUp = faThumbsUp;
-  faThumbsDown = faThumbsDown;
-  faLocationArrow = faLocationArrow;
-  faBookmark = faBookmark;
-  faEllipsisVertical = faEllipsisVertical;
-  faLocationDot = faLocationDot;
-  faHeart = faHeart;
-  faBell = faBell;
-  faCircleUser = faCircleUser;
-  faArrowRight = faArrowRight; // Declare the icon here
+   // Font Awesome icons
+   faBars = faBars;
+   faUserGroup = faUserGroup;
+   faMagnifyingGlass = faMagnifyingGlass;
+   faThumbsUp = faThumbsUp;
+   faThumbsDown = faThumbsDown;
+   faLocationArrow = faLocationArrow;
+   faBookmark = faBookmark;
+   faEllipsisVertical = faEllipsisVertical;
+   faLocationDot = faLocationDot;
+   faHeart = faHeart;
+   faBell = faBell;
+   faCircleUser = faCircleUser;
+  faThumbsUpOutline = faThumbsUpOutline;
+  faThumbsDownOutline = faThumbsDownOutline;
 
-  constructor(private AdvertisementDetailsService: AdvertisementDetailsService,private router: Router) {}
+  // Track like/dislike state
+  isLiked: boolean = false; // State for like
+  isDisliked: boolean = false; // State for dislike
+
+  constructor(private AdvertisementDetailsService: AdvertisementDetailsService) {}
 
   
   ngOnInit(): void {
+    this.calculateExpiry();
+  }
+  
+  calculateExpiry(): void {
     const expiryDate = new Date(this.eventDetails.offerExpiry);
     const currentDate = new Date();
     const timeDiff = expiryDate.getTime() - currentDate.getTime();
-    this.remainingDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-
-    if (this.remainingDays <= 0) {
-      this.isExpired = true;
-    }
+    
+    // Calculate remaining days
+    this.remainingDays = Math.floor(timeDiff / (1000 * 3600 * 24));
+    
+    // Calculate remaining hours
+    this.remainingHours = Math.floor((timeDiff % (1000 * 3600 * 24)) / (1000 * 3600));
+    
+    // Determine if the offer has expired
+    this.isExpired = this.remainingDays < 0 || (this.remainingDays === 0 && this.remainingHours <= 0);
   }
 
   likePost(): void {
@@ -62,9 +72,21 @@ export class EventComponent implements OnInit {
 
     this.triggerAnimation('like');
 
-    this.AdvertisementDetailsService.updateLikes(advertisementId, (updatedPost) => {
-      this.eventDetails.likes = updatedPost.likes;
-    });
+    if (!this.isLiked) {
+      this.isLiked = true; // Update like state
+      this.isDisliked = false; // Reset dislike state
+      this.eventDetails.likes += 1; // Increment likes immediatel
+
+      this.AdvertisementDetailsService.updateLikes(advertisementId, (updatedPost) => {
+        this.eventDetails.likes = updatedPost.likes;
+      });
+    } else {
+      // If already liked, you can choose to un-like
+      this.isLiked = false;
+      this.AdvertisementDetailsService.updateLikes(advertisementId, (updatedPost) => {
+        this.eventDetails.likes = updatedPost.likes;
+      });
+    }
   }
 
   dislikePost(): void {
@@ -72,9 +94,21 @@ export class EventComponent implements OnInit {
 
     this.triggerAnimation('dislike');
 
-    this.AdvertisementDetailsService.updateDislikes(advertisementId, (updatedPost) => {
-      this.eventDetails.dislikes = updatedPost.dislikes;
-    });
+    if (!this.isDisliked) {
+      this.isDisliked = true; // Update dislike state
+      this.isLiked = false; // Reset like state
+      this.eventDetails.dislikes += 1; // Increment dislikes immediately
+
+      this.AdvertisementDetailsService.updateDislikes(advertisementId, (updatedPost) => {
+        this.eventDetails.dislikes = updatedPost.dislikes;
+      });
+    } else {
+      // If already disliked, you can choose to un-dislike
+      this.isDisliked = false;
+      this.AdvertisementDetailsService.updateDislikes(advertisementId, (updatedPost) => {
+        this.eventDetails.dislikes = updatedPost.dislikes;
+      });
+    }
   }
 
   savePost(): void {

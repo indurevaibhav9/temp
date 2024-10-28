@@ -1,4 +1,4 @@
-import { OfferDescriptionDTO } from "./offerdescriptionGet";
+
 
 export interface AdvertisementDetails {
   advertisementId: number;

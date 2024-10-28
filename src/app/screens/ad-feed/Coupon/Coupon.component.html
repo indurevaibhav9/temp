@@ -5,12 +5,12 @@
           <div class="flex-grow ml-2 text-left">
               <div class="font-bold text-lg mt-2 text-black">{{couponDetails.username}}</div>
               <div class="text-sm text-gray-500">
-                  <ng-container *ngIf="isExpired; else notExpired">
-                      Expired
-                  </ng-container>
-                  <ng-template #notExpired>
-                      Expires in {{ remainingDays }} days
-                  </ng-template>
+                <ng-container *ngIf="isExpired; else notExpired">
+                    Expired
+                </ng-container>
+                <ng-template #notExpired>
+                    Expires in {{ remainingDays }} days and {{ remainingHours }} hours
+                </ng-template>
               </div>
           </div>
           <button
@@ -33,22 +33,22 @@
           </button>
       </div>
 
-      <div class="flex justify-between items-center m-4">
+      <div class="flex justify-between items-center m-4 mt-10">
           <!-- Left side icons -->
           <div class="flex items-center space-x-4">
-              <button (click)="likePost()"
-                  class="flex items-center cursor-pointer transition-transform duration-500 ease-in-out"
-                  [ngClass]="{'scale-125': showLikeAnimation}" aria-label="Like Post">
-                  <fa-icon [icon]="faThumbsUp" class="fa-xl text-[#ff6251]"></fa-icon>
-                  <span class="text-black ml-1">{{ couponDetails.likes }}</span>
-              </button>
-
-              <button (click)="dislikePost()"
-                  class="flex items-center cursor-pointer transition-transform duration-500 ease-in-out"
-                  [ngClass]="{'scale-125': showDislikeAnimation}" aria-label="Dislike Post">
-                  <fa-icon [icon]="faThumbsDown" class="fa-xl text-[#ff6251]"></fa-icon>
-                  <span class="text-black ml-1">{{ couponDetails.dislikes }}</span>
-              </button>
+            <button (click)="likePost()"
+              class="flex items-center cursor-pointer transition-transform duration-500 ease-in-out"
+              [ngClass]="{'scale-125': showLikeAnimation}" aria-label="Like Post">
+              <fa-icon [icon]="isLiked ? faThumbsUp : faThumbsUpOutline" class="fa-xl text-[#ff6251]"></fa-icon>
+              <span class="text-black ml-1">{{ couponDetails.likes }}</span>
+            </button>
+        
+            <button (click)="dislikePost()"
+              class="flex items-center cursor-pointer transition-transform duration-500 ease-in-out"
+              [ngClass]="{'scale-125': showDislikeAnimation}" aria-label="Dislike Post">
+              <fa-icon [icon]="isDisliked ? faThumbsDown : faThumbsDownOutline" class="fa-xl text-[#ff6251]"></fa-icon>
+              <span class="text-black ml-1">{{ couponDetails.dislikes }}</span>
+            </button>
           </div>
 
           <!-- Right side icons -->
@@ -103,6 +103,8 @@
       <button
           class="w-full px-2 py-1 text-lg font-bold bg-primary text-white border-none rounded-b-[4px] cursor-pointer text-center">
           Show Details →
+<!-- 
+          <offerDiscription [adDetails] -->
       </button>
   </div>
 </div>

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { faBars, faUserGroup, faMagnifyingGlass, faThumbsUp, faThumbsDown, faLocationArrow, faBookmark, faEllipsisVertical, faLocationDot, faHeart, faBell, faCircleUser } from '@fortawesome/free-solid-svg-icons';
+import { faThumbsUp as faThumbsUpOutline, faThumbsDown as faThumbsDownOutline } from '@fortawesome/free-regular-svg-icons'; // Import outlined icons
 import { AdvertisementDetailsService } from 'src/app/services/advertisementTypes.service';
 import { AdvertisementDetails } from 'src/app/models/ad-details';
 
@@ -11,6 +12,7 @@ import { AdvertisementDetails } from 'src/app/models/ad-details';
 export class PostComponent implements OnInit {
   @Input() postDetails!: AdvertisementDetails;
   remainingDays: number;
+  remainingHours: number;
   isExpired: boolean = false;
   showLikeAnimation: boolean = false; 
   showDislikeAnimation: boolean = false;
@@ -33,17 +35,33 @@ export class PostComponent implements OnInit {
   faBell = faBell;
   faCircleUser = faCircleUser;
 
+  // Outlined icons
+  faThumbsUpOutline = faThumbsUpOutline;
+  faThumbsDownOutline = faThumbsDownOutline;
+
+  // Track like/dislike state
+  isLiked: boolean = false; // State for like
+  isDisliked: boolean = false; // State for dislike
+
   constructor(private AdvertisementDetailsService: AdvertisementDetailsService) {}
 
   ngOnInit(): void {
+    this.calculateExpiry();
+  }
+  
+  calculateExpiry(): void {
     const expiryDate = new Date(this.postDetails.offerExpiry);
     const currentDate = new Date();
     const timeDiff = expiryDate.getTime() - currentDate.getTime();
-    this.remainingDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-
-    if (this.remainingDays <= 0) {
-      this.isExpired = true;
-    }
+    
+    // Calculate remaining days
+    this.remainingDays = Math.floor(timeDiff / (1000 * 3600 * 24));
+    
+    // Calculate remaining hours
+    this.remainingHours = Math.floor((timeDiff % (1000 * 3600 * 24)) / (1000 * 3600));
+    
+    // Determine if the offer has expired
+    this.isExpired = this.remainingDays < 0 || (this.remainingDays === 0 && this.remainingHours <= 0);
   }
 
   likePost(): void {
@@ -51,9 +69,21 @@ export class PostComponent implements OnInit {
 
     this.triggerAnimation('like');
 
-    this.AdvertisementDetailsService.updateLikes(advertisementId, (updatedPost) => {
-      this.postDetails.likes = updatedPost.likes;
-    });
+    if (!this.isLiked) {
+      this.isLiked = true; // Update like state
+      this.isDisliked = false; // Reset dislike state
+      this.postDetails.likes += 1; // Increment likes immediatel
+
+      this.AdvertisementDetailsService.updateLikes(advertisementId, (updatedPost) => {
+        this.postDetails.likes = updatedPost.likes;
+      });
+    } else {
+      // If already liked, you can choose to un-like
+      this.isLiked = false;
+      this.AdvertisementDetailsService.updateLikes(advertisementId, (updatedPost) => {
+        this.postDetails.likes = updatedPost.likes;
+      });
+    }
   }
 
   dislikePost(): void {
@@ -61,9 +91,21 @@ export class PostComponent implements OnInit {
 
     this.triggerAnimation('dislike');
 
-    this.AdvertisementDetailsService.updateDislikes(advertisementId, (updatedPost) => {
-      this.postDetails.dislikes = updatedPost.dislikes;
-    });
+    if (!this.isDisliked) {
+      this.isDisliked = true; // Update dislike state
+      this.isLiked = false; // Reset like state
+      this.postDetails.dislikes += 1; // Increment dislikes immediately
+
+      this.AdvertisementDetailsService.updateDislikes(advertisementId, (updatedPost) => {
+        this.postDetails.dislikes = updatedPost.dislikes;
+      });
+    } else {
+      // If already disliked, you can choose to un-dislike
+      this.isDisliked = false;
+      this.AdvertisementDetailsService.updateDislikes(advertisementId, (updatedPost) => {
+        this.postDetails.dislikes = updatedPost.dislikes;
+      });
+    }
   }
 
   savePost(): void {
@@ -73,12 +115,10 @@ export class PostComponent implements OnInit {
     
     this.showSavedMessage = true;
 
-    
     setTimeout(() => {
         this.showSavedMessage = false;
     }, 500); 
 
-    
     this.AdvertisementDetailsService.savePost(username, advertisementId, (response) => {
         console.log('Post saved successfully:', response);
         this.isSaved = true;
@@ -90,20 +130,15 @@ export class PostComponent implements OnInit {
   }
 
   reportPost(): void {
-    
     this.showReportSuccess = true;
-
-  
     this.showReportButton = false; 
     document.body.style.overflow = 'hidden';  
   }
 
-  
   hideReportSuccess(): void {
     this.showReportSuccess = false; 
     document.body.style.overflow = 'auto';  
   }
-
 
   private triggerAnimation(type: 'like' | 'dislike' | 'save') {
     if (type === 'like') {

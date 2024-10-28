@@ -1,8 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { faBars, faUserGroup, faMagnifyingGlass, faThumbsUp, faThumbsDown, faLocationArrow, faBookmark, faEllipsisVertical, faLocationDot, faHeart, faBell, faCircleUser } from '@fortawesome/free-solid-svg-icons';
+import { faThumbsUp as faThumbsUpOutline, faThumbsDown as faThumbsDownOutline } from '@fortawesome/free-regular-svg-icons'; // Import outlined icons
 import { AdvertisementDetailsService } from 'src/app/services/advertisementTypes.service';
-import { BasePostComponent } from 'src/app/components/base-post/base-post.component';
-import { Router } from '@angular/router';
 import { AdvertisementDetails } from 'src/app/models/ad-details';
 
 @Component({
@@ -17,6 +16,7 @@ export class CouponComponent implements OnInit {
   isExpired: boolean = false;
   reportVisible: boolean = false; // Property to control visibility of report modal
   showReportButton: boolean = false;
+  remainingHours: number;
  
   showLikeAnimation: boolean = false; 
   showDislikeAnimation: boolean = false;
@@ -25,60 +25,91 @@ export class CouponComponent implements OnInit {
   copyButtonText: string = 'Copy';
   showReportSuccess: boolean = false; // Track visibility of success message
 
+// Font Awesome icons
+faBars = faBars;
+faUserGroup = faUserGroup;
+faMagnifyingGlass = faMagnifyingGlass;
+faThumbsUp = faThumbsUp;
+faThumbsDown = faThumbsDown;
+faLocationArrow = faLocationArrow;
+faBookmark = faBookmark;
+faEllipsisVertical = faEllipsisVertical;
+faLocationDot = faLocationDot;
+faHeart = faHeart;
+faBell = faBell;
+faCircleUser = faCircleUser;
 
-  faBars = faBars;
-  faUserGroup = faUserGroup;
-  faMagnifyingGlass = faMagnifyingGlass;
-  faThumbsUp = faThumbsUp;
-  faThumbsDown = faThumbsDown;
-  faLocationArrow = faLocationArrow;
-  faBookmark = faBookmark;
-  faEllipsisVertical = faEllipsisVertical;
-  faLocationDot = faLocationDot;
-  faHeart = faHeart;
-  faBell = faBell;
-  faCircleUser = faCircleUser;
+// Outlined icons
+faThumbsUpOutline = faThumbsUpOutline;
+faThumbsDownOutline = faThumbsDownOutline;
 
-  constructor(private AdvertisementDetailsService: AdvertisementDetailsService,private router: Router) {}
+// Track like/dislike state
+isLiked: boolean = false; // State for like
+isDisliked: boolean = false; // State for dislike
+  constructor(private AdvertisementDetailsService: AdvertisementDetailsService) {}
 
   
   ngOnInit(): void {
+    this.calculateExpiry();
+  }
+  
+  calculateExpiry(): void {
     const expiryDate = new Date(this.couponDetails.offerExpiry);
     const currentDate = new Date();
     const timeDiff = expiryDate.getTime() - currentDate.getTime();
-    this.remainingDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-
-    if (this.remainingDays <= 0) {
-      this.isExpired = true;
-    }
+    
+    // Calculate remaining days
+    this.remainingDays = Math.floor(timeDiff / (1000 * 3600 * 24));
+    
+    // Calculate remaining hours
+    this.remainingHours = Math.floor((timeDiff % (1000 * 3600 * 24)) / (1000 * 3600));
+    
+    // Determine if the offer has expired
+    this.isExpired = this.remainingDays < 0 || (this.remainingDays === 0 && this.remainingHours <= 0);
   }
 
-  
-  likePost(): AdvertisementDetails | null {
+  likePost(): void {
     const advertisementId = this.couponDetails.advertisementId;
 
     this.triggerAnimation('like');
 
-    let updatedPost: AdvertisementDetails | null = null; // Variable to hold the updated post
+    if (!this.isLiked) {
+      this.isLiked = true; // Update like state
+      this.isDisliked = false; // Reset dislike state
+      this.couponDetails.likes += 1; // Increment likes immediatel
 
-    this.AdvertisementDetailsService.updateLikes(advertisementId, (response) => {
-        updatedPost = response; // Store the updated post in the variable
-        this.couponDetails.likes = updatedPost.likes; // Update the likes count
-        console.log('Likes updated:', updatedPost.likes);
-    });
-
-    return updatedPost; // Return the updated post (will be null initially)
-}
+      this.AdvertisementDetailsService.updateLikes(advertisementId, (updatedPost) => {
+        this.couponDetails.likes = updatedPost.likes;
+      });
+    } else {
+      // If already liked, you can choose to un-like
+      this.isLiked = false;
+      this.AdvertisementDetailsService.updateLikes(advertisementId, (updatedPost) => {
+        this.couponDetails.likes = updatedPost.likes;
+      });
+    }
+  }
 
   dislikePost(): void {
     const advertisementId = this.couponDetails.advertisementId;
 
     this.triggerAnimation('dislike');
 
-    this.AdvertisementDetailsService.updateDislikes(advertisementId, (updatedPost) => {
-      this.couponDetails.dislikes = updatedPost.dislikes;
-      console.log('DisLikes updated:', updatedPost.dislikes); 
-    });
+    if (!this.isDisliked) {
+      this.isDisliked = true; // Update dislike state
+      this.isLiked = false; // Reset like state
+      this.couponDetails.dislikes += 1; // Increment dislikes immediately
+
+      this.AdvertisementDetailsService.updateDislikes(advertisementId, (updatedPost) => {
+        this.couponDetails.dislikes = updatedPost.dislikes;
+      });
+    } else {
+      // If already disliked, you can choose to un-dislike
+      this.isDisliked = false;
+      this.AdvertisementDetailsService.updateDislikes(advertisementId, (updatedPost) => {
+        this.couponDetails.dislikes = updatedPost.dislikes;
+      });
+    }
   }
 
   savePost(): void {
@@ -122,6 +153,8 @@ export class CouponComponent implements OnInit {
     this.showReportSuccess = false; // Hide the success message
     document.body.style.overflow = 'auto';  // Re-enable scrolling
   }
+  
+  
 
 
   private triggerAnimation(type: 'like' | 'dislike' | 'save') {

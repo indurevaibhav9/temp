@@ -6,13 +6,13 @@
       <div class="flex-grow ml-2 text-left">
         <div class="font-bold text-lg mt-2 text-black">{{ postDetails.username }}</div>
         <div class="text-sm text-gray-500">
-          <ng-container *ngIf="isExpired; else notExpired">
-            Expired
-          </ng-container>
-          <ng-template #notExpired>
-            Expires in {{ postDetails.offerExpiry }} days
-          </ng-template>
-        </div>
+  <ng-container *ngIf="isExpired; else notExpired">
+      Expired
+  </ng-container>
+  <ng-template #notExpired>
+      Expires in {{ remainingDays }} days and {{ remainingHours }} hours
+  </ng-template>
+</div>
       </div>
       <button
         class="bg-primary text-white font-medium font-system-ui border-none px-3 py-1 rounded mt-2 mr-1 cursor-pointer">
@@ -25,20 +25,20 @@
       {{ postDetails.offerTitle }}
     </div>
 
-    <div class="flex justify-between items-center m-4">
+    <div class="flex justify-between items-center m-4 mt-10">
       <!-- Left side icons -->
       <div class="flex items-center space-x-4">
         <button (click)="likePost()"
           class="flex items-center cursor-pointer transition-transform duration-500 ease-in-out"
           [ngClass]="{'scale-125': showLikeAnimation}" aria-label="Like Post">
-          <fa-icon [icon]="faThumbsUp" class="fa-xl text-[#ff6251]"></fa-icon>
+          <fa-icon [icon]="isLiked ? faThumbsUp : faThumbsUpOutline" class="fa-xl text-[#ff6251]"></fa-icon>
           <span class="text-black ml-1">{{ postDetails.likes }}</span>
         </button>
-
+    
         <button (click)="dislikePost()"
           class="flex items-center cursor-pointer transition-transform duration-500 ease-in-out"
           [ngClass]="{'scale-125': showDislikeAnimation}" aria-label="Dislike Post">
-          <fa-icon [icon]="faThumbsDown" class="fa-xl text-[#ff6251]"></fa-icon>
+          <fa-icon [icon]="isDisliked ? faThumbsDown : faThumbsDownOutline" class="fa-xl text-[#ff6251]"></fa-icon>
           <span class="text-black ml-1">{{ postDetails.dislikes }}</span>
         </button>
       </div>
