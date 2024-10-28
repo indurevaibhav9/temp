@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { SearchService, BusinessWithImageUrl } from '../../services/search.service';
+import { SearchService } from '../../services/search.service';
+import { UserProfileDTO } from '../../models/UserProfileDTO';
 import { faArrowLeft, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-search',
@@ -12,11 +14,15 @@ export class SearchComponent implements OnInit {
   faArrowLeft = faArrowLeft;
   faTimesCircle = faTimesCircle;
   searchQuery: string = '';
-  businesses: BusinessWithImageUrl[] = [];
+  businesses: UserProfileDTO[] = [];
 
   @ViewChild('searchInput') searchInput!: ElementRef;
 
-  constructor(private searchService: SearchService, private router: Router) {}
+  constructor(
+    private searchService: SearchService,
+    private router: Router,
+    private location: Location
+  ) {}
 
   ngOnInit(): void {
     this.searchService.businesses$.subscribe(businesses => {
@@ -36,5 +42,13 @@ export class SearchComponent implements OnInit {
     this.searchQuery = '';
     this.searchService.clearSearch();
     this.searchInput.nativeElement.focus();
+  }
+
+  goBack(): void {
+    this.location.back();
+  }
+
+  getImageUrl(profilePicture: string): string {
+    return this.searchService.getImageUrl(profilePicture);
   }
 }

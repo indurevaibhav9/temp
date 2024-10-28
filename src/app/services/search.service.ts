@@ -4,19 +4,15 @@ import { Observable, of, Subject, BehaviorSubject } from 'rxjs';
 import { catchError, map, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { UserProfileDTO } from '../models/UserProfileDTO';
 
-export interface BusinessWithImageUrl extends UserProfileDTO {
-  imageUrl: string;
-}
-
 @Injectable({
   providedIn: 'root'
 })
 export class SearchService {
   private businessesUrl = 'http://localhost:8762/user/search';
   private imageUrl = 'http://images.spreezy.in';
-  
+
   private searchSubject = new Subject<string>();
-  private businessesSubject = new BehaviorSubject<BusinessWithImageUrl[]>([]);
+  private businessesSubject = new BehaviorSubject<UserProfileDTO[]>([]);
   
   businesses$ = this.businessesSubject.asObservable();
 
@@ -42,21 +38,15 @@ export class SearchService {
     this.businessesSubject.next([]);
   }
 
-  private fetchBusinesses(searchQuery: string): Observable<BusinessWithImageUrl[]> {
+  private fetchBusinesses(searchQuery: string): Observable<UserProfileDTO[]> {
     const url = `${this.businessesUrl}/${searchQuery}`;
     
     return this.http.get<UserProfileDTO[]>(url).pipe(
-      map(response => response.map(business => ({
-        ...business,
-        imageUrl: this.getImageUrl(business.profilePicture)
-      }))),
-      catchError(error => {
-        return of([]);
-      })
+      catchError(() => of([]))
     );
   }
 
   getImageUrl(profilePicture: string): string {
-    return profilePicture ? `${this.imageUrl}/${profilePicture}` : 'assets/logo.png';
+    return profilePicture ? `${this.imageUrl}/${profilePicture}` : 'assets/default-pic.png';
   }
 }
