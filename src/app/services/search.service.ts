@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of, Subject, BehaviorSubject } from 'rxjs';
-import { catchError, map, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { catchError, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { UserProfileDTO } from '../models/UserProfileDTO';
 
 @Injectable({
@@ -9,7 +9,7 @@ import { UserProfileDTO } from '../models/UserProfileDTO';
 })
 export class SearchService {
   private businessesUrl = 'http://localhost:8762/user/search';
-  private imageUrl = 'http://images.spreezy.in';
+  private imageUrl = "https://images.spreezy.in";
 
   private searchSubject = new Subject<string>();
   private businessesSubject = new BehaviorSubject<UserProfileDTO[]>([]);
@@ -46,7 +46,13 @@ export class SearchService {
     );
   }
 
-  getImageUrl(profilePicture: string): string {
-    return profilePicture ? `${this.imageUrl}/${profilePicture}` : 'assets/default-pic.png';
-  }
+  getImageUrl(profilePicture: string | null | undefined): string {
+    if (!profilePicture || profilePicture.trim() === '') {
+      return 'assets/default-pic.png';
+    }
+    if (profilePicture.startsWith('http://') || profilePicture.startsWith('https://')) {
+      return profilePicture;
+    }
+    return `${this.imageUrl}/${profilePicture}`;
+  } 
 }
