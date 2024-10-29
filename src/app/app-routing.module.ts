@@ -28,8 +28,7 @@ const routes: Routes = [
     loadChildren: () => import("./screens/consumer-home/consumer-home.module").then(m => m.ConsumerHomeModule),
     // canActivate: [customerGuard]
   },
-
-  { path: "**", redirectTo: "login" }
+  { path: "**", redirectTo: "consumer-home" }
 ];
 
 @NgModule({
