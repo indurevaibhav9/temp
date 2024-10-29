@@ -14,66 +14,16 @@ export class DiscoverBusinessScreenComponent {
   searchQuery: string = '';
 
   businesses: { name: string, username: string, profilePicture: string, imageUrl?: string, isFollowing: boolean }[] = [
-    {
-      name: 'Business One',
-      username: 'business_one',
-      profilePicture: 'https://via.placeholder.com/150',
-      isFollowing: false
-    },
-    {
-      name: 'Business Two',
-      username: 'business_two',
-      profilePicture: 'https://via.placeholder.com/150',
-      isFollowing: false
-    },
-    {
-      name: 'Business Three',
-      username: 'business_three',
-      profilePicture: 'https://via.placeholder.com/150',
-      isFollowing: false
-    },
-    {
-      name: 'Business Four',
-      username: 'business_four',
-      profilePicture: 'https://via.placeholder.com/150',
-      isFollowing: false
-    },
-    {
-      name: 'Business Five',
-      username: 'business_five',
-      profilePicture: 'https://via.placeholder.com/150',
-      isFollowing: false
-    },
-    {
-      name: 'Business Six',
-      username: 'business_six',
-      profilePicture: 'https://via.placeholder.com/150',
-      isFollowing: false
-    },
-    {
-      name: 'Business Seven',
-      username: 'business_seven',
-      profilePicture: 'https://via.placeholder.com/150',
-      isFollowing: false
-    },
-    {
-      name: 'Business Eight',
-      username: 'business_eight',
-      profilePicture: 'https://via.placeholder.com/150',
-      isFollowing: false
-    },
-    {
-      name: 'Business Nine',
-      username: 'business_nine',
-      profilePicture: 'https://via.placeholder.com/150',
-      isFollowing: false
-    },
-    {
-      name: 'Business Ten',
-      username: 'business_ten',
-      profilePicture: 'https://via.placeholder.com/150',
-      isFollowing: false
-    }
+    { name: 'Tech Innovations', username: 'techinnov', profilePicture: 'https://picsum.photos/200/200?random=1', imageUrl: 'https://picsum.photos/400/200?random=1', isFollowing: false },
+    { name: 'Green Earth', username: 'greenearth', profilePicture: 'https://picsum.photos/200/200?random=2', imageUrl: 'https://picsum.photos/400/200?random=2', isFollowing: false },
+    { name: 'Foodie Delight', username: 'foodiedelight', profilePicture: 'https://picsum.photos/200/200?random=3', imageUrl: 'https://picsum.photos/400/200?random=3', isFollowing: false },
+    { name: 'Fashion Hub', username: 'fashionhub', profilePicture: 'https://picsum.photos/200/200?random=4', imageUrl: 'https://picsum.photos/400/200?random=4', isFollowing: false },
+    { name: 'Auto World', username: 'autoworld', profilePicture: 'https://picsum.photos/200/200?random=5', imageUrl: 'https://picsum.photos/400/200?random=5', isFollowing: false },
+    { name: 'Pet Paradise', username: 'petparadise', profilePicture: 'https://picsum.photos/200/200?random=6', imageUrl: 'https://picsum.photos/400/200?random=6', isFollowing: false },
+    { name: 'Gadget Galaxy', username: 'gadgetgalaxy', profilePicture: 'https://picsum.photos/200/200?random=7', imageUrl: 'https://picsum.photos/400/200?random=7', isFollowing: false },
+    { name: 'Book Haven', username: 'bookhaven', profilePicture: 'https://picsum.photos/200/200?random=8', imageUrl: 'https://picsum.photos/400/200?random=8', isFollowing: false },
+    { name: 'Fitness First', username: 'fitnessfirst', profilePicture: 'https://picsum.photos/200/200?random=9', imageUrl: 'https://picsum.photos/400/200?random=9', isFollowing: false },
+    { name: 'Travel Experts', username: 'travelexperts', profilePicture: 'https://picsum.photos/200/200?random=10', imageUrl: 'https://picsum.photos/400/200?random=10', isFollowing: false }
   ];
 
   constructor(private searchService: SearchService, private router: Router) {}
