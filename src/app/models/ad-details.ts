@@ -1,7 +1,7 @@
-import { OfferDescriptionDTO } from "./offerdescriptionGet";
+
 
 export interface AdvertisementDetails {
-  id: string;
+  advertisementId: number;
     advertisementType:string;
     profileImageUrl: string;
     username: string;
