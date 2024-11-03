@@ -1,35 +1,36 @@
 /** @type {import('tailwindcss').Config} */
 /** @type {import('rippleui').Config} */
 module.exports = {
-	rippleui: {
+  rippleui: {
     themes: [
-      {
-				themeName: "light",
-				colorScheme: "light",
-				colors: {
-					primary: "#ED6A5A",
-					backgroundPrimary: "#FFFFFF",
-          secondary: "#FFFFFF",
-				},
-			},
       // Explicitly overriding the darkTheme in RippleUI as it breaks if system theme is dark.
       {
-				themeName: "dark",
-				colorScheme: "light",
-				colors: {
-					primary: "#ED6A5A",
-					backgroundPrimary: "#FFFFFF",
+        themeName: "light",
+        colorScheme: "light",
+        colors: {
+          primary: "#ED6A5A",
+          backgroundPrimary: "#FFFFFF",
           secondary: "#FFFFFF",
-				},
-			}
+        },
+      },
+      {
+        themeName: "dark",
+        colorScheme: "light",
+        colors: {
+          primary: "#ED6A5A",
+          backgroundPrimary: "#FFFFFF",
+          secondary: "#FFFFFF",
+        },
+      }
     ]
-	},
+  },
   content: [
     "./src/**/*.{html,ts,tsx,jsx}",
   ],
   theme: {
     extend: {
       screens: {
+        'test1' : '360px',
         'sm': '640px',
         'md': '768px',
         'lg': '1024px',
@@ -37,9 +38,10 @@ module.exports = {
         '2xl': '1536px',
       },
       colors:{
-        'primary': ['#ED6A5A']
+        'primarycolor': ['#ED6A5A']
       },
       fontFamily: {
+        'sidebar' : ['Roboto'],
         'primary':["sansita-one", "sans-serif"],
         'secondary':["merriweather", "sans-serif"]
       }
@@ -47,4 +49,3 @@ module.exports = {
   },
   plugins: [require("rippleui")],
 }
-

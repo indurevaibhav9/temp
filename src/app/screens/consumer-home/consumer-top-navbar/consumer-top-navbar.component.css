@@ -1,0 +1,64 @@
+.drawer-toggle:checked ~ .overlay {
+  opacity: 0;
+  visibility: visible;
+}
+
+.sidebar-title {
+  text-align: left; 
+}
+
+.sidebar-title .flex-col {
+  justify-content: center;
+  align-items: flex-start; 
+}
+
+.drawer {
+  z-index: 40; 
+  display: flex;
+  flex-direction: column; 
+}
+
+.drawer-content {
+  flex-grow: 1; 
+  overflow-y: auto; 
+  z-index: 20; 
+}
+
+.sidebar-footer {
+  margin-top: auto; 
+  padding-bottom: 20px; 
+}
+
+.sidebar-footer .divider {
+  margin-top: 20px; 
+  margin-bottom: 1.8cm; 
+}
+
+.sidebar-footer .menu-item:last-child {
+  margin-top: -1.8cm; 
+}
+
+.drawer-open ~ .bottom-component {
+  transform: translateY(100%); 
+  transition: transform 0.3s ease; 
+}
+
+.sidebar-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.sidebar-title div {
+  width: 100%; 
+  display: flex;
+  flex-direction: column; 
+  align-items: center;
+  justify-content: center; 
+  text-align: center;
+}
+
+.sidebar-title span {
+  display: block;
+}
