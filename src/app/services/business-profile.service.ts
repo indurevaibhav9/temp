@@ -26,10 +26,7 @@ export class BusinessService {
   // Add username parameter to the method
   getProfilePosts(username: string): Observable<AdvertisementDetails[]> {
     return this.http.get<{ advertisements: AdvertisementDetails[] }>(`http://192.168.1.3:8082/feed/business/profile/${username}`, {
-      responseType: 'json',
-      headers: new HttpHeaders({
-        'ngrok-skip-browser-warning': 'true',
-      }),
+      responseType: 'json'
     }).pipe(
       map(response => response.advertisements) // Transform response to just the advertisements array
     );

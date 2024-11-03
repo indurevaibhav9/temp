@@ -15,8 +15,7 @@ import { FormsModule } from '@angular/forms';
     SearchRoutingModule,
     FontAwesomeModule,
     SharedModule,
-    FormsModule,
-    FontAwesomeModule
+    FormsModule
   ],
   exports: [
     SearchComponent,
