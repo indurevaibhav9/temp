@@ -49,22 +49,10 @@ export class EventComponent implements OnInit {
 
   
   ngOnInit(): void {
-    this.calculateExpiry();
-  }
-  
-  calculateExpiry(): void {
-    const expiryDate = new Date(this.eventDetails.offerExpiry);
-    const currentDate = new Date();
-    const timeDiff = expiryDate.getTime() - currentDate.getTime();
-    
-    // Calculate remaining days
-    this.remainingDays = Math.floor(timeDiff / (1000 * 3600 * 24));
-    
-    // Calculate remaining hours
-    this.remainingHours = Math.floor((timeDiff % (1000 * 3600 * 24)) / (1000 * 3600));
-    
-    // Determine if the offer has expired
-    this.isExpired = this.remainingDays < 0 || (this.remainingDays === 0 && this.remainingHours <= 0);
+    const { remainingDays, remainingHours, isExpired } = this.AdvertisementDetailsService.calculateExpiry(this.eventDetails.offerExpiry);
+    this.remainingDays = remainingDays;
+    this.remainingHours = remainingHours;
+    this.isExpired = isExpired;
   }
 
   likePost(): void {

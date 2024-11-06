@@ -8,7 +8,7 @@ import { OfferDescriptionComponent } from './offer-description/offer-description
 import { EventComponent } from './Event/Event.component';
 import { PostComponent } from './Post/Post.component';
 import { CouponComponent } from './Coupon/Coupon.component';
-import { BasePostComponent } from 'src/app/components/base-post/base-post.component';
+
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SharedModule } from 'src/app/shared/shared-module/shared-module.module';
@@ -19,8 +19,8 @@ import { SharedModule } from 'src/app/shared/shared-module/shared-module.module'
     OfferDescriptionComponent,
     EventComponent,
     PostComponent,
-    CouponComponent,
-    BasePostComponent
+    CouponComponent
+
     
   
    

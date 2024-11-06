@@ -10,62 +10,54 @@ import { AdvertisementDetails } from 'src/app/models/ad-details';
   styles: []
 })
 export class CouponComponent implements OnInit {
-  @Input() couponDetails!:AdvertisementDetails;
+  @Input() couponDetails!: AdvertisementDetails;
 
   remainingDays: number;
   isExpired: boolean = false;
   reportVisible: boolean = false; // Property to control visibility of report modal
   showReportButton: boolean = false;
   remainingHours: number;
- 
-  showLikeAnimation: boolean = false; 
+
+  showLikeAnimation: boolean = false;
   showDislikeAnimation: boolean = false;
   isSaved: boolean = false; // Track saved state
   showSavedMessage: boolean = false; // Track the display of "Saved" message
   copyButtonText: string = 'Copy';
   showReportSuccess: boolean = false; // Track visibility of success message
 
-// Font Awesome icons
-faBars = faBars;
-faUserGroup = faUserGroup;
-faMagnifyingGlass = faMagnifyingGlass;
-faThumbsUp = faThumbsUp;
-faThumbsDown = faThumbsDown;
-faLocationArrow = faLocationArrow;
-faBookmark = faBookmark;
-faEllipsisVertical = faEllipsisVertical;
-faLocationDot = faLocationDot;
-faHeart = faHeart;
-faBell = faBell;
-faCircleUser = faCircleUser;
+  // Font Awesome icons
+  faBars = faBars;
+  faUserGroup = faUserGroup;
+  faMagnifyingGlass = faMagnifyingGlass;
+  faThumbsUp = faThumbsUp;
+  faThumbsDown = faThumbsDown;
+  faLocationArrow = faLocationArrow;
+  faBookmark = faBookmark;
+  faEllipsisVertical = faEllipsisVertical;
+  faLocationDot = faLocationDot;
+  faHeart = faHeart;
+  faBell = faBell;
+  faCircleUser = faCircleUser;
 
-// Outlined icons
-faThumbsUpOutline = faThumbsUpOutline;
-faThumbsDownOutline = faThumbsDownOutline;
+  // Outlined icons
+  faThumbsUpOutline = faThumbsUpOutline;
+  faThumbsDownOutline = faThumbsDownOutline;
 
-// Track like/dislike state
-isLiked: boolean = false; // State for like
-isDisliked: boolean = false; // State for dislike
-  constructor(private AdvertisementDetailsService: AdvertisementDetailsService) {}
+  // Track like/dislike state
+  isLiked: boolean = false; // State for like
+  isDisliked: boolean = false; // State for dislike
 
-  
+  constructor(private advertisementDetailsService: AdvertisementDetailsService) {}
+
   ngOnInit(): void {
-    this.calculateExpiry();
-  }
-  
-  calculateExpiry(): void {
-    const expiryDate = new Date(this.couponDetails.offerExpiry);
-    const currentDate = new Date();
-    const timeDiff = expiryDate.getTime() - currentDate.getTime();
-    
-    // Calculate remaining days
-    this.remainingDays = Math.floor(timeDiff / (1000 * 3600 * 24));
-    
-    // Calculate remaining hours
-    this.remainingHours = Math.floor((timeDiff % (1000 * 3600 * 24)) / (1000 * 3600));
-    
-    // Determine if the offer has expired
-    this.isExpired = this.remainingDays < 0 || (this.remainingDays === 0 && this.remainingHours <= 0);
+    try {
+      const { remainingDays, remainingHours, isExpired } = this.advertisementDetailsService.calculateExpiry(this.couponDetails.offerExpiry);
+      this.remainingDays = remainingDays;
+      this.remainingHours = remainingHours;
+      this.isExpired = isExpired;
+    } catch (error) {
+      this.handleError(error);
+    }
   }
 
   likePost(): void {
@@ -73,20 +65,24 @@ isDisliked: boolean = false; // State for dislike
 
     this.triggerAnimation('like');
 
-    if (!this.isLiked) {
-      this.isLiked = true; // Update like state
-      this.isDisliked = false; // Reset dislike state
-      this.couponDetails.likes += 1; // Increment likes immediatel
+    try {
+      if (!this.isLiked) {
+        this.isLiked = true; // Update like state
+        this.isDisliked = false; // Reset dislike state
+        this.couponDetails.likes += 1; // Increment likes immediately
 
-      this.AdvertisementDetailsService.updateLikes(advertisementId, (updatedPost) => {
-        this.couponDetails.likes = updatedPost.likes;
-      });
-    } else {
-      // If already liked, you can choose to un-like
-      this.isLiked = false;
-      this.AdvertisementDetailsService.updateLikes(advertisementId, (updatedPost) => {
-        this.couponDetails.likes = updatedPost.likes;
-      });
+        this.advertisementDetailsService.updateLikes(advertisementId, (updatedPost) => {
+          this.couponDetails.likes = updatedPost.likes;
+        });
+      } else {
+        // If already liked, you can choose to un-like
+        this.isLiked = false;
+        this.advertisementDetailsService.updateLikes(advertisementId, (updatedPost) => {
+          this.couponDetails.likes = updatedPost.likes;
+        });
+      }
+    } catch (error) {
+      this.handleError(error);
     }
   }
 
@@ -95,57 +91,69 @@ isDisliked: boolean = false; // State for dislike
 
     this.triggerAnimation('dislike');
 
-    if (!this.isDisliked) {
-      this.isDisliked = true; // Update dislike state
-      this.isLiked = false; // Reset like state
-      this.couponDetails.dislikes += 1; // Increment dislikes immediately
+    try {
+      if (!this.isDisliked) {
+        this.isDisliked = true; // Update dislike state
+        this.isLiked = false; // Reset like state
+        this.couponDetails.dislikes += 1; // Increment dislikes immediately
 
-      this.AdvertisementDetailsService.updateDislikes(advertisementId, (updatedPost) => {
-        this.couponDetails.dislikes = updatedPost.dislikes;
-      });
-    } else {
-      // If already disliked, you can choose to un-dislike
-      this.isDisliked = false;
-      this.AdvertisementDetailsService.updateDislikes(advertisementId, (updatedPost) => {
-        this.couponDetails.dislikes = updatedPost.dislikes;
-      });
+        this.advertisementDetailsService.updateDislikes(advertisementId, (updatedPost) => {
+          this.couponDetails.dislikes = updatedPost.dislikes;
+        });
+      } else {
+        // If already disliked, you can choose to un-dislike
+        this.isDisliked = false;
+        this.advertisementDetailsService.updateDislikes(advertisementId, (updatedPost) => {
+          this.couponDetails.dislikes = updatedPost.dislikes;
+        });
+      }
+    } catch (error) {
+      this.handleError(error);
     }
   }
 
   savePost(): void {
     const advertisementId = this.couponDetails.advertisementId;
     const username = this.couponDetails.username;
+
     this.triggerAnimation('save');
-    // Show the saved message immediately
-    this.showSavedMessage = true;
 
-    // Hide the saved message after 2 seconds
-    setTimeout(() => {
+    try {
+      // Show the saved message immediately
+      this.showSavedMessage = true;
+
+      // Hide the saved message after 2 seconds
+      setTimeout(() => {
         this.showSavedMessage = false;
-    }, 500); // Adjust the delay as needed
+      }, 500); // Adjust the delay as needed
 
-    // Call the savePost service (this can still be done in the background)
-    this.AdvertisementDetailsService.savePost(username, advertisementId, (response) => {
+      // Call the savePost service (this can still be done in the background)
+      this.advertisementDetailsService.savePost(username, advertisementId, (response) => {
         console.log('Post saved successfully:', response);
         this.isSaved = true;
-    });
-}
-  
-  
+      });
+    } catch (error) {
+      this.handleError(error);
+    }
+  }
 
   toggleReportButton(): void {
     this.showReportButton = !this.showReportButton; // Toggle the visibility
   }
 
   reportPost(): void {
-    // Logic to report the post can be added here, e.g., calling a service
+    try {
+      // Logic to report the post can be added here, e.g., calling a service
 
-    // Show the success message
-    this.showReportSuccess = true;
+      // Show the success message
+      this.showReportSuccess = true;
 
-    // Hide the report button after reporting
-    this.showReportButton = false; // Hide the report button after reporting
-    document.body.style.overflow = 'hidden';  
+      // Hide the report button after reporting
+      this.showReportButton = false; // Hide the report button after reporting
+      document.body.style.overflow = 'hidden';
+    } catch (error) {
+      this.handleError(error);
+    }
   }
 
   // New method to hide the success message
@@ -153,9 +161,6 @@ isDisliked: boolean = false; // State for dislike
     this.showReportSuccess = false; // Hide the success message
     document.body.style.overflow = 'auto';  // Re-enable scrolling
   }
-  
-  
-
 
   private triggerAnimation(type: 'like' | 'dislike' | 'save') {
     if (type === 'like') {
@@ -168,6 +173,7 @@ isDisliked: boolean = false; // State for dislike
       this.showDislikeAnimation = false;
     }, 500); // 500 milliseconds for the animation
   }
+
   copyToClipboard(couponCode: string): void {
     navigator.clipboard.writeText(couponCode).then(() => {
       this.copyButtonText = 'Copied'; // Change button text to "Copied"
@@ -175,7 +181,12 @@ isDisliked: boolean = false; // State for dislike
         this.copyButtonText = 'Copy'; // Revert back to "Copy" after 2 seconds
       }, 2000);
     }).catch(err => {
-      console.error('Failed to copy coupon code:', err);
+      this.handleError(err); // Show error in popup
     });
+  }
+
+  private handleError(error: any): void {
+    const message = error?.error?.message || 'An unexpected error occurred';
+    alert(message); // Display error in a simple popup
   }
 }
