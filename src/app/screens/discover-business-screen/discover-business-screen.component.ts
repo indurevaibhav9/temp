@@ -23,7 +23,6 @@ export class DiscoverBusinessScreenComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchBusinesses('');
-
     this.searchService.businesses$.subscribe((businesses) => { 
       this.businesses = businesses.map(business => ({
         ...business,
