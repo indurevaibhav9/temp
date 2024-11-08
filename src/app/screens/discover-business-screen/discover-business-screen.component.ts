@@ -22,17 +22,10 @@ export class DiscoverBusinessScreenComponent implements OnInit {
   constructor(private searchService: SearchService, private router: Router) {}
 
   ngOnInit(): void {
-    this.fetchBusinesses('');
-    this.searchService.businesses$.subscribe((businesses) => { 
-      this.businesses = businesses.map(business => ({
-        ...business,
-        id: business.username,  
-        isFollowing: false 
-      }));
-    });
+    this.fetchBusinesses(); 
   }
 
-  fetchBusinesses(query: string): void {
+  fetchBusinesses(query: string = 'a'): void {
     this.searchService.fetchBusinesses(query).subscribe((businesses) => {
       this.businesses = businesses.map(business => ({
         ...business,
@@ -43,15 +36,19 @@ export class DiscoverBusinessScreenComponent implements OnInit {
   }
 
   toggleFollow(business: BusinessProfile): void {
-    this.searchService.toggleFollowStatus(business.id, !business.isFollowing).subscribe((success) => {
-      if (success) {
+    const sourceUsername = 'johndoe123'; 
+    
+    this.searchService.toggleFollowStatus(sourceUsername, business.id, !business.isFollowing).subscribe({
+      next: () => {
         business.isFollowing = !business.isFollowing;
         console.log(`${business.isFollowing ? 'Following' : 'Unfollowing'} business: ${business.name}`);
-      } else {
+      },
+      error: () => {
         console.error('Failed to update follow status');
       }
     });
   }
+  
 
   goToNextPage(): void {
     this.router.navigate(['/consumer-home/adfeed']); 

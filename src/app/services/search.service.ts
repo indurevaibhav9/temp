@@ -10,7 +10,7 @@ import { UserProfileDTO } from '../models/UserProfileDTO';
 export class SearchService {
   private businessesUrl = 'http://localhost:8762/user/search';
   private imageUrl = "https://images.spreezy.in";
-  private followUrl = 'https://dummyjson.com/api/follow';
+  private followUrl = 'https://3d90-2401-4900-1ca2-b7b0-ccf9-4658-509f-c0b.ngrok-free.app/user';
 
   private searchSubject = new Subject<string>();
   private businessesSubject = new BehaviorSubject<UserProfileDTO[]>([]);
@@ -41,7 +41,6 @@ export class SearchService {
 
   fetchBusinesses(searchQuery: string): Observable<UserProfileDTO[]> {
     const url = `${this.businessesUrl}/${searchQuery}`;
-    
     return this.http.get<UserProfileDTO[]>(url).pipe(
       catchError(() => of([]))
     );
@@ -57,14 +56,25 @@ export class SearchService {
     return `${this.imageUrl}/${profilePicture}`;
   }
 
-  // New method for toggling follow/unfollow status
-  toggleFollowStatus(businessId: string, isFollowing: boolean): Observable<boolean> {
-    return this.http.post<any>(this.followUrl, {
-      businessId,
-      isFollowing
-    }).pipe(
-      map(response => response.success), // Assuming API returns { success: true/false }
-      catchError(() => of(false))
+  toggleFollowStatus(sourceUsername: string, targetUsername: string, isFollowing: boolean): Observable<boolean> {
+    const action = isFollowing ? 'follow' : 'unfollow';
+  
+
+    const url = isFollowing
+      ? `${this.followUrl}/${sourceUsername}/${targetUsername}` 
+      : `${this.followUrl}/unfollow/${sourceUsername}/${targetUsername}`;
+  
+    const method = isFollowing ? 'post' : 'delete';  
+  
+    return this.http.request(method, url).pipe(
+      map(response => {
+        return true;
+      }),
+      catchError((error) => {
+        console.error(`Failed to update ${action} status:`, error);
+        return of(false); 
+      })
     );
   }
+
 }
