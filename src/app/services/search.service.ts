@@ -58,23 +58,16 @@ export class SearchService {
 
   toggleFollowStatus(sourceUsername: string, targetUsername: string, isFollowing: boolean): Observable<boolean> {
     const action = isFollowing ? 'follow' : 'unfollow';
-  
 
     const url = isFollowing
       ? `${this.followUrl}/${sourceUsername}/${targetUsername}` 
       : `${this.followUrl}/unfollow/${sourceUsername}/${targetUsername}`;
   
     const method = isFollowing ? 'post' : 'delete';  
-  
+
     return this.http.request(method, url).pipe(
-      map(response => {
-        return true;
-      }),
-      catchError((error) => {
-        console.error(`Failed to update ${action} status:`, error);
-        return of(false); 
-      })
+      map(() => true),
+      catchError(() => of(false))
     );
   }
-
 }

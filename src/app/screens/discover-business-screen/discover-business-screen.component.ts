@@ -49,7 +49,6 @@ export class DiscoverBusinessScreenComponent implements OnInit {
     });
   }
   
-
   goToNextPage(): void {
     this.router.navigate(['/consumer-home/adfeed']); 
   }
