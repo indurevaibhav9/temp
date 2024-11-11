@@ -6,14 +6,14 @@ import { ionEye, ionEyeOff } from "@ng-icons/ionicons";
 import { AlertPopupComponent } from "src/app/screens/alert-popup/alert-popup.component";
 import { LoginRoutingModule } from "./login-routing.module";
 import { LoginComponent } from "./login.component";
-<<<<<<< HEAD
 import { BusinessHomeModule } from "../business-home/business-home.module";
 import { SharedModule } from "src/app/shared/shared-module/shared.module";
 
 
 @NgModule({
-  declarations: [LoginComponent],
->>>>>>> 4c6615d (Added stashed changes)
+  declarations: [
+    LoginComponent
+  ],
   imports: [
     CommonModule,
     LoginRoutingModule,
@@ -21,7 +21,9 @@ import { SharedModule } from "src/app/shared/shared-module/shared.module";
     NgIconsModule.withIcons({ ionEye, ionEyeOff }),
     SharedModule
   ],
-  schemas: [NO_ERRORS_SCHEMA],  // Use NO_ERRORS_SCHEMA for handling unknown components, only if needed
-  schemas: [NO_ERRORS_SCHEMA],  // Use NO_ERRORS_SCHEMA for handling unknown components, only if needed
+  schemas: [NO_ERRORS_SCHEMA],
+  exports: [
+    LoginComponent 
+  ]
 })
 export class LoginModule {}

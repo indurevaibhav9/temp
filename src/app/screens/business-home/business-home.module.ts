@@ -10,16 +10,12 @@ import { BusinessHomeRoutingModule } from './business-home-routing.module';
   declarations: [
     BusinessBottomNavbarComponent,
     BusinessTopNavbarComponent,
-    BusinessHomeComponent // Declare the components used in this module
+    BusinessHomeComponent 
   ],
   imports: [
     CommonModule,
     FontAwesomeModule,
-<<<<<<< HEAD
-    RouterModule.forChild(routes) // Register the routes for the business-home module
-=======
     BusinessHomeRoutingModule
->>>>>>> bc8790b (Corrected Routes for consumer-home and business-home)
   ],
   exports: [
     BusinessBottomNavbarComponent,
