@@ -12,8 +12,9 @@ const routes: Routes = [
     loadChildren: () => import("./screens/login/login.module").then(m => m.LoginModule),
     // canActivate: [loginGuard]
   },
-  { path: "register", loadChildren: () => import("./screens/register/register.module").then(m => m.RegisterModule) },
-
+  { path: "register", 
+    loadChildren: () => import("./screens/register/register.module").then(m => m.RegisterModule) 
+  },
   {
     path: "discover-business-screen",
     loadChildren: () => import("./screens/discover-business-screen/discover-business-screen.module").then(m => m.DiscoverBusinessScreenModule),
