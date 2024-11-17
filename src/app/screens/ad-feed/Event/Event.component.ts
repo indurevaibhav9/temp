@@ -23,7 +23,9 @@ export class EventComponent implements OnInit {
   isSaved: boolean = false; // Track saved state
   showSavedMessage: boolean = false; // Track the display of "Saved" message
   
-
+  showPopup: boolean = false;
+  popupTitle: string = 'Error';
+  popupBody: string = '';
 
    // Font Awesome icons
    faBars = faBars;
@@ -45,11 +47,11 @@ export class EventComponent implements OnInit {
   isLiked: boolean = false; // State for like
   isDisliked: boolean = false; // State for dislike
 
-  constructor(private AdvertisementDetailsService: AdvertisementDetailsService) {}
+  constructor(private advertisementDetailsService: AdvertisementDetailsService) {}
 
   
   ngOnInit(): void {
-    const { remainingDays, remainingHours, isExpired } = this.AdvertisementDetailsService.calculateExpiry(this.eventDetails.offerExpiry);
+    const { remainingDays, remainingHours, isExpired } = this.advertisementDetailsService.calculateExpiry(this.eventDetails.offerExpiry);
     this.remainingDays = remainingDays;
     this.remainingHours = remainingHours;
     this.isExpired = isExpired;
@@ -57,44 +59,64 @@ export class EventComponent implements OnInit {
 
   likePost(): void {
     const advertisementId = this.eventDetails.advertisementId;
-
     this.triggerAnimation('like');
 
     if (!this.isLiked) {
-      this.isLiked = true; // Update like state
-      this.isDisliked = false; // Reset dislike state
-      this.eventDetails.likes += 1; // Increment likes immediatel
+      this.isLiked = true;
+      this.isDisliked = false;
+      this.eventDetails.likes += 1;
 
-      this.AdvertisementDetailsService.updateLikes(advertisementId, (updatedPost) => {
-        this.eventDetails.likes = updatedPost.likes;
+      this.advertisementDetailsService.updateLikes(advertisementId).subscribe({
+        next: (updatedPost) => {
+          this.eventDetails.likes = updatedPost.likes;
+        },
+        error: (err) => {
+          this.showError('Like Error', 'Failed to update likes. Please try again.');
+          console.error('Error updating likes:', err);
+        },
       });
     } else {
-      // If already liked, you can choose to un-like
       this.isLiked = false;
-      this.AdvertisementDetailsService.updateLikes(advertisementId, (updatedPost) => {
-        this.eventDetails.likes = updatedPost.likes;
+      this.advertisementDetailsService.updateLikes(advertisementId).subscribe({
+        next: (updatedPost) => {
+          this.eventDetails.likes = updatedPost.likes;
+        },
+        error: (err) => {
+          this.showError('Like Error', 'Failed to update likes. Please try again.');
+          console.error('Error updating likes:', err);
+        },
       });
     }
   }
 
   dislikePost(): void {
     const advertisementId = this.eventDetails.advertisementId;
-
     this.triggerAnimation('dislike');
 
     if (!this.isDisliked) {
-      this.isDisliked = true; // Update dislike state
-      this.isLiked = false; // Reset like state
-      this.eventDetails.dislikes += 1; // Increment dislikes immediately
+      this.isDisliked = true;
+      this.isLiked = false;
+      this.eventDetails.dislikes += 1;
 
-      this.AdvertisementDetailsService.updateDislikes(advertisementId, (updatedPost) => {
-        this.eventDetails.dislikes = updatedPost.dislikes;
+      this.advertisementDetailsService.updateDislikes(advertisementId).subscribe({
+        next: (updatedPost) => {
+          this.eventDetails.dislikes = updatedPost.dislikes;
+        },
+        error: (err) => {
+          this.showError('Dislike Error', 'Failed to update dislikes. Please try again.');
+          console.error('Error updating dislikes:', err);
+        },
       });
     } else {
-      // If already disliked, you can choose to un-dislike
       this.isDisliked = false;
-      this.AdvertisementDetailsService.updateDislikes(advertisementId, (updatedPost) => {
-        this.eventDetails.dislikes = updatedPost.dislikes;
+      this.advertisementDetailsService.updateDislikes(advertisementId).subscribe({
+        next: (updatedPost) => {
+          this.eventDetails.dislikes = updatedPost.dislikes;
+        },
+        error: (err) => {
+          this.showError('Dislike Error', 'Failed to update dislikes. Please try again.');
+          console.error('Error updating dislikes:', err);
+        },
       });
     }
   }
@@ -103,43 +125,39 @@ export class EventComponent implements OnInit {
     const advertisementId = this.eventDetails.advertisementId;
     const username = this.eventDetails.username;
 
-    // Show the saved message immediately
+    this.triggerAnimation('save');
     this.showSavedMessage = true;
 
-    // Hide the saved message after 2 seconds
     setTimeout(() => {
-        this.showSavedMessage = false;
-    }, 500); // Adjust the delay as needed
+      this.showSavedMessage = false;
+    }, 500);
 
-    // Call the savePost service (this can still be done in the background)
-    this.AdvertisementDetailsService.savePost(username, advertisementId, (response) => {
+    this.advertisementDetailsService.savePost(username, advertisementId).subscribe({
+      next: (response) => {
         console.log('Post saved successfully:', response);
         this.isSaved = true;
+      },
+      error: (err) => {
+        this.showError('Save Error', 'Failed to save the post. Please try again.');
+        console.error('Error saving post:', err);
+      },
     });
-}
-  
+  }
 
   toggleReportButton(): void {
-    this.showReportButton = !this.showReportButton; // Toggle the visibility
+    this.showReportButton = !this.showReportButton; 
   }
 
   reportPost(): void {
-    // Logic to report the post can be added here, e.g., calling a service
-
-    // Show the success message
     this.showReportSuccess = true;
-
-    // Hide the report button after reporting
-    this.showReportButton = false; // Hide the report button after reporting
+    this.showReportButton = false; 
     document.body.style.overflow = 'hidden';  
   }
 
-  // New method to hide the success message
   hideReportSuccess(): void {
-    this.showReportSuccess = false; // Hide the success message
-    document.body.style.overflow = 'auto';  // Re-enable scrolling
+    this.showReportSuccess = false; 
+    document.body.style.overflow = 'auto';  
   }
-
 
   private triggerAnimation(type: 'like' | 'dislike' | 'save') {
     if (type === 'like') {
@@ -150,9 +168,14 @@ export class EventComponent implements OnInit {
     setTimeout(() => {
       this.showLikeAnimation = false;
       this.showDislikeAnimation = false;
-    }, 500); // 500 milliseconds for the animation
+    }, 500); 
   }
-  
+
+  showError(title: string, body: string) {
+    this.popupTitle = title;
+    this.popupBody = body;
+    this.showPopup = true;
+  }
   
   bookNow(): void {
     // Replace the URL with the website you want to redirect to

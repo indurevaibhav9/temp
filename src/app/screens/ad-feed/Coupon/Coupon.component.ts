@@ -18,12 +18,16 @@ export class CouponComponent implements OnInit {
   showReportButton: boolean = false;
   remainingHours: number;
 
-  showLikeAnimation: boolean = false;
+  showLikeAnimation: boolean = false; 
   showDislikeAnimation: boolean = false;
   isSaved: boolean = false; // Track saved state
   showSavedMessage: boolean = false; // Track the display of "Saved" message
   copyButtonText: string = 'Copy';
   showReportSuccess: boolean = false; // Track visibility of success message
+
+  showPopup: boolean = false;
+  popupTitle: string = 'Error';
+  popupBody: string = '';
 
   // Font Awesome icons
   faBars = faBars;
@@ -44,8 +48,8 @@ export class CouponComponent implements OnInit {
   faThumbsDownOutline = faThumbsDownOutline;
 
   // Track like/dislike state
-  isLiked: boolean = false; // State for like
-  isDisliked: boolean = false; // State for dislike
+  isLiked: boolean = false; 
+  isDisliked: boolean = false; 
 
   constructor(private advertisementDetailsService: AdvertisementDetailsService) {}
 
@@ -56,59 +60,71 @@ export class CouponComponent implements OnInit {
       this.remainingHours = remainingHours;
       this.isExpired = isExpired;
     } catch (error) {
-      this.handleError(error);
+      console.error('Error calculating expiry:', error);
     }
   }
 
   likePost(): void {
     const advertisementId = this.couponDetails.advertisementId;
-
     this.triggerAnimation('like');
 
-    try {
-      if (!this.isLiked) {
-        this.isLiked = true; // Update like state
-        this.isDisliked = false; // Reset dislike state
-        this.couponDetails.likes += 1; // Increment likes immediately
+    if (!this.isLiked) {
+      this.isLiked = true;
+      this.isDisliked = false;
+      this.couponDetails.likes += 1;
 
-        this.advertisementDetailsService.updateLikes(advertisementId, (updatedPost) => {
+      this.advertisementDetailsService.updateLikes(advertisementId).subscribe({
+        next: (updatedPost) => {
           this.couponDetails.likes = updatedPost.likes;
-        });
-      } else {
-        // If already liked, you can choose to un-like
-        this.isLiked = false;
-        this.advertisementDetailsService.updateLikes(advertisementId, (updatedPost) => {
+        },
+        error: (err) => {
+          this.showError('Like Error', 'Failed to update likes. Please try again.');
+          console.error('Error updating likes:', err);
+        },
+      });
+    } else {
+      this.isLiked = false;
+      this.advertisementDetailsService.updateLikes(advertisementId).subscribe({
+        next: (updatedPost) => {
           this.couponDetails.likes = updatedPost.likes;
-        });
-      }
-    } catch (error) {
-      this.handleError(error);
+        },
+        error: (err) => {
+          this.showError('Like Error', 'Failed to update likes. Please try again.');
+          console.error('Error updating likes:', err);
+        },
+      });
     }
   }
 
   dislikePost(): void {
     const advertisementId = this.couponDetails.advertisementId;
-
     this.triggerAnimation('dislike');
 
-    try {
-      if (!this.isDisliked) {
-        this.isDisliked = true; // Update dislike state
-        this.isLiked = false; // Reset like state
-        this.couponDetails.dislikes += 1; // Increment dislikes immediately
+    if (!this.isDisliked) {
+      this.isDisliked = true;
+      this.isLiked = false;
+      this.couponDetails.dislikes += 1;
 
-        this.advertisementDetailsService.updateDislikes(advertisementId, (updatedPost) => {
+      this.advertisementDetailsService.updateDislikes(advertisementId).subscribe({
+        next: (updatedPost) => {
           this.couponDetails.dislikes = updatedPost.dislikes;
-        });
-      } else {
-        // If already disliked, you can choose to un-dislike
-        this.isDisliked = false;
-        this.advertisementDetailsService.updateDislikes(advertisementId, (updatedPost) => {
+        },
+        error: (err) => {
+          this.showError('Dislike Error', 'Failed to update dislikes. Please try again.');
+          console.error('Error updating dislikes:', err);
+        },
+      });
+    } else {
+      this.isDisliked = false;
+      this.advertisementDetailsService.updateDislikes(advertisementId).subscribe({
+        next: (updatedPost) => {
           this.couponDetails.dislikes = updatedPost.dislikes;
-        });
-      }
-    } catch (error) {
-      this.handleError(error);
+        },
+        error: (err) => {
+          this.showError('Dislike Error', 'Failed to update dislikes. Please try again.');
+          console.error('Error updating dislikes:', err);
+        },
+      });
     }
   }
 
@@ -117,49 +133,55 @@ export class CouponComponent implements OnInit {
     const username = this.couponDetails.username;
 
     this.triggerAnimation('save');
+    this.showSavedMessage = true;
 
-    try {
-      // Show the saved message immediately
-      this.showSavedMessage = true;
+    setTimeout(() => {
+      this.showSavedMessage = false;
+    }, 500);
 
-      // Hide the saved message after 2 seconds
-      setTimeout(() => {
-        this.showSavedMessage = false;
-      }, 500); // Adjust the delay as needed
-
-      // Call the savePost service (this can still be done in the background)
-      this.advertisementDetailsService.savePost(username, advertisementId, (response) => {
+    this.advertisementDetailsService.savePost(username, advertisementId).subscribe({
+      next: (response) => {
         console.log('Post saved successfully:', response);
         this.isSaved = true;
-      });
-    } catch (error) {
-      this.handleError(error);
-    }
+      },
+      error: (err) => {
+        this.showError('Save Error', 'Failed to save the post. Please try again.');
+        console.error('Error saving post:', err);
+      },
+    });
+  }
+
+  copyToClipboard(couponCode: string): void {
+    navigator.clipboard.writeText(couponCode).then(() => {
+      this.copyButtonText = 'Copied';
+      setTimeout(() => {
+        this.copyButtonText = 'Copy';
+      }, 2000);
+    }).catch(err => {
+      this.showError('Copy Error', 'Failed to copy coupon code. Please try again.');
+      console.error('Failed to copy coupon code:', err);
+    });
+  }
+
+  showError(title: string, body: string) {
+    this.popupTitle = title;
+    this.popupBody = body;
+    this.showPopup = true;
   }
 
   toggleReportButton(): void {
-    this.showReportButton = !this.showReportButton; // Toggle the visibility
+    this.showReportButton = !this.showReportButton; 
   }
 
   reportPost(): void {
-    try {
-      // Logic to report the post can be added here, e.g., calling a service
-
-      // Show the success message
-      this.showReportSuccess = true;
-
-      // Hide the report button after reporting
-      this.showReportButton = false; // Hide the report button after reporting
-      document.body.style.overflow = 'hidden';
-    } catch (error) {
-      this.handleError(error);
-    }
+    this.showReportSuccess = true;
+    this.showReportButton = false; 
+    document.body.style.overflow = 'hidden';  
   }
 
-  // New method to hide the success message
   hideReportSuccess(): void {
-    this.showReportSuccess = false; // Hide the success message
-    document.body.style.overflow = 'auto';  // Re-enable scrolling
+    this.showReportSuccess = false; 
+    document.body.style.overflow = 'auto';  
   }
 
   private triggerAnimation(type: 'like' | 'dislike' | 'save') {
@@ -171,22 +193,6 @@ export class CouponComponent implements OnInit {
     setTimeout(() => {
       this.showLikeAnimation = false;
       this.showDislikeAnimation = false;
-    }, 500); // 500 milliseconds for the animation
-  }
-
-  copyToClipboard(couponCode: string): void {
-    navigator.clipboard.writeText(couponCode).then(() => {
-      this.copyButtonText = 'Copied'; // Change button text to "Copied"
-      setTimeout(() => {
-        this.copyButtonText = 'Copy'; // Revert back to "Copy" after 2 seconds
-      }, 2000);
-    }).catch(err => {
-      this.handleError(err); // Show error in popup
-    });
-  }
-
-  private handleError(error: any): void {
-    const message = error?.error?.message || 'An unexpected error occurred';
-    alert(message); // Display error in a simple popup
+    }, 500); 
   }
 }

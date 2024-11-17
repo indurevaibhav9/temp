@@ -21,6 +21,9 @@ export class PostComponent implements OnInit {
   showReportButton: boolean = false; // Track visibility of report button
   showReportSuccess: boolean = false; // Track visibility of success message
 
+  showPopup: boolean = false;
+  popupTitle: string = 'Error';
+  popupBody: string = '';
   // Font Awesome icons
   faBars = faBars;
   faUserGroup = faUserGroup;
@@ -43,10 +46,10 @@ export class PostComponent implements OnInit {
   isLiked: boolean = false; // State for like
   isDisliked: boolean = false; // State for dislike
 
-  constructor(private AdvertisementDetailsService: AdvertisementDetailsService) {}
+  constructor(private advertisementDetailsService: AdvertisementDetailsService) {}
 
   ngOnInit(): void {
-    const { remainingDays, remainingHours, isExpired } = this.AdvertisementDetailsService.calculateExpiry(this.postDetails.offerExpiry);
+    const { remainingDays, remainingHours, isExpired } = this.advertisementDetailsService.calculateExpiry(this.postDetails.offerExpiry);
     this.remainingDays = remainingDays;
     this.remainingHours = remainingHours;
     this.isExpired = isExpired;
@@ -54,44 +57,64 @@ export class PostComponent implements OnInit {
 
   likePost(): void {
     const advertisementId = this.postDetails.advertisementId;
-
     this.triggerAnimation('like');
 
     if (!this.isLiked) {
-      this.isLiked = true; // Update like state
-      this.isDisliked = false; // Reset dislike state
-      this.postDetails.likes += 1; // Increment likes immediatel
+      this.isLiked = true;
+      this.isDisliked = false;
+      this.postDetails.likes += 1;
 
-      this.AdvertisementDetailsService.updateLikes(advertisementId, (updatedPost) => {
-        this.postDetails.likes = updatedPost.likes;
+      this.advertisementDetailsService.updateLikes(advertisementId).subscribe({
+        next: (updatedPost) => {
+          this.postDetails.likes = updatedPost.likes;
+        },
+        error: (err) => {
+          this.showError('Like Error', 'Failed to update likes. Please try again.');
+          console.error('Error updating likes:', err);
+        },
       });
     } else {
-      // If already liked, you can choose to un-like
       this.isLiked = false;
-      this.AdvertisementDetailsService.updateLikes(advertisementId, (updatedPost) => {
-        this.postDetails.likes = updatedPost.likes;
+      this.advertisementDetailsService.updateLikes(advertisementId).subscribe({
+        next: (updatedPost) => {
+          this.postDetails.likes = updatedPost.likes;
+        },
+        error: (err) => {
+          this.showError('Like Error', 'Failed to update likes. Please try again.');
+          console.error('Error updating likes:', err);
+        },
       });
     }
   }
 
   dislikePost(): void {
     const advertisementId = this.postDetails.advertisementId;
-
     this.triggerAnimation('dislike');
 
     if (!this.isDisliked) {
-      this.isDisliked = true; // Update dislike state
-      this.isLiked = false; // Reset like state
-      this.postDetails.dislikes += 1; // Increment dislikes immediately
+      this.isDisliked = true;
+      this.isLiked = false;
+      this.postDetails.dislikes += 1;
 
-      this.AdvertisementDetailsService.updateDislikes(advertisementId, (updatedPost) => {
-        this.postDetails.dislikes = updatedPost.dislikes;
+      this.advertisementDetailsService.updateDislikes(advertisementId).subscribe({
+        next: (updatedPost) => {
+          this.postDetails.dislikes = updatedPost.dislikes;
+        },
+        error: (err) => {
+          this.showError('Dislike Error', 'Failed to update dislikes. Please try again.');
+          console.error('Error updating dislikes:', err);
+        },
       });
     } else {
-      // If already disliked, you can choose to un-dislike
       this.isDisliked = false;
-      this.AdvertisementDetailsService.updateDislikes(advertisementId, (updatedPost) => {
-        this.postDetails.dislikes = updatedPost.dislikes;
+      this.advertisementDetailsService.updateDislikes(advertisementId).subscribe({
+        next: (updatedPost) => {
+          this.postDetails.dislikes = updatedPost.dislikes;
+        },
+        error: (err) => {
+          this.showError('Dislike Error', 'Failed to update dislikes. Please try again.');
+          console.error('Error updating dislikes:', err);
+        },
       });
     }
   }
@@ -99,19 +122,25 @@ export class PostComponent implements OnInit {
   savePost(): void {
     const advertisementId = this.postDetails.advertisementId;
     const username = this.postDetails.username;
+
     this.triggerAnimation('save');
-    
     this.showSavedMessage = true;
 
     setTimeout(() => {
-        this.showSavedMessage = false;
-    }, 500); 
+      this.showSavedMessage = false;
+    }, 500);
 
-    this.AdvertisementDetailsService.savePost(username, advertisementId, (response) => {
+    this.advertisementDetailsService.savePost(username, advertisementId).subscribe({
+      next: (response) => {
         console.log('Post saved successfully:', response);
         this.isSaved = true;
+      },
+      error: (err) => {
+        this.showError('Save Error', 'Failed to save the post. Please try again.');
+        console.error('Error saving post:', err);
+      },
     });
-}
+  }
 
   toggleReportButton(): void {
     this.showReportButton = !this.showReportButton; 
@@ -127,6 +156,11 @@ export class PostComponent implements OnInit {
     this.showReportSuccess = false; 
     document.body.style.overflow = 'auto';  
   }
+  showError(title: string, body: string) {
+    this.popupTitle = title;
+    this.popupBody = body;
+    this.showPopup = true;
+  }
 
   private triggerAnimation(type: 'like' | 'dislike' | 'save') {
     if (type === 'like') {
@@ -139,4 +173,5 @@ export class PostComponent implements OnInit {
       this.showDislikeAnimation = false;
     }, 500); 
   }
-}
+
+}  
