@@ -79,18 +79,19 @@ export class CouponComponent implements OnInit {
         },
         error: (err) => {
           this.showError('Like Error', 'Failed to update likes. Please try again.');
-          console.error('Error updating likes:', err);
+          
         },
       });
     } else {
       this.isLiked = false;
+      this.couponDetails.likes -= 1;
       this.advertisementDetailsService.updateLikes(advertisementId).subscribe({
         next: (updatedPost) => {
           this.couponDetails.likes = updatedPost.likes;
         },
         error: (err) => {
           this.showError('Like Error', 'Failed to update likes. Please try again.');
-          console.error('Error updating likes:', err);
+        
         },
       });
     }
@@ -111,18 +112,19 @@ export class CouponComponent implements OnInit {
         },
         error: (err) => {
           this.showError('Dislike Error', 'Failed to update dislikes. Please try again.');
-          console.error('Error updating dislikes:', err);
+          
         },
       });
     } else {
       this.isDisliked = false;
+      this.couponDetails.dislikes -= 1;
       this.advertisementDetailsService.updateDislikes(advertisementId).subscribe({
         next: (updatedPost) => {
           this.couponDetails.dislikes = updatedPost.dislikes;
         },
         error: (err) => {
           this.showError('Dislike Error', 'Failed to update dislikes. Please try again.');
-          console.error('Error updating dislikes:', err);
+          
         },
       });
     }
@@ -146,7 +148,7 @@ export class CouponComponent implements OnInit {
       },
       error: (err) => {
         this.showError('Save Error', 'Failed to save the post. Please try again.');
-        console.error('Error saving post:', err);
+        
       },
     });
   }
@@ -159,7 +161,7 @@ export class CouponComponent implements OnInit {
       }, 2000);
     }).catch(err => {
       this.showError('Copy Error', 'Failed to copy coupon code. Please try again.');
-      console.error('Failed to copy coupon code:', err);
+     
     });
   }
 

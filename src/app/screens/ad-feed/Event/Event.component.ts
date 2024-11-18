@@ -72,18 +72,19 @@ export class EventComponent implements OnInit {
         },
         error: (err) => {
           this.showError('Like Error', 'Failed to update likes. Please try again.');
-          console.error('Error updating likes:', err);
+          
         },
       });
     } else {
       this.isLiked = false;
+      this.eventDetails.likes -= 1;
       this.advertisementDetailsService.updateLikes(advertisementId).subscribe({
         next: (updatedPost) => {
           this.eventDetails.likes = updatedPost.likes;
         },
         error: (err) => {
           this.showError('Like Error', 'Failed to update likes. Please try again.');
-          console.error('Error updating likes:', err);
+          
         },
       });
     }
@@ -104,18 +105,19 @@ export class EventComponent implements OnInit {
         },
         error: (err) => {
           this.showError('Dislike Error', 'Failed to update dislikes. Please try again.');
-          console.error('Error updating dislikes:', err);
+  
         },
       });
     } else {
       this.isDisliked = false;
+      this.eventDetails.dislikes -= 1;
       this.advertisementDetailsService.updateDislikes(advertisementId).subscribe({
         next: (updatedPost) => {
           this.eventDetails.dislikes = updatedPost.dislikes;
         },
         error: (err) => {
           this.showError('Dislike Error', 'Failed to update dislikes. Please try again.');
-          console.error('Error updating dislikes:', err);
+          
         },
       });
     }
@@ -139,7 +141,7 @@ export class EventComponent implements OnInit {
       },
       error: (err) => {
         this.showError('Save Error', 'Failed to save the post. Please try again.');
-        console.error('Error saving post:', err);
+        
       },
     });
   }
