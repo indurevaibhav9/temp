@@ -1,10 +1,9 @@
 import { environment } from '../environments/environment';
 
 export const API_CONFIG = {
-
   // Image Service
   IMAGE_URL: 'https://images.spreezy.in',
-  
+
   // Auth Service Endpoints
   AUTH_LOGOUT: (userName: string) => `${environment.apiGateway}/auth/${userName}/logout`,
   GENERATE_OTP: `${environment.apiGateway}/auth/generate-otp`,
@@ -25,5 +24,16 @@ export const API_CONFIG = {
   // Search Service Endpoints
   SEARCH_BUSINESSES: (query: string) => `http://localhost:8762/user/search/${query}`,
 
-  
+  // Settings Service Endpoints
+  SETTINGS: {
+    GET_CONSUMER_DETAILS: (username: string) =>
+      `${environment.apiGateway}/settings/consumer-details/${username}`,
+    UPDATE_CONSUMER_DETAILS: `${environment.apiGateway}/settings/update-consumer`,
+    GET_BUSINESS_DETAILS: (username: string) =>
+      `${environment.apiGateway}/settings/business-details/${username}`,
+    UPDATE_BUSINESS_DETAILS: `${environment.apiGateway}/settings/update-business`,
+    GENERATE_PRESIGNED_URL: `${environment.apiGateway}/content/generate-presigned-url`,
+    GET_IMAGE_LINK: (imageFileName: string) =>
+      `${environment.apiGateway}/settings/get-image/${imageFileName}`,
+  },
 };

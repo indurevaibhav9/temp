@@ -1,19 +1,19 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { UserInformation } from '../models/user-information';
 import { BusinessInformation } from '../models/business-information';
 import { PresignedUrl } from '../models/presigned-url';
+import { API_CONFIG } from '../api-config';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SettingsService {
-
   private generatedFileNamesSubject = new BehaviorSubject<string[]>([]);
   generatedFileNames$ = this.generatedFileNamesSubject.asObservable();
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   setGeneratedFileNames(fileNames: string[]): void {
     this.generatedFileNamesSubject.next(fileNames);
@@ -25,75 +25,62 @@ export class SettingsService {
   }
 
   getUserDetails(username: string): Observable<any> {
-    return this.http.get(`http://192.168.1.108:8762/settings/consumer-details/${username}`,
-      {
-        responseType: 'text',
-        headers: new HttpHeaders({
+    return this.http.get(API_CONFIG.SETTINGS.GET_CONSUMER_DETAILS(username), {
+      responseType: 'text',
+      headers: new HttpHeaders({
         'ngrok-skip-browser-warning': 'true',
         'Content-Type': 'application/json',
-        'accept': '*/*',
+        accept: '*/*',
       }),
     });
   }
 
-  postUserDetails(data:UserInformation):Observable<String>{
-    return this.http.post(
-      `http://192.168.1.108:8762/settings/update-consumer`,
-      data,
-      {
-        responseType: 'text',
-        headers: new HttpHeaders({
-          'ngrok-skip-browser-warning': 'true',
-          'Content-Type': 'application/json',
-          'accept': '*/*',
-        }),
-      }
-    );
+  postUserDetails(data: UserInformation): Observable<string> {
+    return this.http.post(API_CONFIG.SETTINGS.UPDATE_CONSUMER_DETAILS, data, {
+      responseType: 'text',
+      headers: new HttpHeaders({
+        'ngrok-skip-browser-warning': 'true',
+        'Content-Type': 'application/json',
+        accept: '*/*',
+      }),
+    });
   }
 
   getBusinessDetails(username: string): Observable<any> {
-    return this.http.get(`http://192.168.1.108:8762/settings/business-details/${username}`,
-      {
-        responseType: 'text',
+    return this.http.get(API_CONFIG.SETTINGS.GET_BUSINESS_DETAILS(username), {
+      responseType: 'text',
     });
   }
 
-  postBusinessDetails(data:BusinessInformation):Observable<String>{
-    return this.http.post(
-      `http://192.168.1.108:8762/settings/update-business`,
-      data,
-      {
-        responseType: 'text',
-      }
-    );
+  postBusinessDetails(data: BusinessInformation): Observable<string> {
+    return this.http.post(API_CONFIG.SETTINGS.UPDATE_BUSINESS_DETAILS, data, {
+      responseType: 'text',
+    });
   }
 
-  getPresignedUrl(imageFileNames: string[], username: string): Observable<PresignedUrl> {
+  getPresignedUrl(
+    imageFileNames: string[],
+    username: string
+  ): Observable<PresignedUrl> {
     return this.http.post<PresignedUrl>(
-      `http://192.168.1.108:8081/content/generate-presigned-url`,
-      { imageFileNames, username },
+      API_CONFIG.SETTINGS.GENERATE_PRESIGNED_URL,
+      { imageFileNames, username }
     );
   }
 
-  uploadToS3(file: File, presignedUrl: string){
+  uploadToS3(file: File, presignedUrl: string): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': file.type });
-    return this.http.put(
-      presignedUrl,
-      file,
-      { headers }
-    );
+    return this.http.put(presignedUrl, file, { headers });
   }
 
-  getImageLink(username:string,imageFileName:string): Observable<string>{
-    return this.http.get(`http://192.168.1.108:8762/settings/get-image/${imageFileName}`,
-      {
-        responseType: 'text',
-        headers: new HttpHeaders({
+  getImageLink(username:string,imageFileName: string): Observable<string> {
+    return this.http.get(API_CONFIG.SETTINGS.GET_IMAGE_LINK(imageFileName), {
+      responseType: 'text',
+      headers: new HttpHeaders({
         'ngrok-skip-browser-warning': 'true',
         'Content-Type': 'application/json',
-        'accept': '*/*',
+        accept: '*/*',
       }),
     });
   }
-
 }
