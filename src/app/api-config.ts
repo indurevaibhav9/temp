@@ -33,7 +33,7 @@ export const API_CONFIG = {
       `${environment.apiGateway}/settings/business-details/${username}`,
     UPDATE_BUSINESS_DETAILS: `${environment.apiGateway}/settings/update-business`,
     GENERATE_PRESIGNED_URL: `${environment.apiGateway}/content/generate-presigned-url`,
-    GET_IMAGE_LINK: (imageFileName: string) =>
+    GET_IMAGE_LINK: (imageFileName: string,username: string) =>
       `${environment.apiGateway}/settings/get-image/${imageFileName}`,
   },
 };

@@ -74,7 +74,7 @@ export class SettingsService {
   }
 
   getImageLink(username:string,imageFileName: string): Observable<string> {
-    return this.http.get(API_CONFIG.SETTINGS.GET_IMAGE_LINK(imageFileName), {
+    return this.http.get(API_CONFIG.SETTINGS.GET_IMAGE_LINK(imageFileName,username), {
       responseType: 'text',
       headers: new HttpHeaders({
         'ngrok-skip-browser-warning': 'true',
