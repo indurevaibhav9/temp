@@ -12,17 +12,17 @@ export const API_CONFIG = {
 
   // Business Service Endpoints
   GET_BUSINESS_DETAILS: (username: string) =>
-    `http://192.168.1.14:8761/user/profile/${username}`,
+    `${environment.apiGateway}/user/profile/${username}`,
   GET_PROFILE_POSTS: (username: string) =>
-    `http://192.168.1.3:8082/feed/business/profile/${username}`,
+    `${environment.apiGateway}/feed/business/profile/${username}`,
   GET_SAVED_POSTS: (username: string) =>
-    `http://192.168.1.3:8082/feed/saved/${username}`,
+    `${environment.apiGateway}/feed/saved/${username}`,
 
   // Feedback Service Endpoints
-  SAVE_FEEDBACK: 'http://localhost:8081/feedback/saveFeedback',
+  SAVE_FEEDBACK: `${environment.apiGateway}/feedback/saveFeedback`,
 
   // Search Service Endpoints
-  SEARCH_BUSINESSES: (query: string) => `http://localhost:8762/user/search/${query}`,
+  SEARCH_BUSINESSES: (query: string) => `${environment.apiGateway}/user/search/${query}`,
 
   // Settings Service Endpoints
   SETTINGS: {
