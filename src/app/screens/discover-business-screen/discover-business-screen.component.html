@@ -12,7 +12,6 @@
 
   <div class="business-list flex flex-col gap-4">
     <div *ngFor="let business of businesses" class="business-card flex items-center justify-between bg-white p-4 rounded-lg shadow-md">
-
       <app-profile-info 
         [name]="business.name" 
         [username]="business.username" 
@@ -26,3 +25,9 @@
     </div>
   </div>
 </div>
+
+<app-pop-up *ngIf="showPopUp" 
+            [messageTitle]="messageTitle" 
+            [messageBody]="messageBody" 
+            (close)="closePopUp()">
+</app-pop-up>

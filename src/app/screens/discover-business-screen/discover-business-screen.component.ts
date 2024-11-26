@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { SearchService } from 'src/app/services/search.service';
-import { Router } from '@angular/router'; 
+import { Router } from '@angular/router';
 import { UserProfileDTO } from 'src/app/models/UserProfileDTO';
+import { DecodedToken } from 'src/app/models/decodedToken';
+import { JwtDecoderService } from 'src/app/services/jwtDecoder/jwt-decoder.service';
 
 interface BusinessProfile extends UserProfileDTO {
   isFollowing: boolean;
-  id: string; 
+  id: string;
 }
 
 @Component({
@@ -16,13 +18,34 @@ interface BusinessProfile extends UserProfileDTO {
 })
 export class DiscoverBusinessScreenComponent implements OnInit {
 
+  userType: string;
+  currentUsername: string = '';
   faArrowRight = faArrowRight;
   businesses: BusinessProfile[] = [];
+  showPopUp: boolean = false; 
+  messageTitle: string = '';
+  messageBody: string = '';
 
-  constructor(private searchService: SearchService, private router: Router) {}
+  decodedToken: DecodedToken;
+
+  constructor(
+    private searchService: SearchService, 
+    private router: Router, 
+    private JwtDecoder: JwtDecoderService
+  ) {}
 
   ngOnInit(): void {
-    this.fetchBusinesses(); 
+    this.decodeToken();  
+    this.fetchBusinesses();
+  }
+
+  decodeToken(): void {
+    const token = localStorage.getItem('token') || '';
+    this.decodedToken = this.JwtDecoder.decodeInfoFromToken(token);
+    this.userType = this.decodedToken["User Type"];
+    this.currentUsername = this.decodedToken.sub;
+    console.log('Current username is:', this.currentUsername);
+    console.log('User type is:', this.userType);
   }
 
   fetchBusinesses(query: string = 'a'): void {
@@ -36,11 +59,17 @@ export class DiscoverBusinessScreenComponent implements OnInit {
   }
 
   toggleFollow(business: BusinessProfile): void {
-    const sourceUsername = 'johndoe123'; 
-    
-    this.searchService.toggleFollowStatus(sourceUsername, business.id, !business.isFollowing).subscribe({
+    const Username = ''; 
+  
+    this.searchService.toggleFollowStatus(Username, business.id, !business.isFollowing).subscribe({
       next: () => {
         business.isFollowing = !business.isFollowing;
+  
+        if (business.isFollowing) {
+          this.messageTitle = 'Followed Successfully';
+          this.messageBody = `You have successfully followed the business: ${business.name}`;
+          this.showPopUp = true; 
+        }
         console.log(`${business.isFollowing ? 'Following' : 'Unfollowing'} business: ${business.name}`);
       },
       error: () => {
@@ -48,8 +77,21 @@ export class DiscoverBusinessScreenComponent implements OnInit {
       }
     });
   }
-  
+
+  closePopUp(): void {
+    this.showPopUp = false; 
+  }
+
   goToNextPage(): void {
-    this.router.navigate(['/consumer-home/adfeed']); 
+    if (this.userType === 'Consumer') {
+      this.router.navigate(['/consumer-home/adfeed']);
+    } else if (this.userType === 'Business') {
+      this.router.navigate(['/business-home/adfeed']);
+    } else {
+      this.router.navigate(['/login']);
+    }
+
+    console.log('Current username in next page is:', this.currentUsername);
+    console.log('User type in next page is:', this.userType);
   }
 }
