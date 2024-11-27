@@ -29,7 +29,12 @@ export class BusinessTopNavbarComponent implements OnInit {
   ngOnInit(): void {
     this.fetchBusinessDetails();
   }
-
+  
+  navigateToSettings(): void {
+    console.log("clicked");
+    this.router.navigate(['business-home/settings/business-information']);
+  }
+  
   navigateToSearch(): void {
     this.router.navigate(['business-home/search']);
   }
