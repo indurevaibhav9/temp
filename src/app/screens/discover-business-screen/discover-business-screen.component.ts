@@ -18,7 +18,7 @@ interface BusinessProfile extends UserProfileDTO {
 })
 export class DiscoverBusinessScreenComponent implements OnInit {
 
-  userType: string;
+  userType: string ;
   currentUsername: string = '';
   faArrowRight = faArrowRight;
   businesses: BusinessProfile[] = [];
