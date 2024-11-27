@@ -11,6 +11,8 @@ export class SearchService {
   private businessesUrl = 'http://localhost:8762/user/search';
   private imageUrl = "https://images.spreezy.in";
   private followUrl = 'https://3d90-2401-4900-1ca2-b7b0-ccf9-4658-509f-c0b.ngrok-free.app/user';
+  // private discoverbusiness = 'http://localhost:8762/settings/discover-business'
+  
 
   private searchSubject = new Subject<string>();
   private businessesSubject = new BehaviorSubject<UserProfileDTO[]>([]);

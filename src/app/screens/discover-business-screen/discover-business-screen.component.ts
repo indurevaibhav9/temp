@@ -48,7 +48,7 @@ export class DiscoverBusinessScreenComponent implements OnInit {
     console.log('User type is:', this.userType);
   }
 
-  fetchBusinesses(query: string = 'a'): void {
+  fetchBusinesses(query: string = ''): void {
     this.searchService.fetchBusinesses(query).subscribe((businesses) => {
       this.businesses = businesses.map(business => ({
         ...business,
