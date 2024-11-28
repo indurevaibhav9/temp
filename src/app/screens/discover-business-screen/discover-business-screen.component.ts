@@ -35,20 +35,20 @@ export class DiscoverBusinessScreenComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.decodeToken();  
+    // this.decodeToken();  
     this.fetchBusinesses();
   }
 
-  decodeToken(): void {
-    const token = localStorage.getItem('token') || '';
-    this.decodedToken = this.JwtDecoder.decodeInfoFromToken(token);
-    this.userType = this.decodedToken["User Type"];
-    this.currentUsername = this.decodedToken.sub;
-    console.log('Current username is:', this.currentUsername);
-    console.log('User type is:', this.userType);
-  }
+  // decodeToken(): void {
+  //   const token = localStorage.getItem('token') || '';
+  //   this.decodedToken = this.JwtDecoder.decodeInfoFromToken(token);
+  //   this.userType = this.decodedToken["User Type"];
+  //   this.currentUsername = this.decodedToken.sub;
+  //   console.log('Current username is:', this.currentUsername);
+  //   console.log('User type is:', this.userType);
+  // }
 
-  fetchBusinesses(query: string = ''): void {
+  fetchBusinesses(query: string = 'trending'): void {
     this.searchService.fetchBusinesses(query).subscribe((businesses) => {
       this.businesses = businesses.map(business => ({
         ...business,
@@ -59,7 +59,7 @@ export class DiscoverBusinessScreenComponent implements OnInit {
   }
 
   toggleFollow(business: BusinessProfile): void {
-    const Username = ''; 
+    const Username = 'a'; 
   
     this.searchService.toggleFollowStatus(Username, business.id, !business.isFollowing).subscribe({
       next: () => {
@@ -80,6 +80,10 @@ export class DiscoverBusinessScreenComponent implements OnInit {
 
   closePopUp(): void {
     this.showPopUp = false; 
+  }
+
+  getImageUrl(profilePicture: string): string {
+    return this.searchService.getImageUrl(profilePicture);
   }
 
   goToNextPage(): void {

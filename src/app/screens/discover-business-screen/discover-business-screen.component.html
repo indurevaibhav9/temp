@@ -15,7 +15,7 @@
       <app-profile-info 
         [name]="business.name" 
         [username]="business.username" 
-        [imageUrl]="business.profilePicture">
+        [imageUrl]="getImageUrl(business.profilePicture)">
       </app-profile-info>
 
       <button class="ripple follow-btn bg-primarycolor-0 text-white px-4 py-2 rounded-md hover:bg-opacity-80 transition-all" 
