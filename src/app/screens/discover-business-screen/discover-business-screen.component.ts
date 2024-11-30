@@ -18,7 +18,7 @@ interface BusinessProfile extends UserProfileDTO {
 })
 export class DiscoverBusinessScreenComponent implements OnInit {
 
-  userType: string ;
+  userType: string = '';
   currentUsername: string = '';
   faArrowRight = faArrowRight;
   businesses: BusinessProfile[] = [];
@@ -31,35 +31,50 @@ export class DiscoverBusinessScreenComponent implements OnInit {
   constructor(
     private searchService: SearchService, 
     private router: Router, 
-    private JwtDecoder: JwtDecoderService
+    private jwtDecoder: JwtDecoderService
   ) {}
 
   ngOnInit(): void {
-    // this.decodeToken();  
-    this.fetchBusinesses();
+    this.decodeToken();
+    this.fetchBusinesses(); // Fetch businesses after decoding token
   }
 
-  // decodeToken(): void {
-  //   const token = localStorage.getItem('token') || '';
-  //   this.decodedToken = this.JwtDecoder.decodeInfoFromToken(token);
-  //   this.userType = this.decodedToken["User Type"];
-  //   this.currentUsername = this.decodedToken.sub;
-  //   console.log('Current username is:', this.currentUsername);
-  //   console.log('User type is:', this.userType);
-  // }
+  decodeToken(): void {
+    const token = localStorage.getItem('token') || '';
+    if (token) {
+      try {
+        this.decodedToken = this.jwtDecoder.decodeInfoFromToken(token);
+        this.userType = this.decodedToken["User Type"];
+        this.currentUsername = this.decodedToken.sub;
+        console.log('Current username is:', this.currentUsername);
+        console.log('User type is:', this.userType);
+      } catch (error) {
+        console.error('Error decoding token:', error);
+        this.router.navigate(['/login']); // Redirect to login on token error
+      }
+    } else {
+      console.warn('No token found. Redirecting to login.');
+      this.router.navigate(['/login']); // Redirect to login if token is missing
+    }
+  }
 
   fetchBusinesses(query: string = 'trending'): void {
-    this.searchService.fetchBusinesses(query).subscribe((businesses) => {
-      this.businesses = businesses.map(business => ({
-        ...business,
-        id: business.username, 
-        isFollowing: false 
-      }));
+    this.searchService.fetchBusinesses(query).subscribe({
+      next: (businesses) => {
+        this.businesses = businesses.map(business => ({
+          ...business,
+          id: business.username, 
+          isFollowing: false 
+        }));
+      },
+      error: (error) => {
+        console.error('Error fetching businesses:', error);
+      }
     });
   }
 
   toggleFollow(business: BusinessProfile): void {
-    const Username = 'a'; 
+    const Username = this.currentUsername; // Use decoded username
   
     this.searchService.toggleFollowStatus(Username, business.id, !business.isFollowing).subscribe({
       next: () => {
