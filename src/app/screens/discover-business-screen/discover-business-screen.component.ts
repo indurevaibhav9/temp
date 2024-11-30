@@ -36,7 +36,7 @@ export class DiscoverBusinessScreenComponent implements OnInit {
 
   ngOnInit(): void {
     this.decodeToken();
-    this.fetchBusinesses(); // Fetch businesses after decoding token
+    this.fetchBusinesses(); 
   }
 
   decodeToken(): void {
@@ -48,13 +48,11 @@ export class DiscoverBusinessScreenComponent implements OnInit {
         this.currentUsername = this.decodedToken.sub;
         console.log('Current username is:', this.currentUsername);
         console.log('User type is:', this.userType);
-      } catch (error) {
-        console.error('Error decoding token:', error);
-        this.router.navigate(['/login']); // Redirect to login on token error
+      } catch {
+        this.router.navigate(['/login']); 
       }
     } else {
-      console.warn('No token found. Redirecting to login.');
-      this.router.navigate(['/login']); // Redirect to login if token is missing
+      this.router.navigate(['/login']);
     }
   }
 
@@ -66,29 +64,23 @@ export class DiscoverBusinessScreenComponent implements OnInit {
           id: business.username, 
           isFollowing: false 
         }));
-      },
-      error: (error) => {
-        console.error('Error fetching businesses:', error);
       }
     });
   }
 
   toggleFollow(business: BusinessProfile): void {
-    const Username = this.currentUsername; // Use decoded username
+    const Username = this.currentUsername; 
   
     this.searchService.toggleFollowStatus(Username, business.id, !business.isFollowing).subscribe({
       next: () => {
         business.isFollowing = !business.isFollowing;
-  
-        if (business.isFollowing) {
-          this.messageTitle = 'Followed Successfully';
-          this.messageBody = `You have successfully followed the business: ${business.name}`;
+
+        if (!business.isFollowing) {
+        
+          this.messageBody = `Unfollowed the business: ${business.name}`;
           this.showPopUp = true; 
         }
         console.log(`${business.isFollowing ? 'Following' : 'Unfollowing'} business: ${business.name}`);
-      },
-      error: () => {
-        console.error('Failed to update follow status');
       }
     });
   }
