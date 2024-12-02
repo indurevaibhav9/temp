@@ -10,9 +10,9 @@ import { UserProfileDTO } from '../models/UserProfileDTO';
 export class SearchService {
   private businessesUrl = 'http://localhost:8762/user/search';
   private imageUrl = "https://images.spreezy.in";
-  private followUrl = 'https://3d90-2401-4900-1ca2-b7b0-ccf9-4658-509f-c0b.ngrok-free.app/user';
+  private followUrl = 'http://localhost:8762/user/follow';
+  private unfollowUrl = 'http://localhost:8762/user/unfollow';
   
-
   private searchSubject = new Subject<string>();
   private businessesSubject = new BehaviorSubject<UserProfileDTO[]>([]);
   
@@ -58,11 +58,9 @@ export class SearchService {
   }
 
   toggleFollowStatus(sourceUsername: string, targetUsername: string, isFollowing: boolean): Observable<boolean> {
-    const action = isFollowing ? 'follow' : 'unfollow';
-
     const url = isFollowing
       ? `${this.followUrl}/${sourceUsername}/${targetUsername}` 
-      : `${this.followUrl}/unfollow/${sourceUsername}/${targetUsername}`;
+      : `${this.unfollowUrl}/${sourceUsername}/${targetUsername}`;
   
     const method = isFollowing ? 'post' : 'delete';  
 

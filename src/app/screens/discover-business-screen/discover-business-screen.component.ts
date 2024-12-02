@@ -70,6 +70,7 @@ export class DiscoverBusinessScreenComponent implements OnInit {
 
   toggleFollow(business: BusinessProfile): void {
     const Username = this.currentUsername; 
+    console.log('Business.id', business.id)
   
     this.searchService.toggleFollowStatus(Username, business.id, !business.isFollowing).subscribe({
       next: () => {
