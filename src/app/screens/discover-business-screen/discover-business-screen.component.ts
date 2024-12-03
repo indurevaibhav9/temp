@@ -46,8 +46,6 @@ export class DiscoverBusinessScreenComponent implements OnInit {
         this.decodedToken = this.jwtDecoder.decodeInfoFromToken(token);
         this.userType = this.decodedToken["User Type"];
         this.currentUsername = this.decodedToken.sub;
-        console.log('Current username is:', this.currentUsername);
-        console.log('User type is:', this.userType);
       } catch {
         this.router.navigate(['/login']); 
       }
@@ -70,18 +68,15 @@ export class DiscoverBusinessScreenComponent implements OnInit {
 
   toggleFollow(business: BusinessProfile): void {
     const Username = this.currentUsername; 
-    console.log('Business.id', business.id)
-  
+    
     this.searchService.toggleFollowStatus(Username, business.id, !business.isFollowing).subscribe({
       next: () => {
         business.isFollowing = !business.isFollowing;
 
         if (!business.isFollowing) {
-        
           this.messageBody = `Unfollowed the business: ${business.name}`;
           this.showPopUp = true; 
         }
-        console.log(`${business.isFollowing ? 'Following' : 'Unfollowing'} business: ${business.name}`);
       }
     });
   }
@@ -94,6 +89,14 @@ export class DiscoverBusinessScreenComponent implements OnInit {
     return this.searchService.getImageUrl(profilePicture);
   }
 
+truncate(text: string, length: number): string {
+  if (text.length > length) {
+    return text.substring(0, length) + '...';
+  }
+  return text;
+}
+
+
   goToNextPage(): void {
     if (this.userType === 'Consumer') {
       this.router.navigate(['/consumer-home/adfeed']);
@@ -102,8 +105,5 @@ export class DiscoverBusinessScreenComponent implements OnInit {
     } else {
       this.router.navigate(['/login']);
     }
-
-    console.log('Current username in next page is:', this.currentUsername);
-    console.log('User type in next page is:', this.userType);
   }
 }
