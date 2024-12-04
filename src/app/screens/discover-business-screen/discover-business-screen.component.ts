@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { UserProfileDTO } from 'src/app/models/UserProfileDTO';
 import { DecodedToken } from 'src/app/models/decodedToken';
 import { JwtDecoderService } from 'src/app/services/jwtDecoder/jwt-decoder.service';
+import { ChangeDetectorRef } from '@angular/core';
 
 interface BusinessProfile extends UserProfileDTO {
   isFollowing: boolean;
@@ -31,7 +32,8 @@ export class DiscoverBusinessScreenComponent implements OnInit {
   constructor(
     private searchService: SearchService, 
     private router: Router, 
-    private jwtDecoder: JwtDecoderService
+    private jwtDecoder: JwtDecoderService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {

@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of, Subject, BehaviorSubject } from 'rxjs';
 import { catchError, debounceTime, distinctUntilChanged, switchMap, map } from 'rxjs/operators';
 import { UserProfileDTO } from '../models/UserProfileDTO';
+import { API_CONFIG } from 'src/app/api-config';
+
 
 @Injectable({
   providedIn: 'root'
@@ -15,11 +17,11 @@ export class SearchService {
   
   private searchSubject = new Subject<string>();
   private businessesSubject = new BehaviorSubject<UserProfileDTO[]>([]);
-  
+
   businesses$ = this.businessesSubject.asObservable();
 
   constructor(private http: HttpClient) {
-    this.initSearchSubscription(); 
+    this.initSearchSubscription();
   }
 
   private initSearchSubscription(): void {
@@ -42,6 +44,8 @@ export class SearchService {
 
   fetchBusinesses(searchQuery: string): Observable<UserProfileDTO[]> {
     const url = `${this.businessesUrl}/${searchQuery}`;
+  private fetchBusinesses(searchQuery: string): Observable<UserProfileDTO[]> {
+    const url = API_CONFIG.SEARCH_BUSINESSES(searchQuery);
     return this.http.get<UserProfileDTO[]>(url).pipe(
       catchError(() => of([]))
     );
@@ -68,5 +72,7 @@ export class SearchService {
       map(() => true),
       catchError(() => of(false))
     );
+  }
+    return `${API_CONFIG.IMAGE_URL}/${profilePicture}`;
   }
 }
