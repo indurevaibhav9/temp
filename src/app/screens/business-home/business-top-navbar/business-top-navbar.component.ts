@@ -27,10 +27,7 @@ export class BusinessTopNavbarComponent implements OnInit {
   }
 
   navigateToSettings(drawerLeft: HTMLInputElement): void {
-    console.log("clicked on settings");
-
     drawerLeft.checked = false;
-
     this.router.navigate(['business-home/settings']);
   }
 

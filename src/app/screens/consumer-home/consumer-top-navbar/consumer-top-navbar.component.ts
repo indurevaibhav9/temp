@@ -31,30 +31,15 @@ export class ConsumerTopNavbarComponent implements OnInit {
   fetchConsumerInformation() {
     this.consumernavigationservice.getConsumerDetails().subscribe({
       next: (data: UserProfileDTO[]) => {
-        console.log('Raw Data:', data);
-
         if (data.length > 0) {
           this.consumer = data[0];
-          console.log('Consumer Details:', this.consumer);
         } else {
-          console.warn('No Consumer details found.');
           this.consumer = {};
         }
       },
-      error: (error) => {
-        console.error('Failed to fetch Consumer details', error);
+      error: () => {
         this.consumer = {};
-      },
-      complete: () => {
-        console.log('Consumer information fetching completed');
       }
     });
-  }
-
-  toggleDrawer() {
-    const drawerToggle = document.getElementById('drawer-left') as HTMLInputElement;
-    if (drawerToggle) {
-      drawerToggle.checked = !drawerToggle.checked; 
-    }
   }
 }
