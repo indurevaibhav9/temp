@@ -8,6 +8,9 @@ import { SpreezyError, SpreezyException } from "../models/spreezyException";
 import { User } from "../models/user";
 import { AlertService } from "../shared/alert.service";
 import { CustomerService } from "./customer.service";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { JwtDecoderService } from "./jwtDecoder/jwt-decoder.service";
+import { API_CONFIG } from "../api-config";
 
 @Injectable({
   providedIn: "root",
@@ -18,7 +21,9 @@ export class AuthService {
   constructor(
     private fireAuth: AngularFireAuth,
     private router: Router,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private http: HttpClient,
+    private jwtDecoder: JwtDecoderService
   ) {}
 
   login(credentials: Credentials) {
@@ -75,6 +80,31 @@ export class AuthService {
   }
 
   logout() {
+    let token = localStorage.getItem("token") || "";
+    let userName = this.jwtDecoder.decodeInfoFromToken(token)["sub"] || "";
+    return this.http
+      .post(
+        API_CONFIG.AUTH_LOGOUT(userName),
+        {},
+        {
+          headers: new HttpHeaders({
+            Authorization: `Bearer ${token}`,
+          }),
+        }
+      )
+      .subscribe({
+        next: () => {
+          localStorage.removeItem("token");
+          localStorage.removeItem("refreshToken");
+          window.location.reload();
+        },
+        error: (error) => {
+          throw new Error(`Error while logout : ${error}`);
+        },
+      });
+  }
+  
+  logoutFromFireAuth() {
     this.fireAuth.signOut().then(
       () => {
         localStorage.removeItem("token");
