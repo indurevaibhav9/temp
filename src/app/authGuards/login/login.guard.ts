@@ -9,7 +9,7 @@ export const loginGuard: CanActivateFn = (route, state) => {
 
   function isTokenExpired(decodedToken: DecodedToken): boolean {
     const currentTime = Math.floor(Date.now() / 1000); // Current time in seconds since the epoch
-    return currentTime < decodedToken.exp;
+    return currentTime > decodedToken.exp;
   }
 
   const jwtDecoder = inject(JwtDecoderService);

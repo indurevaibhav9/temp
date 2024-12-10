@@ -9,7 +9,7 @@ export const businessGuard: CanActivateFn = (route, state) => {
   const token = localStorage.getItem("token") || "";
 
   function isTokenExpired(decodedToken: DecodedToken): boolean {
-    const currentTime = Math.floor(Date.now() / 10000); // Current time in seconds since the epoch
+    const currentTime = Math.floor(Date.now() / 1000); // Current time in seconds since the epoch
     return currentTime > decodedToken.exp;
   }
 
