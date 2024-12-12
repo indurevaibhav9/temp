@@ -5,6 +5,7 @@ import { JwtDecoderService } from "src/app/services/jwtDecoder/jwt-decoder.servi
 
 export const loginGuard: CanActivateFn = (route, state) => {
   const token = localStorage.getItem("token");
+  const refreshToken = localStorage.getItem("refreshToken") || "";
   const router = inject(Router);
 
   function isTokenExpired(decodedToken: DecodedToken): boolean {
@@ -17,8 +18,12 @@ export const loginGuard: CanActivateFn = (route, state) => {
   if (token) {
     const decodedInfoFromToken: DecodedToken =
       jwtDecoder.decodeInfoFromToken(token);
-    if (isTokenExpired(decodedInfoFromToken)) {
+    const decodedInfoFromRefreshToken: DecodedToken =
+      jwtDecoder.decodeInfoFromToken(refreshToken || "");
+    console.log(decodedInfoFromRefreshToken);
+    if (isTokenExpired(decodedInfoFromRefreshToken)) {
       localStorage.removeItem("token");
+      localStorage.removeItem("refreshToken");
       return true;
     }
 

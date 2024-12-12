@@ -11,6 +11,8 @@ import { CustomerService } from "./customer.service";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { JwtDecoderService } from "./jwtDecoder/jwt-decoder.service";
 import { API_CONFIG } from "../api-config";
+import { Observable } from "rxjs";
+import { VerifyOtpResponse } from "../models/verifyOtpResponse";
 
 @Injectable({
   providedIn: "root",
@@ -134,5 +136,11 @@ export class AuthService {
         );
       }
     );
+  }
+
+  recycleTokenUsingRefreshToken(refreshToken: string): Observable<VerifyOtpResponse> {
+    return this.http.post<VerifyOtpResponse>(API_CONFIG.RECYCLE_TOKEN, {
+      "refreshToken":refreshToken
+    });
   }
 }
