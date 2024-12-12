@@ -25,7 +25,7 @@ const routes: Routes = [
     // canActivate: [businessGuard]
   },
   {
-    path: "otpscreen/:mobileNumber",
+    path: "otpscreen/:mobileNumber/:countryCode",
     loadChildren: () => import("./screens/otpScreen/otpscreen.module").then(m => m.OtpScreenModule),
   },
   {

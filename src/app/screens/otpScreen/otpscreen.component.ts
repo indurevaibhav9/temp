@@ -20,6 +20,7 @@ export class OtpscreenComponent implements OnInit, OnDestroy {
   otpForm: FormGroup;
   otpFormSubmitted: boolean = false;
   phoneNumber: string;
+  countryCode: string;
   resendOtpSuccess: boolean = false;
   resendOtpMessage: string = "";
   isLoaderVisible = false;
@@ -37,6 +38,7 @@ export class OtpscreenComponent implements OnInit, OnDestroy {
     this.startTimer();
     this.route.paramMap.subscribe((params) => {
       this.phoneNumber = params.get("mobileNumber") || "";
+      this.countryCode = params.get("countryCode") || "";
     });
   }
 
@@ -78,7 +80,7 @@ export class OtpscreenComponent implements OnInit, OnDestroy {
     }
 
     this.isLoaderVisible = true;
-    this.otpService.reSendOtp(this.phoneNumber).subscribe({
+    this.otpService.reSendOtp(this.countryCode, this.phoneNumber).subscribe({
       next: (response) => {
         this.isLoaderVisible = false;
         this.timer = 30;
