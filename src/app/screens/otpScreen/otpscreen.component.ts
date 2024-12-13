@@ -139,13 +139,13 @@ export class OtpscreenComponent implements OnInit, OnDestroy {
     this.isLoaderVisible = false;
     switch (userType) {
       case "Business":
-        this.router.navigate(["/business-home"]);
+        this.router.navigate(["/business-home/adfeed"]);
         break;
       case "Admin":
         this.router.navigate(["/admin-route"]);
         break;
       case "Consumer":
-        this.router.navigate(["/consumer-home"]);
+        this.router.navigate(["/consumer-home/adfeed"]);
         break;
       default:
         setTimeout(() => {

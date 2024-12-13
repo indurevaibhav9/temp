@@ -28,8 +28,8 @@ export const loginGuard: CanActivateFn = (route, state) => {
     }
 
     const userType = decodedInfoFromToken["User Type"];
-    if (userType === "Consumer") router.navigate(["consumer-home"]);
-    else if (userType === "Business") router.navigate(["business-home"]);
+    if (userType === "Consumer") router.navigate(["consumer-home/adfeed"]);
+    else if (userType === "Business") router.navigate(["business-home/adfeed"]);
     else router.navigate(["consumer-home"]);
     return false;
   }
