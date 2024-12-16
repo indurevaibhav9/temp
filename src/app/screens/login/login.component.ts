@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
     private http: HttpClient
   ) {
     this.form = this.formBuilder.group({
-      countryCode: ["", Validators.required],
+      countryCode: ["+91", Validators.required],
       phonenumber: [
         "",
         [
@@ -104,5 +104,9 @@ export class LoginComponent implements OnInit {
 
   signInWithGoogle() {
     this.authService.signInWithGoogle();
+  }
+
+  signup(){
+    this.router.navigate(["/register"])
   }
 }
