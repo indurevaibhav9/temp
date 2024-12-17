@@ -50,7 +50,7 @@ export const customerGuard: CanActivateFn = (route, state) => {
         });
       }
     }
-    const userType = decodedInfoFromAccessToken["User Type"];
+    const userType = decodedInfoFromAccessToken.userType;
 
     if (userType === "Consumer") return true;
   }

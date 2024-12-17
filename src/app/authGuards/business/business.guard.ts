@@ -49,7 +49,7 @@ export const businessGuard: CanActivateFn = (route, state) => {
         });
       }
     }
-    const userType = decodedInfoFromAccessToken["User Type"];
+    const userType = decodedInfoFromAccessToken.userType;
     if (userType === "Business") return true;
   }
   router.navigate(["/login"]);

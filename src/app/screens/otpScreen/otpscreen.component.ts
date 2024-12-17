@@ -120,8 +120,8 @@ export class OtpscreenComponent implements OnInit, OnDestroy {
         localStorage.setItem("token", token);
         localStorage.setItem("refreshToken", response.refreshToken);
         const decodedInfoFromToken: DecodedToken =
-          this.jwtDecoder.decodeInfoFromToken(token);
-        const userType = decodedInfoFromToken["User Type"];
+        this.jwtDecoder.decodeInfoFromToken(token);
+        const userType = decodedInfoFromToken.userType;
         this.redirectBasedOnUserType(userType);
       },
       error: (error) => {
