@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of, Subject, BehaviorSubject } from 'rxjs';
-import { catchError, debounceTime, distinctUntilChanged, switchMap, map } from 'rxjs/operators';
+import { catchError, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { UserProfileDTO } from '../models/UserProfileDTO';
-import { API_CONFIG } from 'src/app/api-config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SearchService {
-  
+  private businessesUrl = 'http://localhost:8762/user/search';
+  private imageUrl = "https://images.spreezy.in";
+
   private searchSubject = new Subject<string>();
   private businessesSubject = new BehaviorSubject<UserProfileDTO[]>([]);
   
@@ -38,22 +39,10 @@ export class SearchService {
   }
 
   private fetchBusinesses(searchQuery: string): Observable<UserProfileDTO[]> {
-    const url = API_CONFIG.SEARCH_BUSINESSES(searchQuery);
+    const url = `${this.businessesUrl}/${searchQuery}`;
+    
     return this.http.get<UserProfileDTO[]>(url).pipe(
       catchError(() => of([]))
-    );
-  }
-
-  toggleFollowStatus(sourceUsername: string, targetUsername: string, isFollowing: boolean): Observable<boolean> {
-    const url = isFollowing
-      ? API_CONFIG.FOLLOW_BUSINESS(sourceUsername, targetUsername) 
-      : API_CONFIG.UNFOLLOW_BUSINESS(sourceUsername, targetUsername);
-  
-    const method = isFollowing ? 'post' : 'delete';  
-
-    return this.http.request(method, url).pipe(
-      map(() => true),
-      catchError(() => of(false))
     );
   }
 
@@ -64,6 +53,6 @@ export class SearchService {
     if (profilePicture.startsWith('http://') || profilePicture.startsWith('https://')) {
       return profilePicture;
     }
-    return `${API_CONFIG.IMAGE_URL}/${profilePicture}`;
-  }
+    return `${this.imageUrl}/${profilePicture}`;
+  } 
 }

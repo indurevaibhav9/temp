@@ -1,29 +1,48 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { environment } from "src/environments/environment.production";
+import { environment } from "src/environments/environment";
 import { Credentials } from "../models/credentials";
-import { User } from "../models/user";
+import { BusinessDetails } from "../models/BusinessRegistration/BusinessDetails";
 import { AuthService } from "./auth.service";
-
+import { Observable } from "rxjs";
+import { ConsumerDetails } from "../models/ConsumerRegistration/ConsumerDetails";
 @Injectable({
   providedIn: "root",
 })
 export class CustomerService {
-  constructor(private http: HttpClient, private authService: AuthService) {}
-
-  registerNewUser(user: User) {
-    this.registerToFirebase(user);
-    this.persistUserData(user);
+  constructor(private http: HttpClient, private authService: AuthService) {
   }
-
-  registerToFirebase(user: User) {
-    let credentials = new Credentials();
-    credentials.email = user.email;
-    credentials.password = user.password;
-    this.authService.registerWithCredentials(credentials);
+  registerNewUser(user: ConsumerDetails) {
+    console.log(user);
+   
+    return  this.http.post("https://ab97-103-146-1-43.ngrok-free.app/user/register-consumer", user)
+    .subscribe(response => {
+      console.log('Response:', response);
+    }, error => {
+      console.error('Error:', error);
+    });;
   }
+  registerNewBusiness(user: BusinessDetails) {
+    console.log(user);
+    
+    return this.http.post("https://ab97-103-146-1-43.ngrok-free.app/user/register-business", user)
+    .subscribe(response => {
+      console.log('Response:', response);
+    }, error => {
+      console.error('Error:', error);
+    });
 
-  persistUserData(user: User) {
+  }
+  // registerToFirebase(user: ConsumerDetails) {
+  //   let credentials = new Credentials();
+  //   credentials.email = user.email;
+  //   this.authService.registerWithCredentials(credentials);
+  // }
+  persistUserData(user: ConsumerDetails) {
     // this.http.post(environment.apiGateway+"/registerUser").pipe();
   }
 }
+
+
+
+

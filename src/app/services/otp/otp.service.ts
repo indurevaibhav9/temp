@@ -4,29 +4,31 @@ import { Observable, throwError } from "rxjs";
 import { catchError, map, tap } from "rxjs/operators";
 import { OtpResponse } from "../../models/otpResponse";
 import { VerifyOtpResponse } from "../../models/verifyOtpResponse";
-import { API_CONFIG } from "src/app/api-config";
+import { environment } from "src/environments/environment.development";
 
 @Injectable({
   providedIn: "root",
 })
 export class OtpService {
+  private apiUrl = environment.apiGateway;
   constructor(private http: HttpClient) {}
   isOtpSentToMobile = false;
-
   sendOtp(mobile: string): Observable<OtpResponse> {
     return this.http
       .post<OtpResponse>(
-        API_CONFIG.GENERATE_OTP,
+        `${this.apiUrl}auth/generate-otp`,
         { phoneNumber: mobile },
         { responseType: "json" }
       )
       .pipe(
-        tap(() => {
+        tap((response) => {
           this.isOtpSentToMobile = true;
         }),
         catchError((error) => {
           this.isOtpSentToMobile = false;
-          return throwError(() => new HttpErrorResponse(error));
+          return throwError(
+            () => new HttpErrorResponse(error)
+          );
         })
       );
   }
@@ -34,20 +36,20 @@ export class OtpService {
   reSendOtp(mobile: string): Observable<OtpResponse> {
     return this.http
       .post(
-        API_CONFIG.RESEND_OTP,
+        `${this.apiUrl}/auth/resend-otp`,
         { phoneNumber: mobile },
         { responseType: "text" }
       )
       .pipe(
         map((response: string) => {
           console.log(response);
-          return { success: true, message: response };
+          return {success: true, message: response}
         }),
         catchError((error: HttpErrorResponse) => {
           let errorMessage = "Failed to send OTP. Please try again later.";
-          const errorBody = JSON.parse(error?.error || '{}');
+          const errorBody = JSON.parse(error?.error);
           if (errorBody?.errorDescription) {
-            errorMessage = errorBody.errorDescription;
+             errorMessage = errorBody.errorDescription;
           }
           return throwError(() => new Error(errorMessage));
         })
@@ -55,7 +57,7 @@ export class OtpService {
   }
 
   verifyOtp(mobile: string, otp: string): Observable<VerifyOtpResponse> {
-    return this.http.post<VerifyOtpResponse>(API_CONFIG.VERIFY_OTP, {
+    return this.http.post<VerifyOtpResponse>(`${this.apiUrl}auth/verify-otp`, {
       phoneNumber: mobile,
       otp: otp,
     });

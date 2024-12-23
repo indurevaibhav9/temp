@@ -7,16 +7,15 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { LoginModule } from "./screens/login/login.module";
 import { LogoutModule } from "./screens/logout/logout.module";
-import { GlobalErrorHandlerService } from "./services/global-error-handler.service";
 import { BusinessHomeModule } from "./screens/business-home/business-home.module";
 import { ConsumerHomeModule } from "./screens/consumer-home/consumer-home.module";
 import { ReactiveFormsModule } from "@angular/forms";
-import { RegisterModule } from "./screens/register/register.module";
-
+import { ConsumerRegComponent } from './Registration/consumer-reg/consumer-reg.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ConsumerRegComponent, // Removed Business1Component, Business2Component, and Business3Component
   ],
   imports: [
     BrowserModule,
@@ -28,12 +27,11 @@ import { RegisterModule } from "./screens/register/register.module";
     BusinessHomeModule,
     ConsumerHomeModule,
     ReactiveFormsModule,
-    RegisterModule
   ],
   providers: [
     {
       provide: ErrorHandler,
-      useClass: GlobalErrorHandlerService,
+      // useClass: GlobalErrorHandlerService,
     },
   ],
   bootstrap: [AppComponent],

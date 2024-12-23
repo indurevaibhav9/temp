@@ -2,8 +2,8 @@ import { CommonModule } from "@angular/common";
 import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 
 import { ReactiveFormsModule } from "@angular/forms";
-import { NgIconsModule } from "@ng-icons/core";
-import { ionEye, ionEyeOff } from "@ng-icons/ionicons";
+// import { NgIconsModule } from "@ng-icons/core";
+// import { ionEye, ionEyeOff } from "@ng-icons/ionicons";
 import { RegisterRoutingModule } from "./register-routing.module";
 import { RegisterComponent } from "./register.component";
 
@@ -13,7 +13,7 @@ import { RegisterComponent } from "./register.component";
     CommonModule,
     RegisterRoutingModule,
     ReactiveFormsModule,
-    NgIconsModule.withIcons({ ionEye, ionEyeOff }),
+    // NgIconsModule.withIcons({ ionEye, ionEyeOff }),
   ],
   schemas: [NO_ERRORS_SCHEMA],
 })

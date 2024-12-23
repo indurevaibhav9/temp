@@ -5,7 +5,7 @@ import { Router } from "@angular/router";
 import { Alert } from "../models/alert";
 import { Credentials } from "../models/credentials";
 import { SpreezyError, SpreezyException } from "../models/spreezyException";
-import { User } from "../models/user";
+import { BusinessDetails } from "../models/BusinessRegistration/BusinessDetails";
 import { AlertService } from "../shared/alert.service";
 import { CustomerService } from "./customer.service";
 
@@ -23,7 +23,7 @@ export class AuthService {
 
   login(credentials: Credentials) {
     this.fireAuth
-      .signInWithEmailAndPassword(credentials.email, credentials.password)
+      .signInWithEmailAndPassword(credentials.email , credentials.password)
       .then((user) => {
         localStorage.setItem("token", credentials.email);
         this.router.navigate(["/home"]);
@@ -54,7 +54,7 @@ export class AuthService {
 
   registerWithCredentials(credentials: Credentials) {
     this.fireAuth
-      .createUserWithEmailAndPassword(credentials.email, credentials.password)
+      .createUserWithEmailAndPassword(credentials.email,credentials.password)
       .then(
         (user) => {
           this.alertService.sendAlertTrigger(

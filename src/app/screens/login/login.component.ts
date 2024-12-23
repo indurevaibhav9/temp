@@ -93,4 +93,9 @@ export class LoginComponent {
   signInWithGoogle() {
     this.authService.signInWithGoogle();
   }
+
+  navigateuser(){
+    this.router.navigate(['/welcome']);
+  }
+  
 }

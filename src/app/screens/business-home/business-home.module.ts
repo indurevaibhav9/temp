@@ -5,7 +5,6 @@ import { BusinessTopNavbarComponent } from './business-top-navbar/business-top-n
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BusinessHomeComponent } from './business-home.component';
 import { BusinessHomeRoutingModule } from './business-home-routing.module';
-import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -16,8 +15,7 @@ import { RouterModule } from '@angular/router';
   imports: [
     CommonModule,
     FontAwesomeModule,
-    BusinessHomeRoutingModule,
-    RouterModule
+    BusinessHomeRoutingModule
   ],
   exports: [
     BusinessBottomNavbarComponent,

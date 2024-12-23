@@ -1,39 +1,34 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { customerGuard } from "./authGuards/customer/customer.guard";
-import { businessGuard } from "./authGuards/business/business.guard";
-import { loginGuard } from "./authGuards/login/login.guard";
 
 const routes: Routes = [
-  { path: "", redirectTo: "login", pathMatch: "full" },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
 
   {
-    path: "login",
-    loadChildren: () => import("./screens/login/login.module").then(m => m.LoginModule),
-    // canActivate: [loginGuard]
-  },
-  { path: "register", 
-    loadChildren: () => import("./screens/register/register.module").then(m => m.RegisterModule) 
+    path: 'login',
+    loadChildren: () => import('./screens/login/login.module').then(m => m.LoginModule),
   },
   {
-    path: "discover-business-screen",
-    loadChildren: () => import("./screens/discover-business-screen/discover-business-screen.module").then(m => m.DiscoverBusinessScreenModule),
+    path: 'business-home',
+    loadChildren: () => import('./screens/business-home/business-home.module').then(m => m.BusinessHomeModule),
   },
   {
-    path: "business-home",
-    loadChildren: () => import("./screens/business-home/business-home.module").then(m => m.BusinessHomeModule),
-    // canActivate: [businessGuard]
+    path: 'otpscreen/:mobileNumber',
+    loadChildren: () => import('./screens/otpScreen/otpscreen.module').then(m => m.OtpScreenModule),
   },
   {
-    path: "otpscreen/:mobileNumber",
-    loadChildren: () => import("./screens/otpScreen/otpscreen.module").then(m => m.OtpScreenModule),
+    path: 'consumer-home',
+    loadChildren: () => import('./screens/consumer-home/consumer-home.module').then(m => m.ConsumerHomeModule),
   },
   {
-    path: "consumer-home",
-    loadChildren: () => import("./screens/consumer-home/consumer-home.module").then(m => m.ConsumerHomeModule),
-    // canActivate: [customerGuard]
+    path: 'welcome',
+    loadChildren: () => import('./screens/welcome/welcome.module').then(m => m.WelcomeModule),
   },
-  { path: "**", redirectTo: "login"}
+  {
+    path: 'business1',
+    loadChildren: () => import('./screens/Registration/BusinessRegistration/businessRegistration.module').then(m => m.BusinessRegistrationModule),  // Updated path here
+  },
+  { path: '**', redirectTo: 'consumer-home' }
 ];
 
 @NgModule({
