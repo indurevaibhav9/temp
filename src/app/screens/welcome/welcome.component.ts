@@ -10,11 +10,12 @@ export class WelcomeComponent {
 
   constructor(private router: Router){ }
 
-  navigatebusiness() {
-    this.router.navigate(['/business1']);
-  }
+  async navigatebusiness() {
+    this.router.navigate(['/welcome/business1']);
+    
+  }  
 
   navigateconsumer() {
-    this.router.navigate(['/register']);
+    this.router.navigate(['/welcome/register']);
   }
 }

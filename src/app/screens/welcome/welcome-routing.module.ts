@@ -6,11 +6,17 @@ const routes: Routes = [
   {
     path: '',
     component: WelcomeComponent
-  }
+  },
+  { path: "business1", 
+    loadChildren: () => import("../Registration/BusinessRegistration/businessRegistration.module").then(m => m.BusinessRegistrationModule) 
+  },
+  { path: "register", 
+    loadChildren: () => import("../Registration/register/register.module").then(m => m.RegisterModule) 
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class WelcomeRoutingModule { }
+export class WelcomeRoutingModule {}

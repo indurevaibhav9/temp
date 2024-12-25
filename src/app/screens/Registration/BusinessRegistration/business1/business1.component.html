@@ -4,7 +4,7 @@
     <div class="signup-form w-80 relative">
       <div class="name mt-3">
         <label class="form-label pb-2 font-secondary">Owner Name :</label>
-        <input type="text" class="input input-primary max-w-full" placeholder="ownerName" formControlName="ownerName" />
+        <input type="text" class="input input-primary max-w-full" placeholder="Name" formControlName="Name" />
         <div class="form-text text-red-600" *ngIf="name.invalid && (name.dirty || name.touched)">
           <span *ngIf="name.errors?.['required']">Name is required.</span>
         </div>
@@ -68,7 +68,7 @@
         </div>
       </div>
       <div class="buttons flex justify-center mt-5">
-        <button type="submit" [disabled]="form.invalid" class="btn btn-primary btn-md font-secondary w-60"><a routerLink="/business2">NEXT</a></button>
+        <button type="submit" [disabled]="form.invalid" (click)="navigate()" class="btn btn-primary btn-md font-secondary w-60"><a >NEXT</a></button>
       </div>
     </div>
   </form>

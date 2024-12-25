@@ -7,6 +7,10 @@ const routes: Routes = [
     path: "",
     component: LoginComponent,
   },
+  {
+    path: 'welcome',
+    loadChildren: () => import('../welcome/welcome.module').then(m => m.WelcomeModule),  // Updated path here
+  },
   
 ];
 

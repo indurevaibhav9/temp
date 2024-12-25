@@ -44,13 +44,16 @@ export class Business1Component {
   
     this.Business = this.mapUserData(this.form);
     this.dataService.setBusinessData(this.Business);
-    this.router.navigate(['/Businessregistration/business2']);
+    this.router.navigate(['/welcome/business1/business2']);
   }
   
+  navigate(){
+    this.router.navigate(['/welcome/business1/business2']);
+  }
 
 
   private mapUserData(form: FormGroup): BusinessDetails {
-    this.Business.ownername = form.get("ownerName")?.value;
+    this.Business.ownername = form.get("Name")?.value;
     this.Business.businessName = form.get("businessName")?.value;
     this.Business.businessUsername = form.get("businessUsername")?.value;
     this.Business.email = form.get("email")?.value;
@@ -66,7 +69,7 @@ export class Business1Component {
   
 
   get name(): FormControl {
-    return this.form.get("ownerName") as FormControl;
+    return this.form.get("Name") as FormControl;
   }
   get businessName(): FormControl {
     return this.form.get("businessName") as FormControl;

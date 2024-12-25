@@ -10,12 +10,14 @@ import { LogoutModule } from "./screens/logout/logout.module";
 import { BusinessHomeModule } from "./screens/business-home/business-home.module";
 import { ConsumerHomeModule } from "./screens/consumer-home/consumer-home.module";
 import { ReactiveFormsModule } from "@angular/forms";
-import { ConsumerRegComponent } from './Registration/consumer-reg/consumer-reg.component';
+// import { RegisterModule } from "./screens/Registration/register/register.module";
+import { WelcomeModule } from "./screens/welcome/welcome.module";
+// import { ConsumerRegComponent } from './Registration/consumer-reg/consumer-reg.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ConsumerRegComponent, // Removed Business1Component, Business2Component, and Business3Component
+    // ConsumerRegComponent, // Removed Business1Component, Business2Component, and Business3Component
   ],
   imports: [
     BrowserModule,

@@ -9,6 +9,7 @@ import { LoginComponent } from "./login.component";
 import { BusinessHomeModule } from "../business-home/business-home.module";
 import { SharedModule } from "src/app/shared/shared-module/shared-module.module";
 import { WelcomeRoutingModule } from "../welcome/welcome-routing.module";
+import { WelcomeModule } from "../welcome/welcome.module";
 
 @NgModule({
   declarations: [
@@ -20,7 +21,7 @@ import { WelcomeRoutingModule } from "../welcome/welcome-routing.module";
     ReactiveFormsModule,
     NgIconsModule.withIcons({ ionEye, ionEyeOff }),
     SharedModule,
-    WelcomeRoutingModule
+    WelcomeModule
   ],
   schemas: [NO_ERRORS_SCHEMA],
   exports: [
